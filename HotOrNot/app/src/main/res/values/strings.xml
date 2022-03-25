@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">HotOrNot</string>
+    <string name="logoText">Ｏ(≧▽≦)Ｏ</string>
+    <dimen name="size8">8sp</dimen>
+</resources>
