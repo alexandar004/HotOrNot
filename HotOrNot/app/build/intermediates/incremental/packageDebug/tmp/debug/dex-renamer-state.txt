@@ -1,4 +1,4 @@
-#Mon Mar 28 17:04:08 EEST 2022
+#Mon Mar 28 17:10:40 EEST 2022
 base.2=C\:\\Users\\User\\AndroidStudioProjects\\My Project\\HotOrNot\\HotOrNot\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\2\\classes.dex
 path.2=2/classes.dex
 base.1=C\:\\Users\\User\\AndroidStudioProjects\\My Project\\HotOrNot\\HotOrNot\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
