@@ -16,3 +16,5 @@
 /HotOrNot/.externalNativeBuild
 /HotOrNot/.cxx
 /HotOrNot/local.properties
+/.build
+/HotOrNot/app/build
