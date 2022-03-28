@@ -21,7 +21,7 @@
         android:id="@+id/textLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/size8"
+        android:layout_margin="@dimen/small_size"
         android:text="@string/logoText"
         android:textColor="@color/white"
         android:textSize="24sp"

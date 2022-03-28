@@ -9,8 +9,8 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginBottom="24sp"
+        android:layout_height="@dimen/min_size"
+        android:layout_marginBottom="@dimen/normal_size"
         android:background="@color/gray"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -19,7 +19,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8sp" />
+            android:layout_margin="@dimen/small_size" />
 
         <TextView
             android:id="@+id/nameTxt"
@@ -43,9 +43,9 @@
         app:layout_constraintGuide_percent="0.66" />
 
     <Button
-        android:layout_width="0dp"
+        android:layout_width="@dimen/min_size"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/size8"
+        android:layout_marginBottom="@dimen/small_size"
         android:background="@color/red"
         android:text="@string/not"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -55,7 +55,7 @@
     <Button
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/size8"
+        android:layout_marginBottom="@dimen/small_size"
         android:background="@color/red"
         android:text="@string/hot"
         app:layout_constraintBottom_toBottomOf="parent"

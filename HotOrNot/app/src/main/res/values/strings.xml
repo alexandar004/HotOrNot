@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">HotOrNot</string>
     <string name="logoText">Ｏ(≧▽≦)Ｏ</string>
-    <dimen name="size8">8sp</dimen>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <dimen name="small_size">8sp</dimen>
+    <dimen name="min_size">0sp</dimen>
+    <dimen name="normal_size">24sp</dimen>
+
     <string name="hot">Hot</string>
     <string name="not">not</string>
 </resources>
