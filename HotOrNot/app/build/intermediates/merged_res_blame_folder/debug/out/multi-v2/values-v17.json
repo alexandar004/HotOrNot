@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\User\\Downloads\\HotOrNot\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v17\\values-v17.xml",
+            "outputFile": "C:\\Users\\User\\AndroidStudioProjects\\My Project\\HotOrNot\\HotOrNot\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v17\\values-v17.xml",
             "map": [
                 {
                     "source": "C:\\Users\\User\\.gradle\\caches\\transforms-3\\fa673d1685893c1189b9e94560a94772\\transformed\\appcompat-1.4.1\\res\\values-v17\\values-v17.xml",
