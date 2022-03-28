@@ -33,19 +33,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.33" />
+        app:layout_constraintGuide_percent="@integer/guidelineStart" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.66" />
+        app:layout_constraintGuide_percent="@integer/guidelineEnd" />
 
     <Button
-        android:layout_width="@dimen/min_size"
+        android:layout_width="@dimen/no_dimens"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/small_size"
+        android:layout_marginBottom="@dimen/no_dimens"
         android:background="@color/red"
         android:text="@string/not"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -53,9 +53,9 @@
         app:layout_constraintRight_toLeftOf="@+id/guideline" />
 
     <Button
-        android:layout_width="0dp"
+        android:layout_width="@dimen/no_dimens"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/small_size"
+        android:layout_marginBottom="@dimen/no_dimens"
         android:background="@color/red"
         android:text="@string/hot"
         app:layout_constraintBottom_toBottomOf="parent"

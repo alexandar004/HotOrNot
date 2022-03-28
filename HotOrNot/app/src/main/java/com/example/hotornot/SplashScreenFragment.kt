@@ -25,14 +25,14 @@ class SplashScreen : Fragment() {
         goToNextScreenWithDelay()
     }
 
-    private fun goToNextScreenWithDelay() {
+    private fun goToNextScreenWithDelay() =
         Handler(Looper.getMainLooper())
             .postDelayed({
                 goToNextScreen()
             }, DELAY_TIME)
-    }
 
-    private fun goToNextScreen(){
+
+    private fun goToNextScreen() =
         findNavController().navigate(R.id.action_splashScreenFragment_to_mainScreenFragment)
-    }
+
 }
