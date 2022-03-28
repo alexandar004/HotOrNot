@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/navigation"
-    app:startDestination="@layout/fragment_splash_screen">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splashScreenFragment">
 
     <fragment
-        android:id="@+id/splashScreen"
         android:name="com.example.hotornot.SplashScreen"
-        android:label="splashScreen"
-        tools:layout="@layout/fragment_splash_screen" />
+        android:id="@+id/splashScreenFragment"
+        tools:layout="@layout/fragment_splash_screen">
+
+        <action
+            android:id="@+id/action_splashScreenFragment_to_mainScreenFragment"
+            app:destination="@id/mainScreenFragment" />
+    </fragment>
+    <fragment
+        android:name="com.example.hotornot.MainScreenFragment"
+        android:id="@+id/mainScreenFragment"
+        tools:layout="@layout/fragment_main_screen">
+    </fragment>
 </navigation>
