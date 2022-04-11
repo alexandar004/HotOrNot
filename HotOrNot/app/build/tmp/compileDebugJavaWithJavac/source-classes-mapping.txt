@@ -1,2 +1,0 @@
-com/example/hotornot/BuildConfig.java
- com.example.hotornot.BuildConfig
