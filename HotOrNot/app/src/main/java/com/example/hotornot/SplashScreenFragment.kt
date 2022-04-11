@@ -34,5 +34,4 @@ class SplashScreen : Fragment() {
 
     private fun goToNextScreen() =
         findNavController().navigate(R.id.action_splashScreenFragment_to_mainScreenFragment)
-
 }

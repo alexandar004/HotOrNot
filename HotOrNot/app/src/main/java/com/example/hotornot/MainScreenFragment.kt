@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 
 class MainScreenFragment : Fragment() {
 
+    private val friendList = FriendGenerator().randomElement
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
