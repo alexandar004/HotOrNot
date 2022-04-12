@@ -2,15 +2,13 @@ package com.example.hotornot
 
 class FriendGenerator {
 
-    private val stanImg = R.drawable.first_people
-    private val georgiImg = R.drawable.second_people
-    private val nikolaImg = R.drawable.third_people
+    private val stanImg = R.drawable.georgi
+    private val georgiImg = R.drawable.nikola
+    private val nikolaImg = R.drawable.stan
 
-    private val georgi = Friend("Georgi", georgiImg)
-    private val stan = Friend("Stan", stanImg)
-    private val nikola = Friend("Nikola", nikolaImg)
-
-    private val friendList = listOf(nikola, stan, georgi)
-
-    val randomElement = friendList.asSequence().shuffled().take(friendList.size).toList()
+    var friendList = listOf(
+        Friend("Stan", stanImg),
+        Friend("Georgi", georgiImg),
+        Friend("Nikola", nikolaImg)
+    )
 }
