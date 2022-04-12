@@ -10,7 +10,7 @@ import com.example.hotornot.databinding.FragmentMainScreenBinding
 class MainScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentMainScreenBinding
-    private val image = listOf(R.drawable.georgi, R.drawable.nikola, R.drawable.stan)
+    private val images = listOf(R.drawable.georgi, R.drawable.nikola, R.drawable.stan)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,9 +32,9 @@ class MainScreenFragment : Fragment() {
 
     private fun showRandomImage() {
         setVisibleButtons()
-        val randomImage = (image.indices).random()
-        binding.imgFriend.setImageResource(image[randomImage])
-        binding.friendName.text = resources.getResourceEntryName(image[randomImage])
+        val randomImage = (images.indices).random()
+        binding.imgFriend.setImageResource(images[randomImage])
+        binding.friendName.text = resources.getResourceEntryName(images[randomImage])
         checkForHotName()
     }
 
