@@ -37,11 +37,11 @@
                 <TextView
                     android:id="@+id/friendName"
                     android:layout_width="wrap_content"
-                    android:layout_margin="@dimen/small_margin"
                     android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/small_margin"
                     android:text="@string/stan"
-                    android:textStyle="italic"
                     android:textSize="@dimen/large_text_size"
+                    android:textStyle="italic"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imgFriend" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -69,13 +69,11 @@
             android:layout_width="@dimen/no_dimens"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/no_dimens"
-            android:background="@color/red"
             android:text="@string/not"
             android:textSize="@dimen/large_text_size"
             app:icon="@drawable/ic_baseline_close_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-
             app:layout_constraintRight_toLeftOf="@+id/guideline" />
 
         <Button
