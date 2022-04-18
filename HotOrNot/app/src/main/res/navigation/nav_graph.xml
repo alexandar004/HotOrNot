@@ -6,17 +6,27 @@
     app:startDestination="@id/splashScreenFragment">
 
     <fragment
-        android:name="com.example.hotornot.SplashScreen"
         android:id="@+id/splashScreenFragment"
+        android:name="com.example.hotornot.SplashScreen"
         tools:layout="@layout/fragment_splash_screen">
 
         <action
             android:id="@+id/action_splashScreenFragment_to_mainScreenFragment"
             app:destination="@id/mainScreenFragment" />
+        <action
+            android:id="@+id/action_splashScreenFragment_to_registrationFormFragment"
+            app:destination="@id/registrationFormFragment" />
     </fragment>
     <fragment
-        android:name="com.example.hotornot.MainScreenFragment"
         android:id="@+id/mainScreenFragment"
+        android:name="com.example.hotornot.MainScreenFragment"
         tools:layout="@layout/fragment_main_screen">
+
+    </fragment>
+    <fragment
+        android:id="@+id/registrationFormFragment"
+        android:name="com.example.hotornot.RegistrationFormFragment"
+        tools:layout="@layout/fragment_registration_form">
+
     </fragment>
 </navigation>

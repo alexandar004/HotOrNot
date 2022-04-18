@@ -4,6 +4,7 @@
     <dimen name="no_dimens">0dp</dimen>
     <dimen name="small_margin">8dp</dimen>
     <dimen name="medium_margin">24dp</dimen>
+    <dimen name="XL">44dp</dimen>
 
     //fonts
     <dimen name="large_text_size">24sp</dimen>
@@ -11,4 +12,8 @@
     //percentage
     <item name="guidelineStart" format="float" type="integer">0.33</item>
     <item name="guidelineEnd" format="float" type="integer">0.66</item>
+
+    //
+    <item name="maxLength" format="float" type="integer">100</item>
+
 </resources>
