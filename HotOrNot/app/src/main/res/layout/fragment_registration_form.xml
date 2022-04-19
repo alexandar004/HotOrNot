@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -20,6 +21,7 @@
         <TextView
             android:id="@+id/txtCreateAccount"
             android:layout_width="wrap_content"
+            android:textColor="@color/white"
             android:layout_height="wrap_content"
             android:text="@string/create_account"
             android:textSize="@dimen/large_text_size"
@@ -45,6 +47,7 @@
             android:hint="@string/first_name"
             app:counterEnabled="true"
             app:counterMaxLength="100"
+            app:hintTextColor="@color/blue"
             app:layout_constraintTop_toBottomOf="@+id/imgLogo">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -61,6 +64,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/small_margin"
             android:hint="@string/last_name"
+            app:boxStrokeColor="@color/blue"
+            app:hintTextColor="@color/blue"
             app:layout_constraintTop_toBottomOf="@+id/edtFirstName">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -75,6 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/small_margin"
             android:hint="@string/email"
+            app:hintTextColor="@color/blue"
             app:layout_constraintTop_toBottomOf="@+id/edtLastName">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -99,6 +105,7 @@
                 android:layout_margin="@dimen/small_margin"
                 android:layout_weight="1"
                 android:text="@string/man"
+                android:textColor="@color/white"
                 android:textSize="@dimen/large_text_size" />
 
             <RadioButton
@@ -107,6 +114,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/small_margin"
                 android:text="@string/woman"
+                android:textColor="@color/white"
                 android:textSize="@dimen/large_text_size" />
 
             <RadioButton
@@ -115,6 +123,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/small_margin"
                 android:text="@string/other"
+                android:textColor="@color/white"
                 android:textSize="@dimen/large_text_size" />
         </RadioGroup>
 
@@ -137,6 +146,7 @@
                 android:layout_weight="1"
                 android:inputType="none"
                 android:text="@string/apache_helicopters"
+                android:textColor="@color/white"
                 android:textSize="@dimen/large_text_size" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -145,11 +155,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/small_margin"
-            android:layout_marginTop="@dimen/small_margin"
             android:layout_marginEnd="@dimen/small_margin"
             android:text="@string/register"
+            android:textColor="@color/white"
             android:textSize="@dimen/large_text_size"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/spinner" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
