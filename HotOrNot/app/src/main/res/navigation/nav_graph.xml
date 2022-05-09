@@ -11,9 +11,6 @@
         tools:layout="@layout/fragment_splash_screen">
 
         <action
-            android:id="@+id/action_splashScreenFragment_to_mainScreenFragment"
-            app:destination="@id/mainScreenFragment" />
-        <action
             android:id="@+id/action_splashScreenFragment_to_registrationFormFragment"
             app:destination="@id/registrationFormFragment" />
     </fragment>
@@ -22,11 +19,21 @@
         android:name="com.example.hotornot.MainScreenFragment"
         tools:layout="@layout/fragment_main_screen">
 
+        <action
+            android:id="@+id/action_mainScreenFragment_to_profileScreenFragment"
+            app:destination="@id/profileScreenFragment" />
     </fragment>
     <fragment
         android:id="@+id/registrationFormFragment"
         android:name="com.example.hotornot.RegistrationFormFragment"
         tools:layout="@layout/fragment_registration_form">
 
+        <action
+            android:id="@+id/action_registrationFormFragment_to_mainScreenFragment"
+            app:destination="@id/mainScreenFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/profileScreenFragment"
+        android:name="com.example.hotornot.ProfileScreenFragment"
+        tools:layout="@layout/fragment_profile_screen"/>
 </navigation>

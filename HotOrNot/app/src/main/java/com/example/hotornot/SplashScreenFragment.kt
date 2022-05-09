@@ -8,16 +8,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.hotornot.databinding.FragmentSplashScreenBinding
 
 private const val DELAY_TIME = 2000L
 
-class SplashScreen : Fragment() {
+class SplashScreen : Fragment()
+//    , CommunicationBetweenScreens
+{
 
+    private lateinit var binding: FragmentSplashScreenBinding
+
+    //    private val sharedPref = SaveUser()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        return inflater.inflate(R.layout.fragment_splash_screen, container, false)
+        binding = FragmentSplashScreenBinding.inflate(inflater, container, false)
+//        sharedPref.method1()
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -28,13 +36,14 @@ class SplashScreen : Fragment() {
     private fun goToNextScreenWithDelay() =
         Handler(Looper.getMainLooper())
             .postDelayed({
-                goToNextScreen1()
+                findNavController().navigate(R.id.action_splashScreenFragment_to_registrationFormFragment)
             }, DELAY_TIME)
 
-
-    private fun goToNextScreen() =
-        findNavController().navigate(R.id.action_splashScreenFragment_to_mainScreenFragment)
-
-    private fun goToNextScreen1() =
-        findNavController().navigate(R.id.action_splashScreenFragment_to_registrationFormFragment)
+//    override fun goToNextScreen() =
+//        findNavController().navigate(R.id.action_splashScreenFragment_to_registrationFormFragment)
 }
+
+interface CommunicationBetweenScreens {
+    fun goToNextScreen()
+}
+

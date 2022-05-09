@@ -1,13 +1,20 @@
 package com.example.hotornot
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.hotornot.databinding.FragmentMainScreenBinding
 
-class MainScreenFragment : Fragment() {
+const val EMAIL_RECIPIENT = "adamqnov07@gmail.com"
+const val EMAIL_TEXT = "zdr ko pr bepce"
+
+class MainScreenFragment : Fragment()
+//    , CommunicationBetweenScreens
+{
 
     private lateinit var binding: FragmentMainScreenBinding
     private val images = listOf(R.drawable.georgi, R.drawable.nikola, R.drawable.stan)
@@ -28,6 +35,25 @@ class MainScreenFragment : Fragment() {
         binding.btnNot.setOnClickListener {
             showRandomImage()
         }
+        binding.sendEmail.setOnClickListener {
+            sendEmail()
+        }
+
+        binding.toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.profileScreen -> {
+                    true
+                }
+                R.id.logOut -> {
+                    true
+                }
+                else -> false
+            }
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.toolbar_menu, menu)
     }
 
     private fun showRandomImage() {
@@ -56,4 +82,22 @@ class MainScreenFragment : Fragment() {
             }
         }
     }
+
+    private fun sendEmail() {
+        val recipient = EMAIL_RECIPIENT
+        val text = EMAIL_TEXT
+        val sendMassageWithEmail = Intent(Intent.ACTION_SENDTO)
+
+        sendMassageWithEmail.data = Uri.parse("mailto")
+        sendMassageWithEmail.type = ("text/plain")
+        sendMassageWithEmail.putExtra(Intent.EXTRA_EMAIL, arrayOf(recipient))
+        sendMassageWithEmail.putExtra(Intent.EXTRA_TEXT, text)
+
+        try {
+            startActivity(Intent.createChooser(sendMassageWithEmail, "Send email"))
+        } catch (e: Exception) {
+            Toast.makeText(this.context, e.message, Toast.LENGTH_LONG).show()
+        }
+    }
+
 }
