@@ -10,8 +10,7 @@ import com.example.hotornot.databinding.FragmentProfileScreenBinding
 class ProfileScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentProfileScreenBinding
-//    private lateinit var preferencesUtil: PreferencesUtil
-    private lateinit var registrationFormFragment: RegistrationFormFragment
+    private lateinit var preferencesUtil: PreferencesUtil
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,10 +23,21 @@ class ProfileScreenFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        preferencesUtil = PreferencesUtil.getInstance(view.context)
+        preferencesUtil = PreferencesUtil.getInstance(view.context)
 
-        registrationFormFragment = RegistrationFormFragment()
-        registrationFormFragment.createUser()
+        setFriendProfile()
+    }
 
+    private fun setFriendProfile() {
+        preferencesUtil.getUser()
+        val user2 = preferencesUtil.getUser()
+        user2?.firstName
+        user2?.lastName
+        user2?.email
+        user2?.gender
+        val user = user2?.let { User(it.firstName,user2.lastName,user2.email, user2.gender) }
+        if (user != null) {
+            preferencesUtil.setUser(user)
+        }
     }
 }

@@ -18,7 +18,7 @@
     <string name="apache_helicopters">Apache Helicopters</string>
     <string name="profile">Profile</string>
     <string name="name">name</string>
-    <string name="profile_screen">Profile Screen</string>
+    <string name="profile_screen">Profile</string>
     <string name="log_out">Log out</string>
 
     <string-array name="interests">

@@ -1,6 +1,7 @@
 package com.example.hotornot
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
@@ -18,6 +19,7 @@ class MainScreenFragment : Fragment()
 
     private lateinit var binding: FragmentMainScreenBinding
     private val images = listOf(R.drawable.georgi, R.drawable.nikola, R.drawable.stan)
+    private lateinit var preferences: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,9 +44,17 @@ class MainScreenFragment : Fragment()
         binding.toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.profileScreen -> {
+                    findNavController().navigate(R.id.action_mainScreenFragment_to_profileScreenFragment)
                     true
                 }
                 R.id.logOut -> {
+                    val editor: SharedPreferences.Editor = preferences.edit()
+                    editor.clear()
+                    editor.apply()
+
+                    val intent = Intent(this.context, MainActivity::class.java)
+                    startActivity(intent)
+
                     true
                 }
                 else -> false
@@ -99,5 +109,4 @@ class MainScreenFragment : Fragment()
             Toast.makeText(this.context, e.message, Toast.LENGTH_LONG).show()
         }
     }
-
 }

@@ -35,16 +35,20 @@ class RegistrationFormFragment : Fragment() {
         binding.autocomplete.setAdapter(arrayAdapter)
     }
 
-    fun createUser() {
+    private fun createUser() {
         val user = User(binding.edtFirstName.editText?.text.toString(),
             binding.edtLastName.editText?.text.toString(),
             binding.edtEmail.editText?.text.toString(),
             getSelectRadioBtnValue())
+
         val userFirstName = user.firstName
         Log.d("HHH", "$userFirstName userFirstName")
         preferencesUtil.setUser(user)
         val user2 = preferencesUtil.getUser()
         user2?.firstName
+        user2?.lastName
+        user2?.email
+        user2?.gender
     }
 
     private fun getSelectRadioBtnValue() =
