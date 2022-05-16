@@ -52,10 +52,11 @@ dependencies {
     implementation 'com.sun.mail:android-activation:1.6.0'
     //
     implementation 'androidx.core:core-ktx:1.0.0'
-    //
+    //Json
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:1.0-M1-1.4.0-rc"
     implementation 'com.google.code.gson:gson:2.8.6'
-
+    //material imageView
+    implementation 'com.google.android.material:material:1.6.0'
 
 
     implementation 'androidx.core:core-ktx:1.7.0'

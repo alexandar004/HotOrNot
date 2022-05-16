@@ -1,4 +1,4 @@
-package com.example.hotornot
+package com.example.hotornot.fragments
 
 import android.content.Intent
 import android.content.SharedPreferences
@@ -8,18 +8,18 @@ import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.hotornot.MainActivity
+import com.example.hotornot.R
 import com.example.hotornot.databinding.FragmentMainScreenBinding
 
 const val EMAIL_RECIPIENT = "adamqnov07@gmail.com"
 const val EMAIL_TEXT = "zdr ko pr bepce"
 
-class MainScreenFragment : Fragment()
-//    , CommunicationBetweenScreens
-{
+class MainScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentMainScreenBinding
-    private val images = listOf(R.drawable.georgi, R.drawable.nikola, R.drawable.stan)
     private lateinit var preferences: SharedPreferences
+    private val images = listOf(R.drawable.georgi, R.drawable.nikola, R.drawable.stan)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -1,5 +1,6 @@
 package com.example.hotornot
 
+import com.example.hotornot.enums.Gender
 import kotlinx.serialization.Serializable
 
 @Serializable

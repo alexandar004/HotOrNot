@@ -12,19 +12,15 @@ import com.example.hotornot.databinding.FragmentSplashScreenBinding
 
 private const val DELAY_TIME = 2000L
 
-class SplashScreen : Fragment()
-//    , CommunicationBetweenScreens
-{
+class SplashScreen : Fragment() {
 
     private lateinit var binding: FragmentSplashScreenBinding
 
-    //    private val sharedPref = SaveUser()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
         binding = FragmentSplashScreenBinding.inflate(inflater, container, false)
-//        sharedPref.method1()
         return binding.root
     }
 
@@ -39,11 +35,11 @@ class SplashScreen : Fragment()
                 findNavController().navigate(R.id.action_splashScreenFragment_to_registrationFormFragment)
             }, DELAY_TIME)
 
-//    override fun goToNextScreen() =
-//        findNavController().navigate(R.id.action_splashScreenFragment_to_registrationFormFragment)
-}
-
-interface CommunicationBetweenScreens {
-    fun goToNextScreen()
+    private fun checkForSaveUser(){
+        val user: User
+//        if(){
+//
+//        }
+    }
 }
 

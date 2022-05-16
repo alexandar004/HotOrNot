@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/mainScreenFragment"
-        android:name="com.example.hotornot.MainScreenFragment"
+        android:name="com.example.hotornot.fragments.MainScreenFragment"
         tools:layout="@layout/fragment_main_screen">
 
         <action
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/registrationFormFragment"
-        android:name="com.example.hotornot.RegistrationFormFragment"
+        android:name="com.example.hotornot.fragments.RegistrationFormFragment"
         tools:layout="@layout/fragment_registration_form">
 
         <action
@@ -34,6 +34,6 @@
     </fragment>
     <fragment
         android:id="@+id/profileScreenFragment"
-        android:name="com.example.hotornot.ProfileScreenFragment"
+        android:name="com.example.hotornot.fragments.ProfileScreenFragment"
         tools:layout="@layout/fragment_profile_screen"/>
 </navigation>
