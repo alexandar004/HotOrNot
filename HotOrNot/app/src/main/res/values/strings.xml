@@ -1,7 +1,31 @@
 <resources>
     <string name="app_name">HotOrNot</string>
-    <string name="logoText">Ｏ(≧▽≦)Ｏ</string>
+    <string name="logoText">ヾ(´∀｀○)ﾉ</string>
     <string name="hot">Hot</string>
     <string name="not">Not</string>
     <string name="stan">Stan</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="create_account">Create Account</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="email">Email</string>
+    <string name="man">Man</string>
+    <string name="woman">Woman</string>
+    <string name="register">REGISTER</string>
+    <string name="other">Other</string>
+    <string name="interests">Interests</string>
+    <string name="apache_helicopters">Apache Helicopters</string>
+    <string name="profile">Profile</string>
+    <string name="name">name</string>
+    <string name="profile_screen">Profile</string>
+    <string name="log_out">Log out</string>
+
+    <string-array name="interests">
+        <item>Males</item>
+        <item>Females</item>
+        <item>Drag Queens</item>
+        <item>Apache Helicopters</item>
+        <item>Furies</item>
+    </string-array>
 </resources>
