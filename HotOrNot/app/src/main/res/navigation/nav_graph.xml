@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_splashScreenFragment_to_registrationFormFragment"
             app:destination="@id/registrationFormFragment" />
+        <action
+            android:id="@+id/action_splashScreenFragment_to_mainScreenFragment"
+            app:destination="@id/mainScreenFragment" />
     </fragment>
     <fragment
         android:id="@+id/mainScreenFragment"

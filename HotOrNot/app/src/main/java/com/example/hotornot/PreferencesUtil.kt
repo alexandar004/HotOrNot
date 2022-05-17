@@ -6,7 +6,7 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
-class PreferencesUtil (context: Context) {
+class PreferencesUtil(context: Context) {
 
     init {
         sPref = context.getSharedPreferences(PREF_FILE_NAME, Context.MODE_PRIVATE)

@@ -1,14 +1,13 @@
 package com.example.hotornot.fragments
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.hotornot.MainActivity
+import com.example.hotornot.PreferencesUtil
 import com.example.hotornot.R
 import com.example.hotornot.databinding.FragmentMainScreenBinding
 
@@ -18,7 +17,7 @@ const val EMAIL_TEXT = "zdr ko pr bepce"
 class MainScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentMainScreenBinding
-    private lateinit var preferences: SharedPreferences
+    private lateinit var preferencesUtil: PreferencesUtil
     private val images = listOf(R.drawable.georgi, R.drawable.nikola, R.drawable.stan)
 
     override fun onCreateView(
@@ -31,6 +30,7 @@ class MainScreenFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        preferencesUtil = PreferencesUtil.getInstance(view.context)
         binding.btnHot.setOnClickListener {
             showRandomImage()
         }
@@ -48,16 +48,11 @@ class MainScreenFragment : Fragment() {
                     true
                 }
                 R.id.logOut -> {
-                    val editor: SharedPreferences.Editor = preferences.edit()
-                    editor.clear()
-                    editor.apply()
-
-                    val intent = Intent(this.context, MainActivity::class.java)
-                    startActivity(intent)
-
+                    preferencesUtil.clearPreferenceUser()
+                    activity?.finish()
                     true
                 }
-                else -> false
+                else -> true
             }
         }
     }

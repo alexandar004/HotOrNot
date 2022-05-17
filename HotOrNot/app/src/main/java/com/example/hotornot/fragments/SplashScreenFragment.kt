@@ -15,6 +15,7 @@ private const val DELAY_TIME = 2000L
 class SplashScreen : Fragment() {
 
     private lateinit var binding: FragmentSplashScreenBinding
+    private lateinit var preferencesUtil: PreferencesUtil
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,20 +27,23 @@ class SplashScreen : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        preferencesUtil = PreferencesUtil.getInstance(view.context)
         goToNextScreenWithDelay()
     }
 
     private fun goToNextScreenWithDelay() =
         Handler(Looper.getMainLooper())
             .postDelayed({
-                findNavController().navigate(R.id.action_splashScreenFragment_to_registrationFormFragment)
+                checkForSaveUser()
             }, DELAY_TIME)
 
-    private fun checkForSaveUser(){
-        val user: User
-//        if(){
-//
-//        }
+    private fun checkForSaveUser() {
+        val user = preferencesUtil.getUser()
+        if (user == null) {
+            findNavController().navigate(R.id.action_splashScreenFragment_to_registrationFormFragment)
+        } else {
+            findNavController().navigate(R.id.action_splashScreenFragment_to_mainScreenFragment)
+        }
     }
 }
 

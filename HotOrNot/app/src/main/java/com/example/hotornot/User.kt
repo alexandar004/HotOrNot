@@ -9,4 +9,5 @@ data class User(
     val lastName: String,
     val email: String,
     val gender: Gender,
+    val interests: String,
 )
