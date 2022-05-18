@@ -6,13 +6,13 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.hotornot.databinding.FragmentSplashScreenBinding
+import com.example.hotornot.fragments.BaseFragment
 
 private const val DELAY_TIME = 2000L
 
-class SplashScreen : Fragment() {
+class SplashScreen : BaseFragment() {
 
     private lateinit var binding: FragmentSplashScreenBinding
     private lateinit var preferencesUtil: PreferencesUtil
@@ -24,6 +24,9 @@ class SplashScreen : Fragment() {
         binding = FragmentSplashScreenBinding.inflate(inflater, container, false)
         return binding.root
     }
+
+    override fun goToNextScreen() =
+        findNavController().navigate(R.id.action_splashScreenFragment_to_mainScreenFragment)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -37,12 +40,15 @@ class SplashScreen : Fragment() {
                 checkForSaveUser()
             }, DELAY_TIME)
 
+    private fun goToRegistrationScreen() =
+        findNavController().navigate(R.id.action_splashScreenFragment_to_registrationFormFragment)
+
     private fun checkForSaveUser() {
         val user = preferencesUtil.getUser()
         if (user == null) {
-            findNavController().navigate(R.id.action_splashScreenFragment_to_registrationFormFragment)
+            goToRegistrationScreen()
         } else {
-            findNavController().navigate(R.id.action_splashScreenFragment_to_mainScreenFragment)
+            goToNextScreen()
         }
     }
 }
