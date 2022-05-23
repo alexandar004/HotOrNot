@@ -20,6 +20,7 @@
     <string name="name">name</string>
     <string name="profile_screen">Profile</string>
     <string name="log_out">Log out</string>
+    <string name="field_is_required">Field is required!</string>
 
     <string-array name="interests">
         <item>Apache Helicopters</item>

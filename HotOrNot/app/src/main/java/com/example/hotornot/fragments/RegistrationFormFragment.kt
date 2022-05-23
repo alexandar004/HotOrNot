@@ -37,13 +37,7 @@ class RegistrationFormFragment : Fragment() {
         preferencesUtil = PreferencesUtil.getInstance(view.context)
         setSpinnerInterestsMenu()
         checkForEmailValidation()
-        clickListenerForButtonRegister()
-    }
-
-    private fun clickListenerForButtonRegister() {
-        binding.btnRegister.setOnClickListener {
-            listenForEmptyFields()
-        }
+        listenForEmptyFields()
     }
 
     private fun createUser() {
@@ -56,23 +50,25 @@ class RegistrationFormFragment : Fragment() {
             inputLastName,
             inputEmail,
             getSelectRadioBtnValue(),
-            binding.spinnerMenu.selectedItem.toString()
+            getSelectedInterests()
         )
         preferencesUtil.setUser(user)
     }
+
+    private fun getSelectedInterests(): String = binding.spinnerMenu.selectedItem.toString()
 
     private fun checkForEmailValidation() {
         binding.editEmail.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {}
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                binding.edtEmail.error = isValidEmail()
+                binding.edtEmail.error = checkForValidEmail()
                 binding.btnRegister.isEnabled = true
             }
         })
     }
 
-    private fun isValidEmail(): String? {
+    private fun checkForValidEmail(): String? {
         val emailText = binding.editEmail.text.toString()
         if (!Patterns.EMAIL_ADDRESS.matcher(emailText).matches()) {
             return INVALID_EMAIL_MSG
@@ -103,7 +99,7 @@ class RegistrationFormFragment : Fragment() {
             val inputEmail: String = binding.edtEmail.editText?.text.toString()
 
             if ((inputFirstName.isEmpty()) || (inputLastName.isEmpty()) || (inputEmail.isEmpty())) {
-                makeToastForEmptyFields()
+                showMessage(getString(R.string.field_is_required))
             } else {
                 createUser()
                 findNavController().navigate(R.id.action_registrationFormFragment_to_mainScreenFragment)
@@ -111,6 +107,6 @@ class RegistrationFormFragment : Fragment() {
         }
     }
 
-    private fun makeToastForEmptyFields() =
-        Toast.makeText(this.context, "Field is required!", Toast.LENGTH_SHORT).show()
+    private fun showMessage(message: String) =
+        Toast.makeText(this.context, message, Toast.LENGTH_SHORT).show()
 }
