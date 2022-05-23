@@ -36,7 +36,6 @@ class RegistrationFormFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         preferencesUtil = PreferencesUtil.getInstance(view.context)
         setSpinnerInterestsMenu()
-
         checkForEmailValidation()
         clickListenerForButtonRegister()
     }
@@ -93,7 +92,6 @@ class RegistrationFormFragment : Fragment() {
         val spinnerArrayAdapter: ArrayAdapter<String> = ArrayAdapter<String>(
             requireContext(), android.R.layout.simple_spinner_item,
             resources.getStringArray(R.array.interests))
-
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerMenu.adapter = spinnerArrayAdapter
     }
