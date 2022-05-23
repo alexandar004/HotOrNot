@@ -22,10 +22,10 @@
     <string name="log_out">Log out</string>
 
     <string-array name="interests">
+        <item>Apache Helicopters</item>
         <item>Males</item>
         <item>Females</item>
         <item>Drag Queens</item>
-        <item>Apache Helicopters</item>
         <item>Furies</item>
     </string-array>
 </resources>

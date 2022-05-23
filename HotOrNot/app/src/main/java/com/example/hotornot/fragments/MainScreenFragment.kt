@@ -5,20 +5,20 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.hotornot.PreferencesUtil
 import com.example.hotornot.R
 import com.example.hotornot.databinding.FragmentMainScreenBinding
 
-const val EMAIL_RECIPIENT = "adamqnov07@gmail.com"
 const val EMAIL_TEXT = "zdr ko pr bepce"
+const val TYPE_SEND_EMAIL_INTENT = "text/plain"
+const val DATA_SEND_EMAIL_INTENT = "mailto"
 
-class MainScreenFragment : Fragment() {
+class MainScreenFragment : BaseFragment() {
 
     private lateinit var binding: FragmentMainScreenBinding
     private lateinit var preferencesUtil: PreferencesUtil
-    private val images = listOf(R.drawable.georgi, R.drawable.nikola, R.drawable.stan)
+    private val friendImages = listOf(R.drawable.georgi, R.drawable.nikola, R.drawable.stan)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,23 +28,22 @@ class MainScreenFragment : Fragment() {
         return binding.root
     }
 
+    override fun goToNextScreen() =
+        findNavController().navigate(R.id.action_mainScreenFragment_to_profileScreenFragment)
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         preferencesUtil = PreferencesUtil.getInstance(view.context)
-        binding.btnHot.setOnClickListener {
-            showRandomImage()
-        }
-        binding.btnNot.setOnClickListener {
-            showRandomImage()
-        }
-        binding.sendEmail.setOnClickListener {
-            sendEmail()
-        }
+        buttonsClickListener()
+        sendEmailClickListener()
+        selectItemFromToolbar()
+    }
 
+    private fun selectItemFromToolbar() {
         binding.toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.profileScreen -> {
-                    findNavController().navigate(R.id.action_mainScreenFragment_to_profileScreenFragment)
+                    goToNextScreen()
                     true
                 }
                 R.id.logOut -> {
@@ -63,9 +62,9 @@ class MainScreenFragment : Fragment() {
 
     private fun showRandomImage() {
         setVisibleButtons()
-        val randomImage = (images.indices).random()
-        binding.imgFriend.setImageResource(images[randomImage])
-        binding.friendName.text = resources.getResourceEntryName(images[randomImage])
+        val randomImage = (friendImages.indices).random()
+        binding.imgFriend.setImageResource(friendImages[randomImage])
+        binding.friendName.text = resources.getResourceEntryName(friendImages[randomImage])
         checkForHotName()
     }
 
@@ -88,20 +87,33 @@ class MainScreenFragment : Fragment() {
         }
     }
 
+    private fun sendEmailClickListener() = binding.sendEmail.setOnClickListener { sendEmail() }
+
     private fun sendEmail() {
-        val recipient = EMAIL_RECIPIENT
+        val user = preferencesUtil.getUser()
+
+        val recipient = user?.email
         val text = EMAIL_TEXT
         val sendMassageWithEmail = Intent(Intent.ACTION_SENDTO)
 
-        sendMassageWithEmail.data = Uri.parse("mailto")
-        sendMassageWithEmail.type = ("text/plain")
+        sendMassageWithEmail.data = Uri.parse(DATA_SEND_EMAIL_INTENT)
+        sendMassageWithEmail.type = (TYPE_SEND_EMAIL_INTENT)
         sendMassageWithEmail.putExtra(Intent.EXTRA_EMAIL, arrayOf(recipient))
-        sendMassageWithEmail.putExtra(Intent.EXTRA_TEXT, text)
+        sendMassageWithEmail.putExtra(Intent.EXTRA_TEXT, text + EMPTY_STRING + recipient)
 
         try {
             startActivity(Intent.createChooser(sendMassageWithEmail, "Send email"))
         } catch (e: Exception) {
             Toast.makeText(this.context, e.message, Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun buttonsClickListener() {
+        binding.btnHot.setOnClickListener {
+            showRandomImage()
+        }
+        binding.btnNot.setOnClickListener {
+            showRandomImage()
         }
     }
 }

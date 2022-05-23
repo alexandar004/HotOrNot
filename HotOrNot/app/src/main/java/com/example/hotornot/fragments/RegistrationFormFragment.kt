@@ -17,6 +17,8 @@ import com.example.hotornot.User
 import com.example.hotornot.databinding.FragmentRegistrationFormBinding
 import com.example.hotornot.enums.Gender
 
+const val INVALID_EMAIL_MSG = "Invalid Email Address!"
+
 class RegistrationFormFragment : Fragment() {
 
     private lateinit var binding: FragmentRegistrationFormBinding
@@ -33,26 +35,33 @@ class RegistrationFormFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         preferencesUtil = PreferencesUtil.getInstance(view.context)
-        onEmailTextChangeListener()
+        setSpinnerInterestsMenu()
+        checkForEmailValidation()
+        clickListenerForButtonRegister()
+    }
+
+    private fun clickListenerForButtonRegister() {
         binding.btnRegister.setOnClickListener {
             listenForEmptyFields()
         }
-        val interests = resources.getStringArray(R.array.interests)
-        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, interests)
-        binding.autocomplete.setAdapter(arrayAdapter)
     }
 
     private fun createUser() {
+        val inputFirstName = binding.edtFirstName.editText?.text.toString()
+        val inputLastName = binding.edtLastName.editText?.text.toString()
+        val inputEmail = binding.edtEmail.editText?.text.toString()
+
         val user = User(
-            binding.edtFirstName.editText?.text.toString(),
-            binding.edtLastName.editText?.text.toString(),
-            binding.edtEmail.editText?.text.toString(),
-            getSelectRadioBtnValue(), getSelectInterest()
+            inputFirstName,
+            inputLastName,
+            inputEmail,
+            getSelectRadioBtnValue(),
+            binding.spinnerMenu.selectedItem.toString()
         )
         preferencesUtil.setUser(user)
     }
 
-    private fun onEmailTextChangeListener() {
+    private fun checkForEmailValidation() {
         binding.editEmail.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {}
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -66,7 +75,7 @@ class RegistrationFormFragment : Fragment() {
     private fun isValidEmail(): String? {
         val emailText = binding.editEmail.text.toString()
         if (!Patterns.EMAIL_ADDRESS.matcher(emailText).matches()) {
-            return "Invalid Email Address!"
+            return INVALID_EMAIL_MSG
         }
         return null
     }
@@ -79,8 +88,12 @@ class RegistrationFormFragment : Fragment() {
             else -> Gender.OTHER
         }
 
-    private fun getSelectInterest(): String {
-        return " "
+    private fun setSpinnerInterestsMenu() {
+        val spinnerArrayAdapter: ArrayAdapter<String> = ArrayAdapter<String>(
+            requireContext(), android.R.layout.simple_spinner_item,
+            resources.getStringArray(R.array.interests))
+        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.spinnerMenu.adapter = spinnerArrayAdapter
     }
 
     private fun listenForEmptyFields() {
@@ -90,11 +103,14 @@ class RegistrationFormFragment : Fragment() {
             val inputEmail: String = binding.edtEmail.editText?.text.toString()
 
             if ((inputFirstName.isEmpty()) || (inputLastName.isEmpty()) || (inputEmail.isEmpty())) {
-                Toast.makeText(this.context, "Field is required!", Toast.LENGTH_SHORT).show()
+                makeToastForEmptyFields()
             } else {
                 createUser()
                 findNavController().navigate(R.id.action_registrationFormFragment_to_mainScreenFragment)
             }
         }
     }
+
+    private fun makeToastForEmptyFields() =
+        Toast.makeText(this.context, "Field is required!", Toast.LENGTH_SHORT).show()
 }

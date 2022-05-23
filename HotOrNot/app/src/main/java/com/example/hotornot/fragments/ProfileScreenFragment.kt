@@ -11,6 +11,9 @@ import androidx.fragment.app.Fragment
 import com.example.hotornot.PreferencesUtil
 import com.example.hotornot.databinding.FragmentProfileScreenBinding
 
+const val TYPE_IMAGE_INTENT = "image/*"
+const val EMPTY_STRING = " "
+
 class ProfileScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentProfileScreenBinding
@@ -24,12 +27,14 @@ class ProfileScreenFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         preferencesUtil = PreferencesUtil.getInstance(view.context)
-
         createUserProfile()
+        clickImageListener()
+    }
+
+    private fun clickImageListener() {
         binding.profileImg.setOnClickListener {
             changeProfilePicture()
             openSomeActivityForResult()
@@ -39,15 +44,21 @@ class ProfileScreenFragment : Fragment() {
     private fun createUserProfile() {
         preferencesUtil.getUser()
         val user = preferencesUtil.getUser()
-        binding.name.text = user?.firstName + " " + user?.lastName
+        binding.name.text = user?.firstName + EMPTY_STRING + user?.lastName
         binding.email.text = user?.email
         binding.sex.text = user?.gender.toString()
-
     }
 
     private fun getProfilePicture() {
+        val resultLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == RESULT_OK) {
+                    val data: Intent? = result.data
+                    binding.profileImg.setImageURI(data?.data)
+                }
+            }
         val intent = Intent(Intent.ACTION_PICK)
-        intent.type = "image/*"
+        intent.type = TYPE_IMAGE_INTENT
         resultLauncher.launch(intent)
     }
 
@@ -55,15 +66,14 @@ class ProfileScreenFragment : Fragment() {
         binding.profileImg.setOnClickListener { getProfilePicture() }
 
     private fun openSomeActivityForResult() {
+        val resultLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == RESULT_OK) {
+                    val data: Intent? = result.data
+                    binding.profileImg.setImageURI(data?.data)
+                }
+            }
         val intent = Intent(Intent.ACTION_PICK)
         resultLauncher.launch(intent)
     }
-
-    private var resultLauncher =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == RESULT_OK) {
-                val data: Intent? = result.data
-                binding.profileImg.setImageURI(data?.data)
-            }
-        }
 }
