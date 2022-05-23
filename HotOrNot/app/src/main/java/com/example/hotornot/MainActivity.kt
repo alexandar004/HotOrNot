@@ -3,14 +3,18 @@ package com.example.hotornot
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
+
+const val MAX_OFFLINE_SECONDS = 2000L
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var navController: NavController
+    private var offlineTimeCounter = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,5 +25,29 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
         supportActionBar?.hide()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        offlineTimeCounter = System.currentTimeMillis()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        checkForPauseTime()
+    }
+
+    private fun checkForPauseTime() {
+        val seconds = System.currentTimeMillis()
+        if ((seconds - offlineTimeCounter) > MAX_OFFLINE_SECONDS) {
+            goToMotivationScreenIfPauseTimeIsMoreTenMin()
+        }
+    }
+
+    private fun goToMotivationScreenIfPauseTimeIsMoreTenMin() {
+        val navController = Navigation.findNavController(this, R.id.navHostFragment)
+        val currentDestination = navController.currentDestination?.id
+        if (currentDestination != R.id.registrationFormFragment && currentDestination != R.id.splashScreenFragment)
+            navController.navigate(R.id.motivationScreen)
     }
 }
