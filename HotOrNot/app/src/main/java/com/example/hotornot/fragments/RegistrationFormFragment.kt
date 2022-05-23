@@ -7,7 +7,6 @@ import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -20,7 +19,7 @@ import com.example.hotornot.enums.Gender
 
 const val INVALID_EMAIL_MSG = "Invalid Email Address!"
 
-class RegistrationFormFragment : Fragment(), AdapterView.OnItemSelectedListener {
+class RegistrationFormFragment : Fragment() {
 
     private lateinit var binding: FragmentRegistrationFormBinding
     private lateinit var preferencesUtil: PreferencesUtil
@@ -36,14 +35,13 @@ class RegistrationFormFragment : Fragment(), AdapterView.OnItemSelectedListener 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         preferencesUtil = PreferencesUtil.getInstance(view.context)
+        setSpinnerInterestsMenu()
+
         checkForEmailValidation()
-        clickButtonRegisterListener()
-        val interests = resources.getStringArray(R.array.interests)
-        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, interests)
-        binding.autocomplete.setAdapter(arrayAdapter)
+        clickListenerForButtonRegister()
     }
 
-    private fun clickButtonRegisterListener() {
+    private fun clickListenerForButtonRegister() {
         binding.btnRegister.setOnClickListener {
             listenForEmptyFields()
         }
@@ -59,7 +57,7 @@ class RegistrationFormFragment : Fragment(), AdapterView.OnItemSelectedListener 
             inputLastName,
             inputEmail,
             getSelectRadioBtnValue(),
-            getSelectInterest()
+            binding.spinnerMenu.selectedItem.toString()
         )
         preferencesUtil.setUser(user)
     }
@@ -91,18 +89,13 @@ class RegistrationFormFragment : Fragment(), AdapterView.OnItemSelectedListener 
             else -> Gender.OTHER
         }
 
-    private fun getSelectInterest(): String {
+    private fun setSpinnerInterestsMenu() {
+        val spinnerArrayAdapter: ArrayAdapter<String> = ArrayAdapter<String>(
+            requireContext(), android.R.layout.simple_spinner_item,
+            resources.getStringArray(R.array.interests))
 
-//        var spinner = binding.spinnerInterests.getSele
-//
-//        ArrayAdapter.createFromResource(
-//            requireContext(),
-//            R.array.interests,
-//            android.R.layout.simple_spinner_item
-//        ).also { adapter ->
-//            adapter.setDropDownViewResource(android.R.layout.simple_spinner_item)
-//            spinner = adapter
-//        }
+        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.spinnerMenu.adapter = spinnerArrayAdapter
     }
 
     private fun listenForEmptyFields() {
@@ -122,12 +115,4 @@ class RegistrationFormFragment : Fragment(), AdapterView.OnItemSelectedListener 
 
     private fun makeToastForEmptyFields() =
         Toast.makeText(this.context, "Field is required!", Toast.LENGTH_SHORT).show()
-
-    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onNothingSelected(p0: AdapterView<*>?) {
-        TODO("Not yet implemented")
-    }
 }

@@ -87,9 +87,7 @@ class MainScreenFragment : BaseFragment() {
         }
     }
 
-    private fun sendEmailClickListener() = binding.sendEmail.setOnClickListener {
-        sendEmail()
-    }
+    private fun sendEmailClickListener() = binding.sendEmail.setOnClickListener { sendEmail() }
 
     private fun sendEmail() {
         val user = preferencesUtil.getUser()

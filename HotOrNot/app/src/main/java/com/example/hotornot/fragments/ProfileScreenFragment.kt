@@ -47,7 +47,6 @@ class ProfileScreenFragment : Fragment() {
         binding.name.text = user?.firstName + EMPTY_STRING + user?.lastName
         binding.email.text = user?.email
         binding.sex.text = user?.gender.toString()
-
     }
 
     private fun getProfilePicture() {
