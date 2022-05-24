@@ -23,6 +23,7 @@
     <string name="field_is_required">Field is required!</string>
     <string name="email_text">zdr ko pr bepce</string>
     <string name="send_email">send email</string>
+    <string name="who_is_n_hot">Who is\n HOT</string>
 
     <string-array name="interests">
         <item>Apache Helicopters</item>

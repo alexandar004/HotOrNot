@@ -1,27 +1,38 @@
 package com.example.hotornot.fragments
 
+import android.graphics.Color
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
-import com.example.hotornot.R
+import androidx.fragment.app.Fragment
+import com.example.hotornot.databinding.FragmentMotivationScreenBinding
 
-class MotivationScreenFragment : BaseFragment() {
+class MotivationScreenFragment : Fragment() {
 
-    private var offlineTimeCounter = 0L
+    private lateinit var binding: FragmentMotivationScreenBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        return inflater.inflate(R.layout.fragment_motivation_screen, container, false)
+        binding = FragmentMotivationScreenBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    override fun goToNextScreen() {
-        findNavController().navigate(R.id.action_motivationScreen_to_mainScreenFragment)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        paintCharsFromTextView()
     }
 
+    private fun paintCharsFromTextView() {
+        val spannableString = SpannableString("Who Is HOT?")
 
-//systemCurrentTimeMilis
+        val fColor = ForegroundColorSpan(Color.RED)
+        spannableString.setSpan(fColor, 7, 10, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
+        binding.txtWhoIsHot.text = spannableString
+    }
 }
