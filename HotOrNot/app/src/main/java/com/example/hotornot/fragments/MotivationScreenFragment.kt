@@ -9,7 +9,9 @@ import android.text.style.RelativeSizeSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.hotornot.R
 import com.example.hotornot.databinding.FragmentMotivationScreenBinding
 
 const val START_INDEX = 7
@@ -21,7 +23,6 @@ class MotivationScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentMotivationScreenBinding
     private val spannableString = SpannableString(STRING_WHO_IS_HOT)
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,6 +55,7 @@ class MotivationScreenFragment : Fragment() {
 
     private fun clickButtonListener() {
         binding.btnIm.setOnClickListener {
+            showMessage(getString(R.string.cant_run_from_yourself))
             backToLastScreen()
         }
     }
@@ -61,4 +63,7 @@ class MotivationScreenFragment : Fragment() {
     private fun backToLastScreen() {
         activity?.onBackPressed()
     }
+
+    private fun showMessage(message: String) =
+        Toast.makeText(this.context, message, Toast.LENGTH_SHORT).show()
 }
