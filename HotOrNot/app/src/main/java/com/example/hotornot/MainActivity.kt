@@ -40,11 +40,11 @@ class MainActivity : AppCompatActivity() {
     private fun checkForPauseTime() {
         val seconds = System.currentTimeMillis()
         if ((seconds - offlineTimeCounter) > MAX_OFFLINE_SECONDS) {
-            goToMotivationScreenIfPauseTimeIsMoreTenMin()
+            goToMotivationScreen()
         }
     }
 
-    private fun goToMotivationScreenIfPauseTimeIsMoreTenMin() {
+    private fun goToMotivationScreen() {
         val navController = Navigation.findNavController(this, R.id.navHostFragment)
         val currentDestination = navController.currentDestination?.id
         if (currentDestination != R.id.registrationFormFragment && currentDestination != R.id.splashScreenFragment)
