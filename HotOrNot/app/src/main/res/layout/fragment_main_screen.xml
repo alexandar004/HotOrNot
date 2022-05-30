@@ -40,10 +40,12 @@
                 <ImageView
                     android:id="@+id/imgFriend"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/no_dimens"
                     android:layout_margin="@dimen/small_margin"
                     android:layout_marginEnd="@dimen/small_margin"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/stan"
+                    app:layout_constraintBottom_toTopOf="@+id/friendName"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -62,8 +64,7 @@
                     app:layout_constraintBottom_toTopOf="@+id/sendEmail"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imgFriend" />
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <ImageView
                     android:id="@+id/sendEmail"
@@ -73,9 +74,24 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:src="@drawable/ic_baseline_alternate_email_24"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/chipGroup"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/small_margin"
+                    android:clickable="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <com.google.android.material.chip.Chip
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </com.google.android.material.chip.ChipGroup>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
@@ -97,7 +113,7 @@
 
         <Button
             android:id="@+id/btnNot"
-            style="@style/Widget.MaterialComponents.Button.Icon"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="@dimen/no_dimens"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/small_margin"
@@ -111,7 +127,7 @@
 
         <Button
             android:id="@+id/btnHot"
-            style="@style/Widget.MaterialComponents.Button.Icon"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="@dimen/no_dimens"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/small_margin"

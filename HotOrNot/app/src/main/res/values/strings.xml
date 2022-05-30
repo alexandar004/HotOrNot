@@ -34,4 +34,12 @@
         <item>Drag Queens</item>
         <item>Furies</item>
     </string-array>
+
+    <string-array name="characteristics_array">
+        <item>Techno Lover</item>
+        <item>Animal Lover</item>
+        <item>Females</item>
+        <item>Drag Queens</item>
+        <item>Furies</item>
+    </string-array>
 </resources>

@@ -5,10 +5,12 @@
     <dimen name="medium_margin">24dp</dimen>
     <dimen name="XL">44dp</dimen>
     <dimen name="XXL">68dp</dimen>
-    <dimen name="large_size">84dp</dimen>
+    <dimen name="large_margin">84dp</dimen>
 
     //fonts
     <dimen name="large_text_size">24sp</dimen>
+
+    <dimen name="small_corner_radius">12dp</dimen>
 
     //percentage
     <item name="guidelineStart" format="float" type="integer">0.33</item>

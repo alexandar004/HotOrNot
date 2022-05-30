@@ -26,6 +26,6 @@
         android:text="@string/i_am"
         android:textSize="@dimen/large_text_size"
         android:textStyle="italic"
-        app:cornerRadius="10dp"
+        app:cornerRadius="@dimen/small_corner_radius"
         app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

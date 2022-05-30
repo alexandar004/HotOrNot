@@ -15,9 +15,9 @@ import com.example.hotornot.R
 import com.example.hotornot.databinding.FragmentMotivationScreenBinding
 
 const val START_INDEX = 7
-const val END_INDEX = 10
+const val END_INDEX = 11
 const val TEXT_SIZE_PROPORTION = 2f
-const val STRING_WHO_IS_HOT = "Who is HOT?"
+const val STRING_WHO_IS_HOT = "Who is\n HOT?"
 
 class MotivationScreenFragment : Fragment() {
 
