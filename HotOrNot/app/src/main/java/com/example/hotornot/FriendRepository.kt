@@ -2,6 +2,8 @@ package com.example.hotornot
 
 import android.content.Context
 
+const val MIN_NUMBER_CHARACTERISTICS = 1
+
 class FriendRepository(val context: Context) {
 
     private lateinit var friends: List<Friend>
@@ -30,7 +32,7 @@ class FriendRepository(val context: Context) {
 
     private fun getRandomCharacteristics(): List<String> {
         val randomCharacteristics = context.resources.getStringArray(R.array.characteristics_array)
-        val randomCountOfCharacteristics: Int = (1..randomCharacteristics.size).random()
+        val randomCountOfCharacteristics: Int = (MIN_NUMBER_CHARACTERISTICS..randomCharacteristics.size).random()
 
         return randomCharacteristics.toList().take(randomCountOfCharacteristics)
     }
