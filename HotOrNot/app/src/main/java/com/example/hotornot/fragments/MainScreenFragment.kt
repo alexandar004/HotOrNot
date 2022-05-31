@@ -15,6 +15,8 @@ import com.google.android.material.chip.Chip
 
 const val TYPE_SEND_EMAIL_INTENT = "text/plain"
 const val DATA_SEND_EMAIL_INTENT = "mailto"
+const val HOT_NAME = "Georgi"
+const val NOT_HOT_NAME = "Stan"
 
 class MainScreenFragment : BaseFragment() {
 
@@ -37,7 +39,6 @@ class MainScreenFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         preferencesUtil = PreferencesUtil.getInstance(view.context)
         friendRepository = FriendRepository(requireContext())
-
         clickButtonsHotOrNotListener()
         sendEmailClickListener()
         selectItemFromToolbar()
@@ -110,7 +111,24 @@ class MainScreenFragment : BaseFragment() {
 
         binding.imgFriend.setImageResource(randomFriend.image)
         binding.friendName.text = randomFriend.name
+        binding.friendEmail.text = randomFriend.email
         setFriendCharacteristics(randomFriend.characteristics)
+        checkForHotName()
+    }
+
+    private fun checkForHotName() {
+        setVisibleButtons()
+        when (binding.friendName.text) {
+            HOT_NAME -> {
+                binding.btnNot.visibility = View.INVISIBLE
+            }
+            NOT_HOT_NAME -> {
+                binding.btnHot.visibility = View.INVISIBLE
+            }
+            else -> {
+                setVisibleButtons()
+            }
+        }
     }
 
     private fun getFriend(): Friend {

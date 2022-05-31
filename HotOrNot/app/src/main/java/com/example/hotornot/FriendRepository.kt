@@ -12,16 +12,19 @@ class FriendRepository(val context: Context) {
                 name = "Georgi",
                 image = R.drawable.georgi,
                 characteristics = getRandomCharacteristics(),
+                email = "georgi@abv.bg",
                 isHot = true),
             Friend(
                 name = "Stan",
                 image = R.drawable.stan,
                 characteristics = getRandomCharacteristics(),
+                email = "stan@abv.bg",
                 isHot = false),
             Friend(
                 name = "Nikola",
                 image = R.drawable.nikola,
                 characteristics = getRandomCharacteristics(),
+                email = "nikola@abv.bg",
                 isHot = null))
     }
 
@@ -36,6 +39,4 @@ class FriendRepository(val context: Context) {
         setFriends()
         return friends
     }
-
-//    fun checkForHotName(): Boolean = friends.
 }

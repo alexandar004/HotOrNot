@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
+import com.example.hotornot.FriendRepository
 import com.example.hotornot.R
 import com.example.hotornot.databinding.FragmentMotivationScreenBinding
 
