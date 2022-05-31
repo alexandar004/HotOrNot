@@ -8,20 +8,34 @@ class FriendRepository(val context: Context) {
 
     fun setFriends() {
         friends = listOf(
-            Friend("Georgi", R.drawable.georgi, getRandomCharacteristics(), true),
-            Friend("Stan", R.drawable.stan, getRandomCharacteristics(), false),
-            Friend("Nikola", R.drawable.nikola, getRandomCharacteristics(), true))
+            Friend(
+                name = "Georgi",
+                image = R.drawable.georgi,
+                characteristics = getRandomCharacteristics(),
+                isHot = true),
+            Friend(
+                name = "Stan",
+                image = R.drawable.stan,
+                characteristics = getRandomCharacteristics(),
+                isHot = false),
+            Friend(
+                name = "Nikola",
+                image = R.drawable.nikola,
+                characteristics = getRandomCharacteristics(),
+                isHot = null))
     }
 
     private fun getRandomCharacteristics(): List<String> {
         val randomCharacteristics = context.resources.getStringArray(R.array.characteristics_array)
-        val randomNumberOfCharacteristic: Int =
-            (1..randomCharacteristics.size).random()
-        return randomCharacteristics.toList().shuffled().take(randomNumberOfCharacteristic)
+        val randomCountOfCharacteristics: Int = (1..randomCharacteristics.size).random()
+
+        return randomCharacteristics.toList().take(randomCountOfCharacteristics)
     }
 
     fun getFriends(): List<Friend> {
         setFriends()
         return friends
     }
+
+//    fun checkForHotName(): Boolean = friends.
 }

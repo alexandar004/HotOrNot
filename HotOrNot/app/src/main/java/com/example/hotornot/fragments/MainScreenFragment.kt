@@ -37,6 +37,7 @@ class MainScreenFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         preferencesUtil = PreferencesUtil.getInstance(view.context)
         friendRepository = FriendRepository(requireContext())
+
         clickButtonsHotOrNotListener()
         sendEmailClickListener()
         selectItemFromToolbar()
@@ -67,7 +68,7 @@ class MainScreenFragment : BaseFragment() {
         binding.btnNot.visibility = View.VISIBLE
         binding.btnHot.visibility = View.VISIBLE
     }
-    
+
     private fun sendEmailClickListener() {
         binding.sendEmail.setOnClickListener {
             sendEmail()
@@ -106,6 +107,7 @@ class MainScreenFragment : BaseFragment() {
 
     private fun setFriend() {
         val randomFriend = friendRepository.getFriends().random()
+
         binding.imgFriend.setImageResource(randomFriend.image)
         binding.friendName.text = randomFriend.name
         setFriendCharacteristics(randomFriend.characteristics)

@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import com.example.hotornot.R
 import com.example.hotornot.databinding.FragmentMotivationScreenBinding
@@ -23,6 +24,11 @@ class MotivationScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentMotivationScreenBinding
     private val spannableString = SpannableString(STRING_WHO_IS_HOT)
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        clickBackArrowListener()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,8 +45,8 @@ class MotivationScreenFragment : Fragment() {
     }
 
     private fun paintCharsFromTextView() {
-        val fColor = ForegroundColorSpan(Color.RED)
-        spannableString.setSpan(fColor, START_INDEX, END_INDEX, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
+        val color = ForegroundColorSpan(Color.RED)
+        spannableString.setSpan(color, START_INDEX, END_INDEX, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
         makeLetterBigger()
         binding.txtWhoIsHot.text = spannableString
     }
@@ -55,15 +61,27 @@ class MotivationScreenFragment : Fragment() {
 
     private fun clickButtonListener() {
         binding.btnIm.setOnClickListener {
-            showMessage(getString(R.string.cant_run_from_yourself))
             backToLastScreen()
         }
     }
 
     private fun backToLastScreen() {
-        activity?.onBackPressed()
+        activity?.supportFragmentManager?.popBackStack()
     }
 
-    private fun showMessage(message: String) =
-        Toast.makeText(this.context, message, Toast.LENGTH_SHORT).show()
+    private fun showMessage(message: String) {
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            Toast.makeText(
+                requireContext(),
+                message,
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    private fun clickBackArrowListener() {
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            showMessage((getString(R.string.cant_run_from_yourself)))
+        }
+    }
 }

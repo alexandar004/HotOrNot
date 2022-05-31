@@ -12,25 +12,21 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/purple_500"
+            android:background="@color/purple_700"
             android:fitsSystemWindows="true"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:layout_constraintTop_toTopOf="parent"
             app:menu="@menu/toolbar_menu"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:title="@string/hor_or_not" />
 
         <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/no_dimens"
             android:layout_margin="@dimen/small_margin"
-            android:layout_marginStart="@dimen/small_margin"
-            android:layout_marginEnd="@dimen/small_margin"
             android:layout_marginBottom="@dimen/medium_margin"
-            android:background="@color/gray"
-            android:foregroundGravity="center"
             app:cardCornerRadius="@dimen/XL"
             app:layout_constraintBottom_toTopOf="@+id/btnHot"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -39,7 +35,7 @@
 
                 <ImageView
                     android:id="@+id/imgFriend"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="@dimen/no_dimens"
                     android:layout_margin="@dimen/small_margin"
                     android:layout_marginEnd="@dimen/small_margin"
@@ -89,11 +85,11 @@
 
                     <com.google.android.material.chip.Chip
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:clickable="false"
+                        android:focusable="true" />
                 </com.google.android.material.chip.ChipGroup>
-
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </androidx.cardview.widget.CardView>
 
         <androidx.constraintlayout.widget.Guideline
@@ -112,31 +108,30 @@
             app:layout_constraintGuide_percent="@integer/guidelineEnd" />
 
         <Button
-            android:id="@+id/btnNot"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="@dimen/no_dimens"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/small_margin"
-            android:layout_marginBottom="@dimen/no_dimens"
-            android:text="@string/not"
-            android:textSize="@dimen/large_text_size"
-            app:icon="@drawable/ic_baseline_close_24"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/guidelineStart" />
-
-        <Button
             android:id="@+id/btnHot"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="@dimen/no_dimens"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/small_margin"
             android:layout_marginBottom="@dimen/no_dimens"
+            android:background="@drawable/radius"
             android:text="@string/hot"
             android:textSize="@dimen/large_text_size"
             app:icon="@drawable/ic_baseline_local_fire_department_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@+id/guidelineEnd"
             app:layout_constraintRight_toRightOf="parent" />
+
+        <Button
+            android:id="@+id/btnNot"
+            android:layout_width="@dimen/no_dimens"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/small_margin"
+            android:layout_marginBottom="@dimen/no_dimens"
+            android:background="@drawable/radius"
+            android:text="@string/not"
+            android:textSize="@dimen/large_text_size"
+            app:icon="@drawable/ic_baseline_local_fire_department_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

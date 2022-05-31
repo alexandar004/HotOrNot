@@ -26,6 +26,7 @@
     <string name="who_is_n_hot">Who is\n HOT</string>
     <string name="i_am">I AM</string>
     <string name="cant_run_from_yourself">Cant run from yourself!</string>
+    <string name="hor_or_not">HotOrNot</string>
 
     <string-array name="interests">
         <item>Apache Helicopters</item>

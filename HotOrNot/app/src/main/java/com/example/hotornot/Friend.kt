@@ -7,5 +7,5 @@ data class Friend(
     val name: String,
     val image: Int,
     val characteristics: List<String>,
-    val isHot: Boolean
+    val isHot: Boolean?
 )
