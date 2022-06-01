@@ -13,10 +13,10 @@ import com.example.hotornot.R
 import com.example.hotornot.databinding.FragmentMainScreenBinding
 import com.google.android.material.chip.Chip
 
-const val TYPE_SEND_EMAIL_INTENT = "text/plain"
-const val DATA_SEND_EMAIL_INTENT = "mailto"
-const val HOT_NAME = "Georgi"
-const val NOT_HOT_NAME = "Stan"
+private const val TYPE_SEND_EMAIL_INTENT = "text/plain"
+private const val DATA_SEND_EMAIL_INTENT = "mailto"
+private const val HOT_NAME = "Georgi"
+private const val NOT_HOT_NAME = "Stan"
 
 class MainScreenFragment : BaseFragment() {
 

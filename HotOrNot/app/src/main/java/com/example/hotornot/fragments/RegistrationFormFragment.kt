@@ -17,7 +17,7 @@ import com.example.hotornot.User
 import com.example.hotornot.databinding.FragmentRegistrationFormBinding
 import com.example.hotornot.enums.Gender
 
-const val INVALID_EMAIL_MSG = "Invalid Email Address!"
+private const val INVALID_EMAIL_MSG = "Invalid Email Address!"
 
 class RegistrationFormFragment : Fragment() {
 

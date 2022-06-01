@@ -11,8 +11,8 @@ import androidx.fragment.app.Fragment
 import com.example.hotornot.PreferencesUtil
 import com.example.hotornot.databinding.FragmentProfileScreenBinding
 
-const val TYPE_IMAGE_INTENT = "image/*"
-const val EMPTY_STRING = " "
+private const val TYPE_IMAGE_INTENT = "image/*"
+private const val EMPTY_STRING = " "
 
 class ProfileScreenFragment : Fragment() {
 
