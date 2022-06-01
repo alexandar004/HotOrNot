@@ -6,19 +6,23 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.example.hotornot.Friend
+import com.example.hotornot.FriendRepository
 import com.example.hotornot.PreferencesUtil
 import com.example.hotornot.R
 import com.example.hotornot.databinding.FragmentMainScreenBinding
+import com.google.android.material.chip.Chip
 
-const val EMAIL_TEXT = "zdr ko pr bepce"
-const val TYPE_SEND_EMAIL_INTENT = "text/plain"
-const val DATA_SEND_EMAIL_INTENT = "mailto"
+private const val TYPE_SEND_EMAIL_INTENT = "text/plain"
+private const val DATA_SEND_EMAIL_INTENT = "mailto"
+private const val HOT_NAME = "Georgi"
+private const val NOT_HOT_NAME = "Stan"
 
 class MainScreenFragment : BaseFragment() {
 
     private lateinit var binding: FragmentMainScreenBinding
     private lateinit var preferencesUtil: PreferencesUtil
-    private val friendImages = listOf(R.drawable.georgi, R.drawable.nikola, R.drawable.stan)
+    private lateinit var friendRepository: FriendRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,9 +38,14 @@ class MainScreenFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         preferencesUtil = PreferencesUtil.getInstance(view.context)
-        buttonsClickListener()
+        friendRepository = FriendRepository(requireContext())
+        clickButtonsHotOrNotListener()
         sendEmailClickListener()
         selectItemFromToolbar()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.toolbar_menu, menu)
     }
 
     private fun selectItemFromToolbar() {
@@ -56,44 +65,22 @@ class MainScreenFragment : BaseFragment() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.toolbar_menu, menu)
-    }
-
-    private fun showRandomImage() {
-        setVisibleButtons()
-        val randomImage = (friendImages.indices).random()
-        binding.imgFriend.setImageResource(friendImages[randomImage])
-        binding.friendName.text = resources.getResourceEntryName(friendImages[randomImage])
-        checkForHotName()
-    }
-
     private fun setVisibleButtons() {
         binding.btnNot.visibility = View.VISIBLE
         binding.btnHot.visibility = View.VISIBLE
     }
 
-    private fun checkForHotName() {
-        when (binding.friendName.text) {
-            resources.getResourceEntryName(R.drawable.georgi) -> {
-                binding.btnNot.visibility = View.INVISIBLE
-            }
-            resources.getResourceEntryName(R.drawable.stan) -> {
-                binding.btnHot.visibility = View.INVISIBLE
-            }
-            else -> {
-                setVisibleButtons()
-            }
+    private fun sendEmailClickListener() {
+        binding.sendEmail.setOnClickListener {
+            sendEmail()
         }
     }
-
-    private fun sendEmailClickListener() = binding.sendEmail.setOnClickListener { sendEmail() }
 
     private fun sendEmail() {
         val user = preferencesUtil.getUser()
 
         val recipient = user?.email
-        val text = EMAIL_TEXT
+        val text = getString(R.string.email_text)
         val sendMassageWithEmail = Intent(Intent.ACTION_SENDTO)
 
         sendMassageWithEmail.data = Uri.parse(DATA_SEND_EMAIL_INTENT)
@@ -102,18 +89,59 @@ class MainScreenFragment : BaseFragment() {
         sendMassageWithEmail.putExtra(Intent.EXTRA_TEXT, text + EMPTY_STRING + recipient)
 
         try {
-            startActivity(Intent.createChooser(sendMassageWithEmail, "Send email"))
+            startActivity(Intent.createChooser(sendMassageWithEmail,
+                getString(R.string.send_email)))
         } catch (e: Exception) {
             Toast.makeText(this.context, e.message, Toast.LENGTH_LONG).show()
         }
     }
 
-    private fun buttonsClickListener() {
+    private fun clickButtonsHotOrNotListener() {
+        setFriend()
         binding.btnHot.setOnClickListener {
-            showRandomImage()
+            getFriend()
         }
         binding.btnNot.setOnClickListener {
-            showRandomImage()
+            getFriend()
+        }
+    }
+
+    private fun setFriend() {
+        val randomFriend = friendRepository.getFriends().random()
+
+        binding.imgFriend.setImageResource(randomFriend.image)
+        binding.friendName.text = randomFriend.name
+        binding.friendEmail.text = randomFriend.email
+        setFriendCharacteristics(randomFriend.characteristics)
+        checkForHotName()
+    }
+
+    private fun checkForHotName() {
+        setVisibleButtons()
+        when (binding.friendName.text) {
+            HOT_NAME -> {
+                binding.btnNot.visibility = View.INVISIBLE
+            }
+            NOT_HOT_NAME -> {
+                binding.btnHot.visibility = View.INVISIBLE
+            }
+            else -> {
+                setVisibleButtons()
+            }
+        }
+    }
+
+    private fun getFriend(): Friend {
+        setFriend()
+        return friendRepository.getFriends().random()
+    }
+
+    private fun setFriendCharacteristics(characteristics: List<String>) {
+        binding.chipGroup.removeAllViews()
+        for (characteristic in characteristics) {
+            val chip = Chip(view?.context)
+            chip.text = characteristic
+            binding.chipGroup.addView(chip)
         }
     }
 }

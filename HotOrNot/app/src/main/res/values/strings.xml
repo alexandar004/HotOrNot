@@ -21,10 +21,30 @@
     <string name="profile_screen">Profile</string>
     <string name="log_out">Log out</string>
     <string name="field_is_required">Field is required!</string>
+    <string name="email_text">zdr ko pr bepce</string>
+    <string name="send_email">send email</string>
+    <string name="who_is_n_hot">Who is\n HOT</string>
+    <string name="i_am">I AM</string>
+    <string name="cant_run_from_yourself">Cant run from yourself!</string>
+    <string name="hor_or_not">HotOrNot</string>
+    <string name="georgi">Georgi</string>
+    <string name="georgi_email">georgi@gmail.com</string>
+    <string name="nikola">Nikola</string>
+    <string name="nikola_email">nikola@gmail.com</string>
+    <string name="stan_email">stan@gmail.com</string>
+
 
     <string-array name="interests">
         <item>Apache Helicopters</item>
         <item>Males</item>
+        <item>Females</item>
+        <item>Drag Queens</item>
+        <item>Furies</item>
+    </string-array>
+
+    <string-array name="characteristics_array">
+        <item>Techno Lover</item>
+        <item>Animal Lover</item>
         <item>Females</item>
         <item>Drag Queens</item>
         <item>Furies</item>

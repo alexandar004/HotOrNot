@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/friends_logo"
+    tools:context=".fragments.MotivationScreenFragment">
+
+    <TextView
+        android:id="@+id/txtWhoIsHot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/medium_margin"
+        android:gravity="center"
+        android:textSize="@dimen/XL"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toTopOf="@+id/btnIm" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnIm"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/small_margin"
+        android:text="@string/i_am"
+        android:textSize="@dimen/large_text_size"
+        android:textStyle="italic"
+        app:cornerRadius="@dimen/small_corner_radius"
+        app:layout_constraintBottom_toBottomOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

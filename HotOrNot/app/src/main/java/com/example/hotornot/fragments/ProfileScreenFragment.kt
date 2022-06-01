@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import com.example.hotornot.PreferencesUtil
 import com.example.hotornot.databinding.FragmentProfileScreenBinding
 
-const val TYPE_IMAGE_INTENT = "image/*"
+private const val TYPE_IMAGE_INTENT = "image/*"
 const val EMPTY_STRING = " "
 
 class ProfileScreenFragment : Fragment() {
@@ -37,7 +37,7 @@ class ProfileScreenFragment : Fragment() {
     private fun clickImageListener() {
         binding.profileImg.setOnClickListener {
             changeProfilePicture()
-            openSomeActivityForResult()
+            openActivityForResult()
         }
     }
 
@@ -49,7 +49,7 @@ class ProfileScreenFragment : Fragment() {
         binding.sex.text = user?.gender.toString()
     }
 
-    private fun getProfilePicture() {
+    private fun onActivityResult() {
         val resultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == RESULT_OK) {
@@ -63,9 +63,9 @@ class ProfileScreenFragment : Fragment() {
     }
 
     private fun changeProfilePicture() =
-        binding.profileImg.setOnClickListener { getProfilePicture() }
+        binding.profileImg.setOnClickListener { onActivityResult() }
 
-    private fun openSomeActivityForResult() {
+    private fun openActivityForResult() {
         val resultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == RESULT_OK) {

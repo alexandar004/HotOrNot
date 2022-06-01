@@ -16,6 +16,7 @@ class SplashScreen : BaseFragment() {
 
     private lateinit var binding: FragmentSplashScreenBinding
     private lateinit var preferencesUtil: PreferencesUtil
+    private lateinit var friends: FriendRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,14 +32,14 @@ class SplashScreen : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         preferencesUtil = PreferencesUtil.getInstance(view.context)
-        goToNextScreenWithDelay()
+        friends = FriendRepository(requireContext())
+        generateFriendList()
+        goToMainScreenWithDelay()
     }
 
-    private fun goToNextScreenWithDelay() =
-        Handler(Looper.getMainLooper())
-            .postDelayed({
-                checkForSaveUser()
-            }, DELAY_TIME)
+    private fun goToMainScreenWithDelay() =
+        Handler(Looper.getMainLooper()).postDelayed({ checkForSaveUser() }, DELAY_TIME)
+
 
     private fun goToRegistrationScreen() =
         findNavController().navigate(R.id.action_splashScreenFragment_to_registrationFormFragment)
@@ -50,5 +51,9 @@ class SplashScreen : BaseFragment() {
         } else {
             goToNextScreen()
         }
+    }
+
+    private fun generateFriendList() {
+        friends.generateFriends()
     }
 }

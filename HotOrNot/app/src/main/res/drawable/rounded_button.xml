@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<item>
+    <shape>
+        <corners
+            android:bottomLeftRadius="@dimen/medium_radius"
+            android:bottomRightRadius="@dimen/medium_radius"
+            android:topLeftRadius="@dimen/medium_radius"
+            android:topRightRadius="@dimen/medium_radius"
+            android:radius="@dimen/min_radius"/>
+    </shape>
+</item>
+</selector>

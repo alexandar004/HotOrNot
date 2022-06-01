@@ -35,8 +35,8 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/profileImg"
-                android:layout_width="@dimen/large_size"
-                android:layout_height="@dimen/large_size"
+                android:layout_width="@dimen/large_margin"
+                android:layout_height="@dimen/large_margin"
                 android:layout_margin="@dimen/small_margin"
                 android:src="@drawable/profile_icon"
                 app:layout_constraintEnd_toEndOf="parent"
