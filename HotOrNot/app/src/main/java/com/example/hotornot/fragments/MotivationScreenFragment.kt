@@ -12,23 +12,21 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
-import com.example.hotornot.FriendRepository
 import com.example.hotornot.R
 import com.example.hotornot.databinding.FragmentMotivationScreenBinding
 
-const val START_INDEX = 7
-const val END_INDEX = 11
-const val TEXT_SIZE_PROPORTION = 2f
-const val STRING_WHO_IS_HOT = "Who is\n HOT?"
+private const val END_INDEX = 11
+private const val TEXT_SIZE_PROPORTION = 2f
+private const val START_INDEX = 7
+private const val STRING_WHO_IS_HOT = "Who is\n HOT?"
 
 class MotivationScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentMotivationScreenBinding
-    private val spannableString = SpannableString(STRING_WHO_IS_HOT)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        clickBackArrowListener()
+        detectOnBackClick()
     }
 
     override fun onCreateView(
@@ -41,32 +39,30 @@ class MotivationScreenFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        paintCharsFromTextView()
-        clickButtonListener()
+        wordPrecessing()
+        clickButtonImListener()
     }
 
-    private fun paintCharsFromTextView() {
+    private fun wordPrecessing() {
+        val spannableString = SpannableString(STRING_WHO_IS_HOT)
         val color = ForegroundColorSpan(Color.RED)
-        spannableString.setSpan(color, START_INDEX, END_INDEX, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
-        makeLetterBigger()
-        binding.txtWhoIsHot.text = spannableString
-    }
-
-    private fun makeLetterBigger() {
         val sizeSpan = RelativeSizeSpan(TEXT_SIZE_PROPORTION)
+
+        spannableString.setSpan(color, START_INDEX, END_INDEX, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
         spannableString.setSpan(sizeSpan,
             START_INDEX,
             END_INDEX,
             Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
+        binding.txtWhoIsHot.text = spannableString
     }
 
-    private fun clickButtonListener() {
+    private fun clickButtonImListener() {
         binding.btnIm.setOnClickListener {
-            backToLastScreen()
+            navigateToPreviousScreen()
         }
     }
 
-    private fun backToLastScreen() {
+    private fun navigateToPreviousScreen() {
         activity?.supportFragmentManager?.popBackStack()
     }
 
@@ -80,7 +76,7 @@ class MotivationScreenFragment : Fragment() {
         }
     }
 
-    private fun clickBackArrowListener() {
+    private fun detectOnBackClick() {
         requireActivity().onBackPressedDispatcher.addCallback(this) {
             showMessage((getString(R.string.cant_run_from_yourself)))
         }

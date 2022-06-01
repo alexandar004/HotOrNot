@@ -3,11 +3,11 @@
 <item>
     <shape>
         <corners
-            android:bottomLeftRadius="20dp"
-            android:bottomRightRadius="20dp"
-            android:topLeftRadius="20dp"
-            android:topRightRadius="20dp"
-            android:radius="10dp"/>
+            android:bottomLeftRadius="@dimen/medium_radius"
+            android:bottomRightRadius="@dimen/medium_radius"
+            android:topLeftRadius="@dimen/medium_radius"
+            android:topRightRadius="@dimen/medium_radius"
+            android:radius="@dimen/min_radius"/>
     </shape>
 </item>
 </selector>

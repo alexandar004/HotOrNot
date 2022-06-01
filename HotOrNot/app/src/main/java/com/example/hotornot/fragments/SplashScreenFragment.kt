@@ -34,15 +34,12 @@ class SplashScreen : BaseFragment() {
         preferencesUtil = PreferencesUtil.getInstance(view.context)
         friends = FriendRepository(requireContext())
         generateFriendList()
-        goToNextScreenWithDelay()
+        goToMainScreenWithDelay()
     }
 
-    private fun goToNextScreenWithDelay() {
-        Handler(Looper.getMainLooper())
-            .postDelayed({
-                checkForSaveUser()
-            }, DELAY_TIME)
-    }
+    private fun goToMainScreenWithDelay() =
+        Handler(Looper.getMainLooper()).postDelayed({ checkForSaveUser() }, DELAY_TIME)
+
 
     private fun goToRegistrationScreen() =
         findNavController().navigate(R.id.action_splashScreenFragment_to_registrationFormFragment)
@@ -57,6 +54,6 @@ class SplashScreen : BaseFragment() {
     }
 
     private fun generateFriendList() {
-        friends.setFriends()
+        friends.generateFriends()
     }
 }

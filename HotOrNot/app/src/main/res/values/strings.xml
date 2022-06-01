@@ -27,6 +27,12 @@
     <string name="i_am">I AM</string>
     <string name="cant_run_from_yourself">Cant run from yourself!</string>
     <string name="hor_or_not">HotOrNot</string>
+    <string name="georgi">Georgi</string>
+    <string name="georgi_email">georgi@gmail.com</string>
+    <string name="nikola">Nikola</string>
+    <string name="nikola_email">nikola@gmail.com</string>
+    <string name="stan_email">stan@gmail.com</string>
+
 
     <string-array name="interests">
         <item>Apache Helicopters</item>

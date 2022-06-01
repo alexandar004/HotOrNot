@@ -8,7 +8,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 
-const val MAX_OFFLINE_SECONDS = 2000L
+private const val ALLOWABLE_TIME_BEFORE_GO_TO_MOTIVATION_SCREEN = 2000L
 
 class MainActivity : AppCompatActivity() {
 
@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun checkForPauseTime() {
         val seconds = System.currentTimeMillis()
-        if ((seconds - offlineTimeCounter) > MAX_OFFLINE_SECONDS) {
+        if ((seconds - offlineTimeCounter) > ALLOWABLE_TIME_BEFORE_GO_TO_MOTIVATION_SCREEN) {
             goToMotivationScreen()
         }
     }
