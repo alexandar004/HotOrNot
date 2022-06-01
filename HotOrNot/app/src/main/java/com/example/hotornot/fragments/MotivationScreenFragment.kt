@@ -39,11 +39,11 @@ class MotivationScreenFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        wordPrecessing()
-        clickButtonImListener()
+        processingTheText()
+        onConfirmationButtonClicked()
     }
 
-    private fun wordPrecessing() {
+    private fun processingTheText() {
         val spannableString = SpannableString(STRING_WHO_IS_HOT)
         val color = ForegroundColorSpan(Color.RED)
         val sizeSpan = RelativeSizeSpan(TEXT_SIZE_PROPORTION)
@@ -56,7 +56,7 @@ class MotivationScreenFragment : Fragment() {
         binding.txtWhoIsHot.text = spannableString
     }
 
-    private fun clickButtonImListener() {
+    private fun onConfirmationButtonClicked() {
         binding.btnIm.setOnClickListener {
             navigateToPreviousScreen()
         }

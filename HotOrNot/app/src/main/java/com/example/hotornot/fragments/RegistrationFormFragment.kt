@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.hotornot.PreferencesUtil
 import com.example.hotornot.R
@@ -19,7 +18,7 @@ import com.example.hotornot.enums.Gender
 
 private const val INVALID_EMAIL_MSG = "Invalid Email Address!"
 
-class RegistrationFormFragment : Fragment() {
+class RegistrationFormFragment : BaseFragment() {
 
     private lateinit var binding: FragmentRegistrationFormBinding
     private lateinit var preferencesUtil: PreferencesUtil
@@ -37,7 +36,7 @@ class RegistrationFormFragment : Fragment() {
         preferencesUtil = PreferencesUtil.getInstance(view.context)
         setSpinnerInterestsMenu()
         checkForEmailValidation()
-        listenForEmptyFields()
+        clickBtnRegisterConfirmation()
     }
 
     private fun createUser() {
@@ -92,19 +91,27 @@ class RegistrationFormFragment : Fragment() {
         binding.spinnerMenu.adapter = spinnerArrayAdapter
     }
 
-    private fun listenForEmptyFields() {
-        binding.btnRegister.setOnClickListener {
-            val inputFirstName: String = binding.edtFirstName.editText?.text.toString()
-            val inputLastName: String = binding.edtLastName.editText?.text.toString()
-            val inputEmail: String = binding.edtEmail.editText?.text.toString()
+    private fun checkForEmptyFields() {
+        val inputFirstName: String = binding.edtFirstName.editText?.text.toString()
+        val inputLastName: String = binding.edtLastName.editText?.text.toString()
+        val inputEmail: String = binding.edtEmail.editText?.text.toString()
 
-            if ((inputFirstName.isEmpty()) || (inputLastName.isEmpty()) || (inputEmail.isEmpty())) {
-                showMessage(getString(R.string.field_is_required))
-            } else {
-                createUser()
-                findNavController().navigate(R.id.action_registrationFormFragment_to_mainScreenFragment)
-            }
+        if ((inputFirstName.isEmpty()) || (inputLastName.isEmpty()) || (inputEmail.isEmpty())) {
+            showMessage(getString(R.string.field_is_required))
+        } else {
+            createUser()
+            goToNextScreen()
         }
+    }
+
+    private fun clickBtnRegisterConfirmation() {
+        binding.btnRegister.setOnClickListener {
+            checkForEmptyFields()
+        }
+    }
+
+    override fun goToNextScreen() {
+        findNavController().navigate(R.id.action_registrationFormFragment_to_mainScreenFragment)
     }
 
     private fun showMessage(message: String) =

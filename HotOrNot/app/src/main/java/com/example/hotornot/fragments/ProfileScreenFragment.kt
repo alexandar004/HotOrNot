@@ -12,7 +12,7 @@ import com.example.hotornot.PreferencesUtil
 import com.example.hotornot.databinding.FragmentProfileScreenBinding
 
 private const val TYPE_IMAGE_INTENT = "image/*"
-private const val EMPTY_STRING = " "
+const val EMPTY_STRING = " "
 
 class ProfileScreenFragment : Fragment() {
 

@@ -108,6 +108,7 @@ class MainScreenFragment : BaseFragment() {
 
     private fun setFriend() {
         val randomFriend = friendRepository.getFriends().random()
+
         binding.imgFriend.setImageResource(randomFriend.image)
         binding.friendName.text = randomFriend.name
         binding.friendEmail.text = randomFriend.email
