@@ -1,4 +1,4 @@
-package com.example.hotornot.fragments
+package com.example.hotornot.ui.fragment
 
 import androidx.fragment.app.Fragment
 

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/friends_logo"
-    tools:context=".SplashScreen">
+    tools:context=".ui.fragment.SplashScreen">
 
     <ImageView
         android:id="@+id/imgAndroidLogo"

@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".fragments.RegistrationFormFragment">
+        tools:context=".ui.fragment.RegistrationFormFragment">
 
         <ProgressBar
             android:id="@+id/progressBar"

@@ -1,4 +1,4 @@
-package com.example.hotornot.fragments
+package com.example.hotornot.ui.fragment
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
-import com.example.hotornot.PreferencesUtil
+import com.example.hotornot.data.repository.UserRepository
 import com.example.hotornot.databinding.FragmentProfileScreenBinding
 
 private const val TYPE_IMAGE_INTENT = "image/*"
@@ -17,7 +17,7 @@ const val EMPTY_STRING = " "
 class ProfileScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentProfileScreenBinding
-    private lateinit var preferencesUtil: PreferencesUtil
+    private lateinit var userRepository: UserRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,7 +29,7 @@ class ProfileScreenFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        preferencesUtil = PreferencesUtil.getInstance(view.context)
+        userRepository = UserRepository.getInstance(view.context)
         createUserProfile()
         clickImageListener()
     }
@@ -42,8 +42,7 @@ class ProfileScreenFragment : Fragment() {
     }
 
     private fun createUserProfile() {
-        preferencesUtil.getUser()
-        val user = preferencesUtil.getUser()
+        val user = userRepository.getUser()
         binding.name.text = user?.firstName + EMPTY_STRING + user?.lastName
         binding.email.text = user?.email
         binding.sex.text = user?.gender.toString()

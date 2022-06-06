@@ -1,4 +1,4 @@
-package com.example.hotornot.fragments
+package com.example.hotornot.ui.fragment
 
 import android.os.Bundle
 import android.text.Editable
@@ -10,18 +10,19 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
-import com.example.hotornot.PreferencesUtil
 import com.example.hotornot.R
-import com.example.hotornot.User
+import com.example.hotornot.data.local.PreferencesUtil
+import com.example.hotornot.data.model.Gender
+import com.example.hotornot.data.model.User
+import com.example.hotornot.data.repository.UserRepository
 import com.example.hotornot.databinding.FragmentRegistrationFormBinding
-import com.example.hotornot.enums.Gender
 
 private const val INVALID_EMAIL_MSG = "Invalid Email Address!"
 
 class RegistrationFormFragment : BaseFragment() {
 
     private lateinit var binding: FragmentRegistrationFormBinding
-    private lateinit var preferencesUtil: PreferencesUtil
+    private lateinit var userRepository: UserRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,7 +34,7 @@ class RegistrationFormFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        preferencesUtil = PreferencesUtil.getInstance(view.context)
+        userRepository = UserRepository.getInstance(view.context)
         setSpinnerInterestsMenu()
         checkForEmailValidation()
         clickBtnRegisterConfirmation()
@@ -51,7 +52,7 @@ class RegistrationFormFragment : BaseFragment() {
             getSelectRadioBtnValue(),
             getSelectedInterests()
         )
-        preferencesUtil.setUser(user)
+        userRepository.setUser(user)
     }
 
     private fun getSelectedInterests(): String = binding.spinnerMenu.selectedItem.toString()

@@ -1,4 +1,4 @@
-package com.example.hotornot.fragments
+package com.example.hotornot.ui.fragment
 
 import android.graphics.Color
 import android.os.Bundle

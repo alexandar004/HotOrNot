@@ -1,4 +1,4 @@
-package com.example.hotornot
+package com.example.hotornot.data.model
 
 import kotlinx.serialization.Serializable
 

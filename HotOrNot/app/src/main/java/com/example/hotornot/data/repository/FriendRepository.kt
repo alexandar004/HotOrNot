@@ -1,15 +1,19 @@
-package com.example.hotornot
+package com.example.hotornot.data.repository
 
 import android.content.Context
+import com.example.hotornot.R
+import com.example.hotornot.data.local.PreferencesUtil
+import com.example.hotornot.data.model.Friend
+
 
 private const val MIN_NUMBER_CHARACTERISTICS = 1
 
 class FriendRepository(val context: Context) {
 
-    private lateinit var friends: List<Friend>
+    private val preferencesUtil: PreferencesUtil = PreferencesUtil.getInstance(context)
 
-    fun generateFriends() {
-        friends = listOf(
+    private fun generateFriends(): List<Friend> {
+        return listOf(
             Friend(
                 name = context.getString(R.string.georgi),
                 image = R.drawable.georgi,
@@ -27,8 +31,24 @@ class FriendRepository(val context: Context) {
                 image = R.drawable.nikola,
                 characteristics = getRandomCharacteristics(),
                 email = context.getString(R.string.nikola_email),
+                isHot = null),
+            Friend(
+                name = context.getString(R.string.petar),
+                image = R.drawable.pesho,
+                characteristics = getRandomCharacteristics(),
+                email = context.getString(R.string.petar_email),
+                isHot = null),
+            Friend(
+                name = context.getString(R.string.stefan),
+                image = R.drawable.stefan,
+                characteristics = getRandomCharacteristics(),
+                email = context.getString(R.string.stefan),
                 isHot = null)
         )
+    }
+
+    fun saveFriends() {
+        preferencesUtil.saveFriends(generateFriends())
     }
 
     private fun getRandomCharacteristics(): List<String> {
@@ -38,8 +58,19 @@ class FriendRepository(val context: Context) {
         return randomCharacteristics.toList().take(randomCountOfCharacteristics)
     }
 
-    fun getFriends(): List<Friend> {
-        generateFriends()
-        return friends
+    fun getAllSavedFriends(): List<Friend> {
+        return generateFriends()
+    }
+
+    companion object {
+
+        private var instance: FriendRepository? = null
+
+        fun getInstance(context: Context): FriendRepository {
+            if (instance == null) {
+                instance = FriendRepository(context)
+            }
+            return instance as FriendRepository
+        }
     }
 }
