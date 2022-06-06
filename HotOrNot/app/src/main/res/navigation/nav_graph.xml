@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/splashScreenFragment"
-        android:name="com.example.hotornot.SplashScreen"
+        android:name="com.example.hotornot.ui.fragment.SplashScreen"
         tools:layout="@layout/fragment_splash_screen">
 
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/mainScreenFragment"
-        android:name="com.example.hotornot.fragments.MainScreenFragment"
+        android:name="com.example.hotornot.ui.fragment.MainScreenFragment"
         tools:layout="@layout/fragment_main_screen">
 
         <action
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/registrationFormFragment"
-        android:name="com.example.hotornot.fragments.RegistrationFormFragment"
+        android:name="com.example.hotornot.ui.fragment.RegistrationFormFragment"
         tools:layout="@layout/fragment_registration_form">
 
         <action
@@ -37,12 +37,12 @@
     </fragment>
     <fragment
         android:id="@+id/profileScreenFragment"
-        android:name="com.example.hotornot.fragments.ProfileScreenFragment"
+        android:name="com.example.hotornot.ui.fragment.ProfileScreenFragment"
         tools:layout="@layout/fragment_profile_screen" />
 
     <fragment
         android:id="@+id/motivationScreen"
-        android:name="com.example.hotornot.fragments.MotivationScreenFragment"
+        android:name="com.example.hotornot.ui.fragment.MotivationScreenFragment"
         tools:layout="@layout/fragment_motivation_screen" >
         <action
             android:id="@+id/action_motivationScreen_to_mainScreenFragment"

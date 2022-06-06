@@ -1,4 +1,4 @@
-package com.example.hotornot
+package com.example.hotornot.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +7,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.example.hotornot.R
 
 private const val ALLOWABLE_TIME_BEFORE_GO_TO_MOTIVATION_SCREEN = 2000L
 

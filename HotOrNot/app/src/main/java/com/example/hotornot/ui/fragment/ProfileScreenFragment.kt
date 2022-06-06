@@ -1,4 +1,4 @@
-package com.example.hotornot.fragments
+package com.example.hotornot.ui.fragment
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
-import com.example.hotornot.PreferencesUtil
+import com.example.hotornot.data.local.PreferencesUtil
 import com.example.hotornot.databinding.FragmentProfileScreenBinding
 
 private const val TYPE_IMAGE_INTENT = "image/*"
@@ -42,7 +42,6 @@ class ProfileScreenFragment : Fragment() {
     }
 
     private fun createUserProfile() {
-        preferencesUtil.getUser()
         val user = preferencesUtil.getUser()
         binding.name.text = user?.firstName + EMPTY_STRING + user?.lastName
         binding.email.text = user?.email

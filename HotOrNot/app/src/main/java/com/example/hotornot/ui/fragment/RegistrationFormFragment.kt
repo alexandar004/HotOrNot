@@ -1,4 +1,4 @@
-package com.example.hotornot.fragments
+package com.example.hotornot.ui.fragment
 
 import android.os.Bundle
 import android.text.Editable
@@ -10,11 +10,11 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
-import com.example.hotornot.PreferencesUtil
 import com.example.hotornot.R
-import com.example.hotornot.User
+import com.example.hotornot.data.local.PreferencesUtil
+import com.example.hotornot.data.model.Gender
+import com.example.hotornot.data.model.User
 import com.example.hotornot.databinding.FragmentRegistrationFormBinding
-import com.example.hotornot.enums.Gender
 
 private const val INVALID_EMAIL_MSG = "Invalid Email Address!"
 

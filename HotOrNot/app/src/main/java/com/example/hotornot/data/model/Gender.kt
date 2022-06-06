@@ -1,4 +1,4 @@
-package com.example.hotornot.enums
+package com.example.hotornot.data.model
 
 enum class Gender {
     MALE, FEMALE, OTHER
