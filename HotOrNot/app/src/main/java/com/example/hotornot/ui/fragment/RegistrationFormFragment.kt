@@ -14,6 +14,7 @@ import com.example.hotornot.R
 import com.example.hotornot.data.local.PreferencesUtil
 import com.example.hotornot.data.model.Gender
 import com.example.hotornot.data.model.User
+import com.example.hotornot.data.repository.UserRepository
 import com.example.hotornot.databinding.FragmentRegistrationFormBinding
 
 private const val INVALID_EMAIL_MSG = "Invalid Email Address!"
@@ -21,7 +22,7 @@ private const val INVALID_EMAIL_MSG = "Invalid Email Address!"
 class RegistrationFormFragment : BaseFragment() {
 
     private lateinit var binding: FragmentRegistrationFormBinding
-    private lateinit var preferencesUtil: PreferencesUtil
+    private lateinit var userRepository: UserRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,7 +34,7 @@ class RegistrationFormFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        preferencesUtil = PreferencesUtil.getInstance(view.context)
+        userRepository = UserRepository.getInstance(view.context)
         setSpinnerInterestsMenu()
         checkForEmailValidation()
         clickBtnRegisterConfirmation()
@@ -51,7 +52,7 @@ class RegistrationFormFragment : BaseFragment() {
             getSelectRadioBtnValue(),
             getSelectedInterests()
         )
-        preferencesUtil.setUser(user)
+        userRepository.setUser(user)
     }
 
     private fun getSelectedInterests(): String = binding.spinnerMenu.selectedItem.toString()

@@ -7,12 +7,11 @@ import android.view.*
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.hotornot.R
-import com.example.hotornot.data.local.PreferencesUtil
 import com.example.hotornot.data.model.Friend
 import com.example.hotornot.data.repository.FriendRepository
+import com.example.hotornot.data.repository.UserRepository
 import com.example.hotornot.databinding.FragmentMainScreenBinding
 import com.google.android.material.chip.Chip
-
 
 private const val TYPE_SEND_EMAIL_INTENT = "text/plain"
 private const val DATA_SEND_EMAIL_INTENT = "mailto"
@@ -22,8 +21,8 @@ private const val NOT_HOT_NAME = "Stan"
 class MainScreenFragment : BaseFragment() {
 
     private lateinit var binding: FragmentMainScreenBinding
-    private lateinit var preferencesUtil: PreferencesUtil
     private lateinit var friendRepository: FriendRepository
+    private lateinit var userRepository: UserRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,8 +37,7 @@ class MainScreenFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        preferencesUtil = PreferencesUtil.getInstance(view.context)
-        friendRepository = FriendRepository(requireContext())
+        initializedData()
         clickButtonsHotOrNotListener()
         sendEmailClickListener()
         selectItemFromToolbar()
@@ -49,6 +47,10 @@ class MainScreenFragment : BaseFragment() {
         inflater.inflate(R.menu.toolbar_menu, menu)
     }
 
+    private fun initializedData(){
+        friendRepository = FriendRepository(requireContext())
+        userRepository = UserRepository(requireContext())
+    }
     private fun selectItemFromToolbar() {
         binding.toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
@@ -57,7 +59,7 @@ class MainScreenFragment : BaseFragment() {
                     true
                 }
                 R.id.logOut -> {
-                    preferencesUtil.clearPreferenceUser()
+                    userRepository.clearPreferenceUser()
                     activity?.finish()
                     true
                 }
@@ -78,7 +80,7 @@ class MainScreenFragment : BaseFragment() {
     }
 
     private fun sendEmail() {
-        val user = preferencesUtil.getUser()
+        val user = userRepository.getUser()
 
         val recipient = user?.email
         val text = getString(R.string.email_text)
