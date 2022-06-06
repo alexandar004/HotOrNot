@@ -28,14 +28,14 @@
     <string name="cant_run_from_yourself">Cant run from yourself!</string>
     <string name="hor_or_not">HotOrNot</string>
     <string name="georgi">Georgi</string>
-    <string name="georgi_email">georgi@gmail.com</string>
+    <string name="georgi_email" translatable="false">georgi@gmail.com</string>
     <string name="nikola">Nikola</string>
     <string name="stefan">Stefan</string>
     <string name="petar">Petar</string>
-    <string name="nikola_email">nikola@gmail.com</string>
-    <string name="stefan_email">stefan@gmail.com</string>
-    <string name="petar_email">petar@gmail.com</string>
-    <string name="stan_email">stan@gmail.com</string>
+    <string name="nikola_email" translatable="false">nikola@gmail.com</string>
+    <string name="stefan_email" translatable="false">stefan@gmail.com</string>
+    <string name="petar_email" translatable="false">petar@gmail.com</string>
+    <string name="stan_email" translatable="false">stan@gmail.com</string>
 
 
     <string-array name="interests">

@@ -111,6 +111,7 @@
             android:background="@drawable/radius"
             android:text="@string/hot"
             android:textSize="@dimen/large_text_size"
+            android:lines="1"
             app:icon="@drawable/ic_baseline_local_fire_department_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@+id/guidelineEnd"

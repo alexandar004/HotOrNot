@@ -42,7 +42,7 @@ class FriendRepository(val context: Context) {
                 name = context.getString(R.string.stefan),
                 image = R.drawable.stefan,
                 characteristics = getRandomCharacteristics(),
-                email = context.getString(R.string.stefan),
+                email = context.getString(R.string.stefan_email),
                 isHot = null)
         )
     }
