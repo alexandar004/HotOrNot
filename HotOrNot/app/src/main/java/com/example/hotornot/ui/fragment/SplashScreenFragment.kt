@@ -33,22 +33,19 @@ class SplashScreen : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         userRepository = UserRepository.getInstance(view.context)
         friendRepository = FriendRepository.getInstance(view.context)
-        checkForExistedFriends()
         goToNextScreenWithDelay()
     }
 
     private fun goToNextScreenWithDelay() =
-        Handler(Looper.getMainLooper()).postDelayed({ checkForSaveUser() }, DELAY_TIME_IN_MILLIS)
+        Handler(Looper.getMainLooper()).postDelayed({
+            friendRepository.generateFriends()
+            checkForSaveUser()
+        }, DELAY_TIME_IN_MILLIS)
 
     private fun checkForSaveUser() {
         val user = userRepository.getUser()
         if (user == null) goToRegistrationScreen()
         else goToMainScreen()
-    }
-
-    private fun checkForExistedFriends() {
-        val friends = friendRepository.getAllSavedFriends()
-        if (friends.isEmpty()) friendRepository.saveFriends()
     }
 
     private fun goToRegistrationScreen() =

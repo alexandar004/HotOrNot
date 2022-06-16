@@ -12,43 +12,48 @@ class FriendRepository(val context: Context) {
 
     private val preferencesUtil: PreferencesUtil = PreferencesUtil.getInstance(context)
 
-    private fun generateFriends(): List<Friend> {
-        return listOf(
+    fun generateFriends() {
+        val listOfFriends = listOf(
             Friend(
                 name = context.getString(R.string.georgi),
                 image = R.drawable.georgi,
                 characteristics = getRandomCharacteristics(),
                 email = context.getString(R.string.georgi_email),
-                isHot = true),
+            ),
             Friend(
                 name = context.getString(R.string.stan),
                 image = R.drawable.stan,
                 characteristics = getRandomCharacteristics(),
                 email = context.getString(R.string.stan_email),
-                isHot = false),
+            ),
             Friend(
                 name = context.getString(R.string.nikola),
                 image = R.drawable.nikola,
                 characteristics = getRandomCharacteristics(),
                 email = context.getString(R.string.nikola_email),
-                isHot = null),
+            ),
             Friend(
                 name = context.getString(R.string.petar),
                 image = R.drawable.pesho,
                 characteristics = getRandomCharacteristics(),
                 email = context.getString(R.string.petar_email),
-                isHot = null),
+            ),
             Friend(
                 name = context.getString(R.string.stefan),
                 image = R.drawable.stefan,
                 characteristics = getRandomCharacteristics(),
                 email = context.getString(R.string.stefan_email),
-                isHot = null)
+            )
         )
+        saveFriends(listOfFriends)
     }
 
-    fun saveFriends() {
-        preferencesUtil.saveFriends(generateFriends())
+    fun getAllSavedFriends(): List<Friend> {
+        return preferencesUtil.getFriends()
+    }
+
+    fun saveFriends(friends: List<Friend>) {
+        preferencesUtil.saveFriends(friends)
     }
 
     private fun getRandomCharacteristics(): List<String> {
@@ -58,17 +63,13 @@ class FriendRepository(val context: Context) {
         return randomCharacteristics.toList().take(randomCountOfCharacteristics)
     }
 
-    fun getAllSavedFriends(): List<Friend> {
-        return generateFriends()
-    }
-
     companion object {
 
         private var instance: FriendRepository? = null
 
         fun getInstance(context: Context): FriendRepository {
             if (instance == null) {
-                instance = FriendRepository(context)
+                instance = FriendRepository(context.applicationContext)
             }
             return instance as FriendRepository
         }

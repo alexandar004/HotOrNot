@@ -52,7 +52,7 @@ dependencies {
     //Json
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:1.0-M1-1.4.0-rc"
     implementation 'com.google.code.gson:gson:2.8.6'
-    //material imageView
+    //material
     implementation 'com.google.android.material:material:1.6.0'
     //gson
     implementation 'com.google.code.gson:gson:2.8.8'

@@ -1,6 +1,7 @@
 package com.example.hotornot.data.model
 
 import kotlinx.serialization.Serializable
+import java.util.*
 
 @Serializable
 data class Friend(
@@ -8,5 +9,7 @@ data class Friend(
     val image: Int,
     val characteristics: List<String>,
     val email: String,
-    val isHot: Boolean?
-)
+) {
+    var isHot: Boolean? = null
+    val id = UUID.randomUUID().toString()
+}

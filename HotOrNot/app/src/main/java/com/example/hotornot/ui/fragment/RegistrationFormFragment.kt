@@ -11,11 +11,11 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.hotornot.R
-import com.example.hotornot.data.local.PreferencesUtil
 import com.example.hotornot.data.model.Gender
 import com.example.hotornot.data.model.User
 import com.example.hotornot.data.repository.UserRepository
 import com.example.hotornot.databinding.FragmentRegistrationFormBinding
+import java.util.*
 
 private const val INVALID_EMAIL_MSG = "Invalid Email Address!"
 
@@ -35,6 +35,7 @@ class RegistrationFormFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         userRepository = UserRepository.getInstance(view.context)
+        changeCountryFlag()
         setSpinnerInterestsMenu()
         checkForEmailValidation()
         clickBtnRegisterConfirmation()
@@ -117,4 +118,12 @@ class RegistrationFormFragment : BaseFragment() {
 
     private fun showMessage(message: String) =
         Toast.makeText(this.context, message, Toast.LENGTH_SHORT).show()
+
+    private fun changeCountryFlag() {
+        val currentLanguage = Locale.getDefault().displayLanguage
+        if (currentLanguage.equals(getString(R.string.bulgarian_language)))
+            binding.countryFlag.setImageResource(R.drawable.bulgarian_flag)
+        else
+            binding.countryFlag.setImageResource(R.drawable.english_flag)
+    }
 }
