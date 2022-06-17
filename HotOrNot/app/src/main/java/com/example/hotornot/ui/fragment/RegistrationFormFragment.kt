@@ -17,8 +17,6 @@ import com.example.hotornot.data.repository.UserRepository
 import com.example.hotornot.databinding.FragmentRegistrationFormBinding
 import java.util.*
 
-private const val INVALID_EMAIL_MSG = "Invalid Email Address!"
-
 class RegistrationFormFragment : BaseFragment() {
 
     private lateinit var binding: FragmentRegistrationFormBinding
@@ -35,7 +33,7 @@ class RegistrationFormFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         userRepository = UserRepository.getInstance(view.context)
-        changeCountryFlag()
+        setCountryFlag()
         setSpinnerInterestsMenu()
         checkForEmailValidation()
         clickBtnRegisterConfirmation()
@@ -72,7 +70,7 @@ class RegistrationFormFragment : BaseFragment() {
     private fun checkForValidEmail(): String? {
         val emailText = binding.editEmail.text.toString()
         if (!Patterns.EMAIL_ADDRESS.matcher(emailText).matches()) {
-            return INVALID_EMAIL_MSG
+            return getString(R.string.invalid_email_address)
         }
         return null
     }
@@ -119,7 +117,7 @@ class RegistrationFormFragment : BaseFragment() {
     private fun showMessage(message: String) =
         Toast.makeText(this.context, message, Toast.LENGTH_SHORT).show()
 
-    private fun changeCountryFlag() {
+    private fun setCountryFlag() {
         val currentLanguage = Locale.getDefault().displayLanguage
         if (currentLanguage.equals(getString(R.string.bulgarian_language)))
             binding.countryFlag.setImageResource(R.drawable.bulgarian_flag)

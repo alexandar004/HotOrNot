@@ -67,9 +67,6 @@ class MainScreenFragment : BaseFragment() {
                     activity?.finish()
                     true
                 }
-                R.id.reset -> {
-                    true
-                }
                 else -> true
             }
         }
@@ -107,11 +104,11 @@ class MainScreenFragment : BaseFragment() {
 
     private fun appropriationHotOrNotValue() {
         binding.btnHot.setOnClickListener {
-            ratedFriend(isHot = true)
+            rateFriend(isHot = true)
         }
 
         binding.btnNot.setOnClickListener {
-            ratedFriend(isHot = false)
+            rateFriend(isHot = false)
         }
     }
 
@@ -148,15 +145,15 @@ class MainScreenFragment : BaseFragment() {
         setFriendCharacteristics(randomFriend.characteristics)
     }
 
-    private fun ratedFriend(isHot: Boolean) {
+    private fun rateFriend(isHot: Boolean) {
         randomFriend.isHot = isHot
-        updateFriend(isHot)
+        updateFriends(isHot)
         initViews()
     }
 
-    private fun updateFriend(isHot: Boolean) {
+    private fun updateFriends(isHot: Boolean) {
         allFriends = friendRepository.getAllSavedFriends()
-        allFriends.find { it.id == randomFriend.id }?.isHot = isHot
+        allFriends.find { it.friendId == randomFriend.friendId }?.isHot = isHot
         friendRepository.saveFriends(allFriends)
     }
 

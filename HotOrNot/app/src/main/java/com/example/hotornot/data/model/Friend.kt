@@ -11,5 +11,5 @@ data class Friend(
     val email: String,
 ) {
     var isHot: Boolean? = null
-    val id = UUID.randomUUID().toString()
+    val friendId = UUID.randomUUID().toString()
 }

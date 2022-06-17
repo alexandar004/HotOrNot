@@ -33,6 +33,7 @@
     <string name="nikola">Nikola</string>
     <string name="stefan">Stefan</string>
     <string name="petar">Petar</string>
+    <string name="invalid_email_address">Invalid Email Address!</string>
     <string name="bulgarian_language" translatable="false">български</string>
     <string name="nikola_email" translatable="false">nikola@gmail.com</string>
     <string name="stefan_email" translatable="false">stefan@gmail.com</string>

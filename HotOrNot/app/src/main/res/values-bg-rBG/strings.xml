@@ -26,4 +26,5 @@
     <string name="stan">Стан</string>
     <string name="nobody_here_but_us_chickens">Няма повече приятели!</string>
     <string name="reset">Нулиране</string>
+    <string name="invalid_email_address">Невалиден имейл адрес!</string>
 </resources>
