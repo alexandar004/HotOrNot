@@ -21,6 +21,7 @@
             app:title="@string/hor_or_not" />
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
             android:layout_width="match_parent"
             android:layout_height="@dimen/no_dimens"
             android:layout_margin="@dimen/small_margin"
@@ -38,7 +39,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_baseline_alternate_email_24"
-                    app:layout_constraintBottom_toTopOf="@+id/chipGroup"
+                    app:layout_constraintBottom_toTopOf="@+id/scrollView"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -69,21 +70,21 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/chipGroup"
+                <HorizontalScrollView
+                    android:id="@+id/scrollView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/small_margin"
                     android:clickable="false"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent">
+                    app:layout_constraintBottom_toBottomOf="parent">
 
-                    <com.google.android.material.chip.Chip
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chipGroup"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/small_margin"
                         android:clickable="false"
-                        android:focusable="true" />
-                </com.google.android.material.chip.ChipGroup>
+                        app:layout_constraintStart_toStartOf="parent" />
+                </HorizontalScrollView>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
@@ -128,5 +129,37 @@
             app:icon="@drawable/ic_baseline_local_fire_department_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/chickenGroup"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            app:constraint_referenced_ids="imgChicken,txtChicken">
+
+        </androidx.constraintlayout.widget.Group>
+
+        <ImageView
+            android:id="@+id/imgChicken"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:scaleType="center"
+            android:src="@drawable/chicken"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+        <TextView
+            android:id="@+id/txtChicken"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/nobody_here_but_us_chickens"
+            android:textColor="@color/yellow"
+            android:textSize="@dimen/large_text_size"
+            android:textStyle="italic"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgChicken" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -18,7 +18,7 @@ class UserRepository(context: Context) {
     }
 
     fun clearPreferenceUser(){
-        preferencesUtil.clearPreferenceUser()
+        preferencesUtil.deleteUserFromSharedPreference()
     }
 
     companion object {

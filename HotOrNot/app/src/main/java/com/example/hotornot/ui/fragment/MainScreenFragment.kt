@@ -23,6 +23,8 @@ class MainScreenFragment : BaseFragment() {
     private lateinit var binding: FragmentMainScreenBinding
     private lateinit var friendRepository: FriendRepository
     private lateinit var userRepository: UserRepository
+    private lateinit var allFriends: List<Friend>
+    private lateinit var randomFriend: Friend
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,8 +40,9 @@ class MainScreenFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initializedData()
-        clickButtonsHotOrNotListener()
-        sendEmailClickListener()
+        initViews()
+        appropriationHotOrNotValue()
+        sendEmailConfirmClick()
         selectItemFromToolbar()
     }
 
@@ -47,10 +50,11 @@ class MainScreenFragment : BaseFragment() {
         inflater.inflate(R.menu.toolbar_menu, menu)
     }
 
-    private fun initializedData(){
+    private fun initializedData() {
         friendRepository = FriendRepository(requireContext())
         userRepository = UserRepository(requireContext())
     }
+
     private fun selectItemFromToolbar() {
         binding.toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
@@ -73,7 +77,7 @@ class MainScreenFragment : BaseFragment() {
         binding.btnHot.visibility = View.VISIBLE
     }
 
-    private fun sendEmailClickListener() {
+    private fun sendEmailConfirmClick() {
         binding.sendEmail.setOnClickListener {
             sendEmail()
         }
@@ -81,7 +85,6 @@ class MainScreenFragment : BaseFragment() {
 
     private fun sendEmail() {
         val user = userRepository.getUser()
-
         val recipient = user?.email
         val text = getString(R.string.email_text)
         val sendMassageWithEmail = Intent(Intent.ACTION_SENDTO)
@@ -99,24 +102,14 @@ class MainScreenFragment : BaseFragment() {
         }
     }
 
-    private fun clickButtonsHotOrNotListener() {
-        setRandomFriend()
+    private fun appropriationHotOrNotValue() {
         binding.btnHot.setOnClickListener {
-            getFriend()
+            rateFriend(isHot = true)
         }
+
         binding.btnNot.setOnClickListener {
-            getFriend()
+            rateFriend(isHot = false)
         }
-    }
-
-    private fun setRandomFriend() {
-        val randomFriend = friendRepository.getAllSavedFriends().random()
-
-        binding.imgFriend.setImageResource(randomFriend.image)
-        binding.friendName.text = randomFriend.name
-        binding.friendEmail.text = randomFriend.email
-        setFriendCharacteristics(randomFriend.characteristics)
-        checkForHotName()
     }
 
     private fun checkForHotName() {
@@ -134,11 +127,6 @@ class MainScreenFragment : BaseFragment() {
         }
     }
 
-    private fun getFriend(): Friend {
-        setRandomFriend()
-        return friendRepository.getAllSavedFriends().random()
-    }
-
     private fun setFriendCharacteristics(characteristics: List<String>) {
         binding.chipGroup.removeAllViews()
         for (characteristic in characteristics) {
@@ -146,5 +134,45 @@ class MainScreenFragment : BaseFragment() {
             chip.text = characteristic
             binding.chipGroup.addView(chip)
         }
+    }
+
+    private fun showRandomFriend() {
+        checkForHotName()
+        randomFriend = friendRepository.getAllSavedFriends().random()
+        binding.imgFriend.setImageResource(randomFriend.image)
+        binding.friendName.text = randomFriend.name
+        binding.friendEmail.text = randomFriend.email
+        setFriendCharacteristics(randomFriend.characteristics)
+    }
+
+    private fun rateFriend(isHot: Boolean) {
+        randomFriend.isHot = isHot
+        updateFriends(isHot)
+        initViews()
+    }
+
+    private fun updateFriends(isHot: Boolean) {
+        allFriends = friendRepository.getAllSavedFriends()
+        allFriends.find { it.friendId == randomFriend.friendId }?.isHot = isHot
+        friendRepository.saveFriends(allFriends)
+    }
+
+    private fun initViews() {
+        setVisibleButtons()
+        allFriends = friendRepository.getAllSavedFriends()
+        val allRandomFriends = allFriends.filter { it.isHot == null }
+        if (allRandomFriends.isNotEmpty()) {
+            showRandomFriend()
+        } else {
+            binding.chickenGroup.visibility = View.VISIBLE
+            showChickens()
+        }
+    }
+
+    private fun showChickens() {
+        binding.chickenGroup.visibility = View.VISIBLE
+        binding.cardView.visibility = View.GONE
+        binding.btnHot.visibility = View.GONE
+        binding.btnNot.visibility = View.GONE
     }
 }

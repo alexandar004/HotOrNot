@@ -15,27 +15,31 @@
     <string name="register">REGISTER</string>
     <string name="other">Other</string>
     <string name="interests">Interests</string>
-    <string name="apache_helicopters">Apache Helicopters</string>
+    <string name="apache_helicopters" translatable="false">Apache Helicopters</string>
     <string name="profile">Profile</string>
     <string name="name">name</string>
     <string name="profile_screen">Profile</string>
     <string name="log_out">Log out</string>
+    <string name="reset">Reset</string>
     <string name="field_is_required">Field is required!</string>
     <string name="email_text">zdr ko pr bepce</string>
     <string name="send_email">send email</string>
-    <string name="who_is_n_hot">Who is\n HOT</string>
+    <string name="who_is_n_hot" translatable="false">Who is\n HOT</string>
     <string name="i_am">I AM</string>
     <string name="cant_run_from_yourself">Cant run from yourself!</string>
-    <string name="hor_or_not">HotOrNot</string>
+    <string name="hor_or_not" translatable="false">HotOrNot</string>
     <string name="georgi">Georgi</string>
-    <string name="georgi_email">georgi@gmail.com</string>
+    <string name="georgi_email" translatable="false">georgi@gmail.com</string>
     <string name="nikola">Nikola</string>
     <string name="stefan">Stefan</string>
     <string name="petar">Petar</string>
-    <string name="nikola_email">nikola@gmail.com</string>
-    <string name="stefan_email">stefan@gmail.com</string>
-    <string name="petar_email">petar@gmail.com</string>
-    <string name="stan_email">stan@gmail.com</string>
+    <string name="invalid_email_address">Invalid Email Address!</string>
+    <string name="bulgarian_language" translatable="false">български</string>
+    <string name="nikola_email" translatable="false">nikola@gmail.com</string>
+    <string name="stefan_email" translatable="false">stefan@gmail.com</string>
+    <string name="petar_email" translatable="false">petar@gmail.com</string>
+    <string name="stan_email" translatable="false">stan@gmail.com</string>
+    <string name="nobody_here_but_us_chickens">Nobody here but us chickens!</string>
 
 
     <string-array name="interests">
