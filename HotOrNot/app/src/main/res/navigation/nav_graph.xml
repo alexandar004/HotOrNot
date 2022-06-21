@@ -38,7 +38,11 @@
     <fragment
         android:id="@+id/profileScreenFragment"
         android:name="com.example.hotornot.ui.fragment.ProfileScreenFragment"
-        tools:layout="@layout/fragment_profile_screen" />
+        tools:layout="@layout/fragment_profile_screen" >
+        <action
+            android:id="@+id/action_profileScreenFragment_to_locationScreen"
+            app:destination="@id/locationScreen" />
+    </fragment>
 
     <fragment
         android:id="@+id/motivationScreen"
@@ -47,5 +51,10 @@
         <action
             android:id="@+id/action_motivationScreen_to_mainScreenFragment"
             app:destination="@id/mainScreenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/locationScreen"
+        android:name="com.example.hotornot.ui.fragment.LocationScreen"
+        tools:layout="@layout/fragment_location_screen">
     </fragment>
 </navigation>

@@ -9,6 +9,7 @@
 
     //fonts
     <dimen name="large_text_size">24sp</dimen>
+    <dimen name="medium_text_size">18sp</dimen>
     //roundedCorner
     <dimen name="small_corner_radius">12dp</dimen>
     <dimen name="medium_radius">20dp</dimen>

@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">HotOrNot</string>
-    <string name="logoText">ヾ(´∀｀○)ﾉ</string>
-    <string name="hot">Hot</string>
-    <string name="not">Not</string>
+    <string name="logoText" translatable="false">ヾ(´∀｀○)ﾉ</string>
+    <string name="hot" translatable="false">Hot</string>
+    <string name="not" translatable="false">Not</string>
     <string name="stan">Stan</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="create_account">Create Account</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
@@ -40,6 +40,10 @@
     <string name="petar_email" translatable="false">petar@gmail.com</string>
     <string name="stan_email" translatable="false">stan@gmail.com</string>
     <string name="nobody_here_but_us_chickens">Nobody here but us chickens!</string>
+    <string name="change_location">CHANGE LOCATION</string>
+    <string name="fresh_suggestions">Change your location so that you can be supplied with fresh suggestions !</string>
+    <string name="lets_go">Let\'s GO !</string>
+    <string name="change">change</string>
 
 
     <string-array name="interests">

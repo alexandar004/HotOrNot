@@ -137,12 +137,12 @@ class MainScreenFragment : BaseFragment() {
     }
 
     private fun showRandomFriend() {
-        checkForHotName()
         randomFriend = friendRepository.getAllSavedFriends().random()
         binding.imgFriend.setImageResource(randomFriend.image)
         binding.friendName.text = randomFriend.name
         binding.friendEmail.text = randomFriend.email
         setFriendCharacteristics(randomFriend.characteristics)
+        checkForHotName()
     }
 
     private fun rateFriend(isHot: Boolean) {
@@ -158,7 +158,7 @@ class MainScreenFragment : BaseFragment() {
     }
 
     private fun initViews() {
-        setVisibleButtons()
+//        setVisibleButtons()
         allFriends = friendRepository.getAllSavedFriends()
         val allRandomFriends = allFriends.filter { it.isHot == null }
         if (allRandomFriends.isNotEmpty()) {
