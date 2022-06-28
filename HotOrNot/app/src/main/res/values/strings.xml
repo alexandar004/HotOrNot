@@ -7,6 +7,11 @@
 
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="create_account">Create Account</string>
+    <string name="permission_denied" translatable="false">PERMISSION_DENIED</string>
+    <string name="ok" translatable="false">OK</string>
+    <string name="close" translatable="false">Close</string>
+    <string name="permission_enabled" translatable="false">PERMISSION_ENABLED</string>
+    <string name="key" translatable="false">package:</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
     <string name="email">Email</string>
@@ -44,6 +49,7 @@
     <string name="fresh_suggestions">Change your location so that you can be supplied with fresh suggestions !</string>
     <string name="lets_go">Let\'s GO !</string>
     <string name="change">change</string>
+    <string name="settings">settings</string>
 
 
     <string-array name="interests">
