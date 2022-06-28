@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/second_background"
     tools:context="ui.MainActivity">
 
     <androidx.cardview.widget.CardView
@@ -12,7 +13,7 @@
         android:layout_height="match_parent"
         android:layout_margin="@dimen/medium_margin"
         android:background="@color/white"
-        app:cardCornerRadius="@dimen/XL"
+        app:cardCornerRadius="@dimen/xl_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

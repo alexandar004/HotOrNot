@@ -158,7 +158,6 @@ class MainScreenFragment : BaseFragment() {
     }
 
     private fun initViews() {
-//        setVisibleButtons()
         allFriends = friendRepository.getAllSavedFriends()
         val allRandomFriends = allFriends.filter { it.isHot == null }
         if (allRandomFriends.isNotEmpty()) {

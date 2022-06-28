@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/medium_margin"
         android:gravity="center"
-        android:textSize="@dimen/XL"
+        android:textSize="@dimen/xl_margin"
         android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/btnIm" />
 

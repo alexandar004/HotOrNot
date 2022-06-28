@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/second_background"
     tools:context=".ui.fragment.LocationScreen">
 
     <TextView
@@ -12,7 +13,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/change_location"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
+        android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -20,8 +22,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/medium_margin"
+        android:layout_marginTop="@dimen/large_margin"
         android:text="@string/fresh_suggestions"
+        android:textColor="@color/white"
         android:textSize="@dimen/medium_text_size"
+        android:textStyle="italic"
         app:layout_constraintTop_toBottomOf="@+id/changeLocationTitle" />
 
     <TextView
@@ -30,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/medium_margin"
         android:text="@string/lets_go"
-        android:textColor="@color/black"
+        android:textColor="@color/yellow"
         android:textSize="@dimen/large_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,14 +44,16 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnChange"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/medium_margin"
         android:text="@string/change"
+        android:textColor="@color/white"
         android:textStyle="italic"
+        app:cornerRadius="@dimen/small_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/motivationText" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/locationAnimation"
@@ -63,8 +70,9 @@
         android:id="@+id/sadFaceGroup"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/yellow"
         android:visibility="gone"
-        app:constraint_referenced_ids="btnSettings, imgSadFace"
+        app:constraint_referenced_ids="btnSettings, imgSadFace, txtDeniedPermission"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -82,9 +90,9 @@
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/lottieAnimationGroup"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
         app:constraint_referenced_ids="locationAnimation"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -97,8 +105,9 @@
         android:layout_margin="@dimen/medium_margin"
         android:gravity="center"
         android:text="@string/settings"
+        android:textColor="@color/black"
         app:cornerRadius="@dimen/min_radius"
-        app:layout_constraintTop_toBottomOf="@+id/imgSadFace" />
+        app:layout_constraintTop_toBottomOf="@+id/txtDeniedPermission" />
 
     <ImageView
         android:id="@+id/imgSadFace"
@@ -106,7 +115,18 @@
         android:layout_height="wrap_content"
         android:foregroundGravity="center"
         android:src="@drawable/ic_sad_face"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/txtDeniedPermission"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/txtDeniedPermission"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/permission_permanently_denied"
+        android:textColor="@color/black"
+        android:textSize="@dimen/large_text_size"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

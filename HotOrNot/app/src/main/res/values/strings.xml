@@ -46,10 +46,11 @@
     <string name="stan_email" translatable="false">stan@gmail.com</string>
     <string name="nobody_here_but_us_chickens">Nobody here but us chickens!</string>
     <string name="change_location">CHANGE LOCATION</string>
-    <string name="fresh_suggestions">Change your location so that you can be supplied with fresh suggestions !</string>
+    <string name="fresh_suggestions">Change your location so that you can be \n supplied with fresh suggestions !</string>
     <string name="lets_go">Let\'s GO !</string>
     <string name="change">change</string>
     <string name="settings">settings</string>
+    <string name="permission_permanently_denied">Permission Permanently Denied!</string>
 
 
     <string-array name="interests">

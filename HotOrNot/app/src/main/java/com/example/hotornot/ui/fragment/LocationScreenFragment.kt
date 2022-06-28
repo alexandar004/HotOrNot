@@ -48,7 +48,7 @@ class LocationScreen : Fragment() {
 
     private fun spanText() {
         val spannableString = SpannableString(getString(R.string.lets_go))
-        val color = ForegroundColorSpan(Color.RED)
+        val color = ForegroundColorSpan(Color.BLUE)
         spannableString.setSpan(color,
             START_PAINTED_INDEX,
             END_PAINTED_INDEX,
@@ -68,7 +68,7 @@ class LocationScreen : Fragment() {
             isActiveLocation(requireContext())
         } else {
             Log.d("AAA", "PERMISSION_ENABLED")
-            isActiveLocation(this.requireContext())
+            repeatAlertDialog()
         }
     }
 
@@ -113,10 +113,10 @@ class LocationScreen : Fragment() {
         builder.apply {
             setMessage("Location permission is needed to track your location current location !")
             setTitle("Permission required")
-            setPositiveButton(getText(R.string.ok)) { dialog, permission ->
+            setPositiveButton(getText(R.string.ok)) { _, _ ->
                 checkPermissionForLocation(requireContext())
             }
-            setNegativeButton(getString(R.string.close)) { dialog, which ->
+            setNegativeButton(getString(R.string.close)) { _, _ ->
                 showSadFace()
             }.show()
         }
