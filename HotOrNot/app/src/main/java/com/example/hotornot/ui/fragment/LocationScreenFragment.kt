@@ -56,24 +56,6 @@ class LocationScreen : Fragment() {
         binding.motivationText.text = spannableString
     }
 
-//    private fun checkForPermission() {
-//        if ((ContextCompat.checkSelfPermission(
-//                requireContext(),
-//                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED)
-//        ) {
-//            registerForActivityResult(ActivityResultContracts.RequestPermission()
-//            ) { isGranted: Boolean ->
-//                Log.d("AAA", "is granted $isGranted")
-//                if (isGranted) {
-//                    Log.d("AAA", "is granted $isGranted")
-//                } else {
-//                    Log.d("AAA", "is enabled $isGranted")
-//                    isActiveLocation(this.requireContext())
-//                }
-//            }
-//        }
-//    }
-
     private fun checkPermissionForLocation(context: Context) {
         if ((ContextCompat.checkSelfPermission(
                 context,
@@ -103,8 +85,6 @@ class LocationScreen : Fragment() {
     private fun clickBtnChangeConfirmation() {
         binding.btnChange.setOnClickListener {
             checkPermissionForLocation(this.requireContext())
-//            checkForPermission()
-//            openSettings()
         }
     }
 
@@ -178,20 +158,4 @@ class LocationScreen : Fragment() {
             openSettings()
         }
     }
-
-//    private fun showDialog(permission: String) {
-//        val builder = AlertDialog.Builder(this.context)
-//
-//        builder.apply {
-//            setMessage("Permission to access your location is required to use this app")
-//            setTitle("Permission required")
-//            setPositiveButton("OK") { dialog, which ->
-//                ActivityCompat.requestPermissions(this@LocationScreen.requireActivity(),
-//                    arrayOf(permission),
-//                    1)
-//            }
-//        }
-//        val dialog = builder.create()
-//        dialog.show()
-//    }
 }
