@@ -8,7 +8,9 @@
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="create_account">Create Account</string>
     <string name="permission_denied" translatable="false">PERMISSION_DENIED</string>
+    <string name="successfully_changed_location" translatable="false">Location successfully changed! X(the number of new suggestions) new suggestions found ! Get get them TIGER !" </string>
     <string name="ok" translatable="false">OK</string>
+    <string name="done" translatable="false">DONE</string>
     <string name="close" translatable="false">Close</string>
     <string name="permission_enabled" translatable="false">PERMISSION_ENABLED</string>
     <string name="key" translatable="false">package:</string>
@@ -47,7 +49,7 @@
     <string name="nobody_here_but_us_chickens">Nobody here but us chickens!</string>
     <string name="change_location">CHANGE LOCATION</string>
     <string name="fresh_suggestions">Change your location so that you can be \n supplied with fresh suggestions !</string>
-    <string name="lets_go">Let\'s GO !</string>
+    <string name="lets_go" translatable="false">Let\'s GO !</string>
     <string name="change">change</string>
     <string name="settings">settings</string>
     <string name="permission_permanently_denied">Permission Permanently Denied!</string>

@@ -140,7 +140,9 @@ class LocationScreen : Fragment() {
     }
 
     private fun showHappyFace() {
-
+        binding.imgMoodOnFace.setImageResource(R.drawable.ic_happy_face)
+        binding.txtPermission.text = getString(R.string.successfully_changed_location)
+        binding.btnSettings.text = getString(R.string.done)
     }
 
     private fun showSadFace() {

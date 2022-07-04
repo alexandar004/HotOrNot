@@ -30,4 +30,6 @@
     <string name="change_location">"Смени местоположение "</string>
     <string name="fresh_suggestions">Променете местоположението си, за да можете да бъдете снабдени с нови предложения!</string>
     <string name="change">промени</string>
+    <string name="settings">настройки</string>
+    <string name="permission_permanently_denied">Разрешението е окончателно отказано!</string>
 </resources>

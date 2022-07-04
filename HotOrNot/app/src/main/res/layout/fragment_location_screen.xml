@@ -72,7 +72,7 @@
         android:layout_height="match_parent"
         android:background="@color/yellow"
         android:visibility="gone"
-        app:constraint_referenced_ids="btnSettings, imgSadFace, txtDeniedPermission"
+        app:constraint_referenced_ids="btnSettings, imgMoodOnFace, txtPermission"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -107,19 +107,19 @@
         android:text="@string/settings"
         android:textColor="@color/black"
         app:cornerRadius="@dimen/min_radius"
-        app:layout_constraintTop_toBottomOf="@+id/txtDeniedPermission" />
+        app:layout_constraintTop_toBottomOf="@+id/txtPermission" />
 
     <ImageView
-        android:id="@+id/imgSadFace"
+        android:id="@+id/imgMoodOnFace"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foregroundGravity="center"
         android:src="@drawable/ic_sad_face"
-        app:layout_constraintBottom_toTopOf="@+id/txtDeniedPermission"
+        app:layout_constraintBottom_toTopOf="@+id/txtPermission"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/txtDeniedPermission"
+        android:id="@+id/txtPermission"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
