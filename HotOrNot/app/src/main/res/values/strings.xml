@@ -8,6 +8,8 @@
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="create_account">Create Account</string>
     <string name="permission_denied" translatable="false">PERMISSION_DENIED</string>
+    <string name="required_permission" translatable="false">Permission required</string>
+    <string name="location_permission" translatable="false">"Location permission is needed to track your location current location !"</string>
     <string name="successfully_changed_location" translatable="false">Location successfully changed! X(the number of new suggestions) new suggestions found ! Get get them TIGER !" </string>
     <string name="ok" translatable="false">OK</string>
     <string name="done" translatable="false">DONE</string>
