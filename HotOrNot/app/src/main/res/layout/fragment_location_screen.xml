@@ -30,7 +30,7 @@
         app:layout_constraintTop_toBottomOf="@+id/changeLocationTitle" />
 
     <TextView
-        android:id="@+id/motivationText"
+        android:id="@+id/txtMotivation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/medium_margin"
@@ -56,15 +56,14 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/locationAnimation"
+        android:id="@+id/navigationLottie"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:foregroundGravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:lottie_autoPlay="false"
-        app:lottie_loop="false"
-        app:lottie_rawRes="@raw/lottie_location" />
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/splash_logo_lottie" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/sadFaceGroup"
@@ -84,7 +83,7 @@
         android:id="@+id/motivationGroup"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:constraint_referenced_ids="btnChange, motivationText, description, changeLocationTitle"
+        app:constraint_referenced_ids="btnChange, txtMotivation, description, changeLocationTitle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -93,7 +92,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
-        app:constraint_referenced_ids="locationAnimation"
+        app:constraint_referenced_ids="navigationLottie"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -129,4 +128,12 @@
         android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnTest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/medium_margin"
+        android:text="test"
+        app:layout_constraintBottom_toTopOf="@+id/btnChange"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

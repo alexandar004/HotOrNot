@@ -56,6 +56,10 @@ class FriendRepository(val context: Context) {
         preferencesUtil.saveFriends(friends)
     }
 
+    fun deleteRatedFriends(){
+        preferencesUtil.resetRatedFriends()
+    }
+
     private fun getRandomCharacteristics(): List<String> {
         val randomCharacteristics = context.resources.getStringArray(R.array.characteristics_array)
         val randomCountOfCharacteristics: Int =

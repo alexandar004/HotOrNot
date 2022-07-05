@@ -27,6 +27,7 @@
     <string name="apache_helicopters" translatable="false">Apache Helicopters</string>
     <string name="profile">Profile</string>
     <string name="name">name</string>
+    <string name="gps_network_not_enabled" translatable="false">GPS network not enabled</string>
     <string name="profile_screen">Profile</string>
     <string name="log_out">Log out</string>
     <string name="reset">Reset</string>

@@ -34,7 +34,6 @@ import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import java.util.*
-import kotlin.collections.ArrayList
 
 private const val START_PAINTED_INDEX = 6
 private const val END_PAINTED_INDEX = 8
@@ -43,51 +42,12 @@ class LocationScreen : Fragment() {
 
     private lateinit var binding: FragmentLocationScreenBinding
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
-    private val locationRequestId = 100
 
     private var locationCallback = object : LocationCallback() {
         override fun onLocationResult(p0: LocationResult) {
-            var location: Location = p0.lastLocation
-
+            val location: Location = p0.lastLocation
             updateAddressUI(location)
         }
-
-        private fun updateAddressUI(location: Location) {
-            var addressList = ArrayList<Address>()
-            val geocoder = Geocoder(requireContext(), Locale.getDefault())
-
-            addressList = geocoder.getFromLocation(location.latitude,
-                location.longitude,
-                1) as ArrayList<Address>
-        }
-    }
-
-    private fun getLocation() {
-        if (newCheckForLocationPermission()) {
-            updateLocation()
-        }
-    }
-
-    private fun updateLocation() {
-        val locationRequest = LocationRequest()
-        locationRequest.apply {
-            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-            interval = 10000
-            fastestInterval = 5000
-        }
-
-        fusedLocationProviderClient = FusedLocationProviderClient(this.requireContext())
-        if (ActivityCompat.checkSelfPermission(requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-            ActivityCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
-        ) {
-            return
-        }
-        fusedLocationProviderClient.requestLocationUpdates(locationRequest,
-            locationCallback,
-            Looper.myLooper())
     }
 
     override fun onCreateView(
@@ -104,6 +64,46 @@ class LocationScreen : Fragment() {
         clickBtnChangeConfirmation()
     }
 
+    private fun updateAddressUI(location: Location) {
+        val geocoder = Geocoder(requireContext(), Locale.getDefault())
+        val addressList = geocoder.getFromLocation(location.latitude,
+            location.longitude,
+            1) as ArrayList<Address>
+        binding.txtMotivation.text = addressList[0].getAddressLine(0)
+    }
+
+    private fun getLocation() {
+        if (newCheckForLocationPermission())
+            updateLocation()
+        else
+            askLocationPermission()
+    }
+
+    private fun askLocationPermission() {
+        ActivityCompat.requestPermissions(
+            requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 101)
+    }
+
+    private fun updateLocation() {
+        val locationRequest = LocationRequest()
+        locationRequest.apply {
+            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+            interval = 10000
+            fastestInterval = 5000
+        }
+        fusedLocationProviderClient = FusedLocationProviderClient(this.requireContext())
+        if (ActivityCompat.checkSelfPermission(requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
+        ) {
+            return
+        }
+        fusedLocationProviderClient.requestLocationUpdates(locationRequest,
+            locationCallback,
+            Looper.myLooper())
+    }
+
     private fun spanText() {
         val spannableString = SpannableString(getString(R.string.lets_go))
         val color = ForegroundColorSpan(Color.BLUE)
@@ -111,14 +111,14 @@ class LocationScreen : Fragment() {
             START_PAINTED_INDEX,
             END_PAINTED_INDEX,
             Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
-        binding.motivationText.text = spannableString
+        binding.txtMotivation.text = spannableString
     }
 
     private fun checkPermissionForLocation(context: Context): Boolean {
         return if ((ContextCompat.checkSelfPermission(
                 context,
                 Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_DENIED)
+            ) == PackageManager.PERMISSION_GRANTED)
         ) {
             val permission = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
             requestPermissions(permission, 1)
@@ -181,16 +181,8 @@ class LocationScreen : Fragment() {
     }
 
     private fun newCheckForLocationPermission(): Boolean {
-
-        if (ActivityCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        )
-            return true
-
-        return false
-
+        return ActivityCompat.checkSelfPermission(requireContext(),
+            Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
