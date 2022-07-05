@@ -75,14 +75,14 @@ class LocationScreen : Fragment() {
     private fun getLocation() {
         if (newCheckForLocationPermission())
             updateLocation()
-        else
-            askLocationPermission()
+//        else
+//            askLocationPermission()
     }
 
-    private fun askLocationPermission() {
-        ActivityCompat.requestPermissions(
-            requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 101)
-    }
+//    private fun askLocationPermission() {
+//        ActivityCompat.requestPermissions(
+//            requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 101)
+//    }
 
     private fun updateLocation() {
         val locationRequest = LocationRequest()
@@ -114,19 +114,18 @@ class LocationScreen : Fragment() {
         binding.txtMotivation.text = spannableString
     }
 
-    private fun checkPermissionForLocation(context: Context): Boolean {
-        return if ((ContextCompat.checkSelfPermission(
+    private fun checkPermissionForLocation(context: Context) {
+        if ((ContextCompat.checkSelfPermission(
                 context,
                 Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED)
+            ) == PackageManager.PERMISSION_DENIED)
         ) {
             val permission = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
             requestPermissions(permission, 1)
-            isActiveLocation(requireContext())
-            true
+            Log.d(TAG, "PERMISSION_DENIED")
         } else {
-            repeatAlertDialog()
-            false
+            Log.d(TAG, "PERMISSION_ENABLED")
+            isActiveLocation(requireContext())
         }
     }
 
@@ -157,27 +156,27 @@ class LocationScreen : Fragment() {
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED)
         ) {
-            Log.d(TAG, "onRequestPermissionsResult checkLocationEnabled")
             isActiveLocation(requireContext())
         } else {
-            Log.d(TAG, "onRequestPermissionsResult askNicely")
             repeatAlertDialog()
         }
     }
 
     private fun repeatAlertDialog() {
-        val builder = AlertDialog.Builder(requireContext())
-
-        builder.apply {
-            setMessage(getString(R.string.location_permission))
-            setTitle(getString(R.string.required_permission))
-            setPositiveButton(getText(R.string.ok)) { _, _ ->
-                checkPermissionForLocation(requireContext())
+        AlertDialog.Builder(context)
+            .setMessage(R.string.location_permission)
+            .setPositiveButton(
+                R.string.ok
+            ) { _, _ ->
+//                checkPermissionForLocation(requireContext())
+                newCheckForLocationPermission()
             }
-            setNegativeButton(getString(R.string.close)) { _, _ ->
+            .setNegativeButton(
+                R.string.close
+            ) { _, _ ->
                 showSadFace()
-            }.show()
-        }
+            }
+            .show()
     }
 
     private fun newCheckForLocationPermission(): Boolean {
