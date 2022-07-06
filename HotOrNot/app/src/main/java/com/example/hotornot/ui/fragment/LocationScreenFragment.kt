@@ -1,5 +1,6 @@
 package com.example.hotornot.ui.fragment
 
+
 import android.Manifest
 import android.app.AlertDialog
 import android.content.ContentValues.TAG
@@ -12,9 +13,11 @@ import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
 import android.net.Uri
+import android.opengl.Visibility
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
+import android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
@@ -125,10 +128,41 @@ class LocationScreen : Fragment() {
             Log.d(TAG, "PERMISSION_DENIED")
         } else {
             Log.d(TAG, "PERMISSION_ENABLED")
-            isActiveLocation(requireContext())
+//            isActiveLocation(requireContext())
+            checkLocationEnabled()
         }
     }
 
+    private fun checkLocationEnabled() {
+        val gpsEnabled = isActiveLocation(requireContext())
+        if (!gpsEnabled) {
+            AlertDialog.Builder(context)
+                .setMessage(R.string.gps_network_not_enabled)
+                .setPositiveButton(
+                    R.string.change_location
+                ) { _, _ ->
+                    showLottie()
+                    startActivityForResult(
+                        Intent(ACTION_LOCATION_SOURCE_SETTINGS),
+                        1
+                    )
+                }
+                .setNegativeButton(
+                    R.string.cancel
+                ) { _, _ ->
+                    showSadFace()
+                }
+                .show()
+        } else {
+            showHappyFace()
+        }
+    }
+
+
+    private fun showLottie(){
+        binding.motivationGroup.visibility = View.INVISIBLE
+        binding.lottieAnimationGroup.visibility = View.VISIBLE
+    }
     private fun isActiveLocation(context: Context): Boolean {
         val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         return LocationManagerCompat.isLocationEnabled(locationManager)
@@ -156,7 +190,8 @@ class LocationScreen : Fragment() {
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED)
         ) {
-            isActiveLocation(requireContext())
+            checkLocationEnabled()
+//            isActiveLocation(requireContext())
         } else {
             repeatAlertDialog()
         }

@@ -56,5 +56,8 @@
         android:id="@+id/locationScreen"
         android:name="com.example.hotornot.ui.fragment.LocationScreen"
         tools:layout="@layout/fragment_location_screen">
+        <action
+            android:id="@+id/action_locationScreen_to_profileScreenFragment"
+            app:destination="@id/profileScreenFragment" />
     </fragment>
 </navigation>

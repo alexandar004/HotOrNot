@@ -63,7 +63,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        app:lottie_rawRes="@raw/splash_logo_lottie" />
+        app:lottie_rawRes="@raw/navigation_icon" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/sadFaceGroup"
@@ -91,7 +91,7 @@
         android:id="@+id/lottieAnimationGroup"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
+        android:visibility="invisible"
         app:constraint_referenced_ids="navigationLottie"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -129,11 +129,4 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btnTest"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/medium_margin"
-        android:text="test"
-        app:layout_constraintBottom_toTopOf="@+id/btnChange"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
