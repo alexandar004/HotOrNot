@@ -59,10 +59,11 @@
         android:id="@+id/navigationLottie"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
-        app:lottie_loop="true"
+        app:lottie_loop="false"
         app:lottie_rawRes="@raw/navigation_icon" />
 
     <androidx.constraintlayout.widget.Group
@@ -83,16 +84,7 @@
         android:id="@+id/motivationGroup"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:constraint_referenced_ids="btnChange, txtMotivation, description, changeLocationTitle"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/lottieAnimationGroup"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="invisible"
-        app:constraint_referenced_ids="navigationLottie"
+        app:constraint_referenced_ids="changeLocationTitle, changeLocationTitle, txtMotivation, description"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -106,15 +98,15 @@
         android:text="@string/settings"
         android:textColor="@color/black"
         app:cornerRadius="@dimen/min_radius"
-        app:layout_constraintTop_toBottomOf="@+id/txtPermission" />
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <ImageView
         android:id="@+id/imgMoodOnFace"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/medium_margin"
         android:foregroundGravity="center"
-        android:src="@drawable/ic_sad_face"
-        app:layout_constraintBottom_toTopOf="@+id/txtPermission"
+        app:layout_constraintBottom_toTopOf="@+id/btnSettings"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -126,7 +118,12 @@
         android:textColor="@color/black"
         android:textSize="@dimen/large_text_size"
         android:textStyle="italic"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/txtHappyFace"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/txtMotivation" />
 </androidx.constraintlayout.widget.ConstraintLayout>

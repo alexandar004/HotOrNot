@@ -1,9 +1,7 @@
 package com.example.hotornot.ui.fragment
 
-
 import android.Manifest
 import android.app.AlertDialog
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -13,7 +11,6 @@ import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
 import android.net.Uri
-import android.opengl.Visibility
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
@@ -21,7 +18,6 @@ import android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,8 +25,10 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.location.LocationManagerCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.hotornot.BuildConfig
 import com.example.hotornot.R
+import com.example.hotornot.data.repository.FriendRepository
 import com.example.hotornot.databinding.FragmentLocationScreenBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
@@ -40,11 +38,15 @@ import java.util.*
 
 private const val START_PAINTED_INDEX = 6
 private const val END_PAINTED_INDEX = 8
+private const val LOCATION_INTERVAL = 10000L
+private const val LOCATION_FASTEST_INTERVAL = 5000L
+private const val REQUEST_CODE = 1
 
 class LocationScreen : Fragment() {
 
     private lateinit var binding: FragmentLocationScreenBinding
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+    private lateinit var friendRepository: FriendRepository
 
     private var locationCallback = object : LocationCallback() {
         override fun onLocationResult(p0: LocationResult) {
@@ -63,11 +65,13 @@ class LocationScreen : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        friendRepository = FriendRepository.getInstance(view.context)
         spanText()
         clickBtnChangeConfirmation()
     }
 
     private fun updateAddressUI(location: Location) {
+        clearRatedFriends()
         val geocoder = Geocoder(requireContext(), Locale.getDefault())
         val addressList = geocoder.getFromLocation(location.latitude,
             location.longitude,
@@ -78,21 +82,14 @@ class LocationScreen : Fragment() {
     private fun getLocation() {
         if (newCheckForLocationPermission())
             updateLocation()
-//        else
-//            askLocationPermission()
     }
-
-//    private fun askLocationPermission() {
-//        ActivityCompat.requestPermissions(
-//            requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 101)
-//    }
 
     private fun updateLocation() {
         val locationRequest = LocationRequest()
         locationRequest.apply {
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-            interval = 10000
-            fastestInterval = 5000
+            interval = LOCATION_INTERVAL
+            fastestInterval = LOCATION_FASTEST_INTERVAL
         }
         fusedLocationProviderClient = FusedLocationProviderClient(this.requireContext())
         if (ActivityCompat.checkSelfPermission(requireContext(),
@@ -100,6 +97,7 @@ class LocationScreen : Fragment() {
             ActivityCompat.checkSelfPermission(requireContext(),
                 Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
         ) {
+            convertSadFaceToHappyFace()
             return
         }
         fusedLocationProviderClient.requestLocationUpdates(locationRequest,
@@ -124,11 +122,8 @@ class LocationScreen : Fragment() {
             ) == PackageManager.PERMISSION_DENIED)
         ) {
             val permission = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
-            requestPermissions(permission, 1)
-            Log.d(TAG, "PERMISSION_DENIED")
+            requestPermissions(permission, REQUEST_CODE)
         } else {
-            Log.d(TAG, "PERMISSION_ENABLED")
-//            isActiveLocation(requireContext())
             checkLocationEnabled()
         }
     }
@@ -142,10 +137,7 @@ class LocationScreen : Fragment() {
                     R.string.change_location
                 ) { _, _ ->
                     showLottie()
-                    startActivityForResult(
-                        Intent(ACTION_LOCATION_SOURCE_SETTINGS),
-                        1
-                    )
+                    startActivityForResult(Intent(ACTION_LOCATION_SOURCE_SETTINGS), 1)
                 }
                 .setNegativeButton(
                     R.string.cancel
@@ -154,15 +146,15 @@ class LocationScreen : Fragment() {
                 }
                 .show()
         } else {
-            showHappyFace()
+            convertSadFaceToHappyFace()
         }
     }
 
-
-    private fun showLottie(){
-        binding.motivationGroup.visibility = View.INVISIBLE
-        binding.lottieAnimationGroup.visibility = View.VISIBLE
+    private fun showLottie() {
+        binding.motivationGroup.visibility = View.GONE
+        binding.navigationLottie.visibility = View.VISIBLE
     }
+
     private fun isActiveLocation(context: Context): Boolean {
         val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         return LocationManagerCompat.isLocationEnabled(locationManager)
@@ -191,7 +183,6 @@ class LocationScreen : Fragment() {
             ) == PackageManager.PERMISSION_GRANTED)
         ) {
             checkLocationEnabled()
-//            isActiveLocation(requireContext())
         } else {
             repeatAlertDialog()
         }
@@ -203,7 +194,6 @@ class LocationScreen : Fragment() {
             .setPositiveButton(
                 R.string.ok
             ) { _, _ ->
-//                checkPermissionForLocation(requireContext())
                 newCheckForLocationPermission()
             }
             .setNegativeButton(
@@ -220,29 +210,35 @@ class LocationScreen : Fragment() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == 1) {
+        if (requestCode == REQUEST_CODE) {
             if (isActiveLocation(requireContext())) {
-                showHappyFace()
+                convertSadFaceToHappyFace()
             } else {
                 showSadFace()
             }
         }
     }
 
-    private fun showHappyFace() {
+    private fun convertSadFaceToHappyFace() {
+        val numberOfSuggestion = friendRepository.getAllSavedFriends().size
+        binding.sadFaceGroup.visibility = View.VISIBLE
         binding.imgMoodOnFace.setImageResource(R.drawable.ic_happy_face)
-        binding.txtPermission.text = getString(R.string.successfully_changed_location)
         binding.btnSettings.text = getString(R.string.done)
+        binding.txtPermission.text =
+            getString(R.string.location_successfully_changed) + " " + numberOfSuggestion
+        binding.btnSettings.setOnClickListener {
+            findNavController().navigate(R.id.action_locationScreen_to_profileScreenFragment)
+        }
     }
 
     private fun showSadFace() {
-        hideMotivationGroup()
+        binding.imgMoodOnFace.setImageResource(R.drawable.ic_sad_face)
         binding.sadFaceGroup.visibility = View.VISIBLE
         clickBtnSettingsConfirmation()
     }
 
-    private fun hideMotivationGroup() {
-        binding.motivationGroup.visibility = View.INVISIBLE
+    private fun clearRatedFriends() {
+        friendRepository.deleteRatedFriends()
     }
 
     private fun clickBtnSettingsConfirmation() {
