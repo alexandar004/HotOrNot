@@ -24,7 +24,6 @@ import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.location.LocationManagerCompat
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.hotornot.BuildConfig
 import com.example.hotornot.R
@@ -42,7 +41,7 @@ private const val LOCATION_INTERVAL = 10000L
 private const val LOCATION_FASTEST_INTERVAL = 5000L
 private const val REQUEST_CODE = 1
 
-class LocationScreen : Fragment() {
+class LocationScreen : BaseFragment() {
 
     private lateinit var binding: FragmentLocationScreenBinding
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
@@ -74,9 +73,7 @@ class LocationScreen : Fragment() {
         clearRatedFriends()
         val geocoder = Geocoder(requireContext(), Locale.getDefault())
         val addressList = geocoder.getFromLocation(location.latitude,
-            location.longitude,
-            1) as ArrayList<Address>
-        binding.txtMotivation.text = addressList[0].getAddressLine(0)
+            location.longitude, REQUEST_CODE) as ArrayList<Address>
     }
 
     private fun getLocation() {
@@ -97,7 +94,7 @@ class LocationScreen : Fragment() {
             ActivityCompat.checkSelfPermission(requireContext(),
                 Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
         ) {
-            convertSadFaceToHappyFace()
+            showHappyFace()
             return
         }
         fusedLocationProviderClient.requestLocationUpdates(locationRequest,
@@ -146,7 +143,7 @@ class LocationScreen : Fragment() {
                 }
                 .show()
         } else {
-            convertSadFaceToHappyFace()
+            showHappyFace()
         }
     }
 
@@ -160,10 +157,10 @@ class LocationScreen : Fragment() {
         return LocationManagerCompat.isLocationEnabled(locationManager)
     }
 
-    private fun openSettings() {
+    private fun openSettings() =
         startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
             Uri.parse(getString(R.string.key) + BuildConfig.APPLICATION_ID)))
-    }
+
 
     private fun clickBtnChangeConfirmation() {
         binding.btnChange.setOnClickListener {
@@ -177,15 +174,13 @@ class LocationScreen : Fragment() {
         permissions: Array<out String>,
         grantResults: IntArray,
     ) {
-        if ((ContextCompat.checkSelfPermission(
-                requireContext(),
+        if ((ContextCompat.checkSelfPermission(requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED)
-        ) {
+        )
             checkLocationEnabled()
-        } else {
+        else
             repeatAlertDialog()
-        }
     }
 
     private fun repeatAlertDialog() {
@@ -209,41 +204,41 @@ class LocationScreen : Fragment() {
             Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
     }
 
+    override fun goToNextScreen() {
+        findNavController().navigate(R.id.action_locationScreen_to_profileScreenFragment)
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_CODE) {
-            if (isActiveLocation(requireContext())) {
-                convertSadFaceToHappyFace()
-            } else {
+            if (isActiveLocation(requireContext()))
+                showHappyFace()
+            else
                 showSadFace()
-            }
         }
     }
 
-    private fun convertSadFaceToHappyFace() {
+    private fun showHappyFace() {
         val numberOfSuggestion = friendRepository.getAllSavedFriends().size
         binding.sadFaceGroup.visibility = View.VISIBLE
         binding.imgMoodOnFace.setImageResource(R.drawable.ic_happy_face)
         binding.btnSettings.text = getString(R.string.done)
         binding.txtPermission.text =
             getString(R.string.location_successfully_changed) + " " + numberOfSuggestion
-        binding.btnSettings.setOnClickListener {
-            findNavController().navigate(R.id.action_locationScreen_to_profileScreenFragment)
-        }
+        clickBtnDoneConfirmation()
     }
+
+    private fun clickBtnDoneConfirmation() =
+        binding.btnSettings.setOnClickListener { goToNextScreen() }
 
     private fun showSadFace() {
         binding.imgMoodOnFace.setImageResource(R.drawable.ic_sad_face)
         binding.sadFaceGroup.visibility = View.VISIBLE
-        clickBtnSettingsConfirmation()
+        onBtnSettingsClicked()
     }
 
-    private fun clearRatedFriends() {
-        friendRepository.deleteRatedFriends()
-    }
+    private fun clearRatedFriends() =
+        friendRepository.getAllSavedFriends()
 
-    private fun clickBtnSettingsConfirmation() {
-        binding.btnSettings.setOnClickListener {
-            openSettings()
-        }
-    }
+    private fun onBtnSettingsClicked() =
+        binding.btnSettings.setOnClickListener { openSettings() }
 }

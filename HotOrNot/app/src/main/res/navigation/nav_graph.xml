@@ -42,6 +42,9 @@
         <action
             android:id="@+id/action_profileScreenFragment_to_locationScreen"
             app:destination="@id/locationScreen" />
+        <action
+            android:id="@+id/action_profileScreenFragment_to_mainScreenFragment"
+            app:destination="@id/mainScreenFragment" />
     </fragment>
 
     <fragment
