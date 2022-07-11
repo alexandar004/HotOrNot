@@ -6,6 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/second_background"
         tools:context=".MainScreenFragment">
 
         <androidx.appcompat.widget.Toolbar
@@ -26,7 +27,7 @@
             android:layout_height="@dimen/no_dimens"
             android:layout_margin="@dimen/small_margin"
             android:layout_marginBottom="@dimen/medium_margin"
-            app:cardCornerRadius="@dimen/XL"
+            app:cardCornerRadius="@dimen/xl_margin"
             app:layout_constraintBottom_toTopOf="@+id/btnHot"
             app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
@@ -48,6 +49,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:textSize="@dimen/medium_text_size"
                     app:layout_constraintBottom_toTopOf="@+id/sendEmail" />
 
                 <TextView
@@ -56,7 +58,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/large_text_size"
+                    android:textSize="@dimen/xl_text_size"
+                    android:textStyle="italic"
                     app:layout_constraintBottom_toTopOf="@+id/friendEmail" />
 
                 <ImageView

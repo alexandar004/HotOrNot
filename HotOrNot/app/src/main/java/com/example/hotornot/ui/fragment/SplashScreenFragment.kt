@@ -13,7 +13,7 @@ import com.example.hotornot.data.repository.FriendRepository
 import com.example.hotornot.data.repository.UserRepository
 import com.example.hotornot.databinding.FragmentSplashScreenBinding
 
-private const val DELAY_TIME_IN_MILLIS = 2000L
+private const val DELAY_TIME_IN_MILLIS = 4000L
 
 class SplashScreen : Fragment() {
 

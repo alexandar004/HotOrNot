@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background">
+    android:background="@drawable/second_background">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -160,8 +160,8 @@
 
         <ImageView
             android:id="@+id/countryFlag"
-            android:layout_width="@dimen/XL"
-            android:layout_height="@dimen/XL"
+            android:layout_width="@dimen/xl_margin"
+            android:layout_height="@dimen/xl_margin"
             app:layout_constraintTop_toBottomOf="@id/imgLogo"
             app:layout_constraintBottom_toTopOf="@id/edtFirstName"
             app:layout_constraintEnd_toEndOf="parent"

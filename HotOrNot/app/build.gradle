@@ -40,22 +40,17 @@ android {
 
 dependencies {
     def nav_version = "2.4.1"
-    //cardView
     implementation("androidx.cardview:cardview:1.0.0")
-    //nav_graph
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
-    //material design
     implementation 'com.google.android.material:material:1.1.0-alpha09'
-    //
     implementation 'androidx.core:core-ktx:1.0.0'
-    //Json
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:1.0-M1-1.4.0-rc"
     implementation 'com.google.code.gson:gson:2.8.6'
-    //material
     implementation 'com.google.android.material:material:1.6.0'
-    //gson
     implementation 'com.google.code.gson:gson:2.8.8'
+    implementation 'com.airbnb.android:lottie:4.2.0'
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'

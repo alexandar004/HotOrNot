@@ -3,12 +3,14 @@
     <dimen name="no_dimens">0dp</dimen>
     <dimen name="small_margin">8dp</dimen>
     <dimen name="medium_margin">24dp</dimen>
-    <dimen name="XL">44dp</dimen>
-    <dimen name="XXL">68dp</dimen>
+    <dimen name="xl_margin">44dp</dimen>
+    <dimen name="xll_margin">68dp</dimen>
     <dimen name="large_margin">84dp</dimen>
 
     //fonts
+    <dimen name="medium_text_size">18sp</dimen>
     <dimen name="large_text_size">24sp</dimen>
+    <dimen name="xl_text_size">28sp</dimen>
     //roundedCorner
     <dimen name="small_corner_radius">12dp</dimen>
     <dimen name="medium_radius">20dp</dimen>

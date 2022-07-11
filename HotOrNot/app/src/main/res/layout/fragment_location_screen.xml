@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/second_background"
+    tools:context=".ui.fragment.LocationScreen">
+
+    <TextView
+        android:id="@+id/changeLocationTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/change_location"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/medium_margin"
+        android:layout_marginTop="@dimen/large_margin"
+        android:text="@string/fresh_suggestions"
+        android:textColor="@color/white"
+        android:textSize="@dimen/medium_text_size"
+        android:textStyle="italic"
+        app:layout_constraintTop_toBottomOf="@+id/changeLocationTitle" />
+
+    <TextView
+        android:id="@+id/txtMotivation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/medium_margin"
+        android:text="@string/lets_go"
+        android:textColor="@color/yellow"
+        android:textSize="@dimen/large_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/description" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnChange"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/medium_margin"
+        android:text="@string/change"
+        android:textColor="@color/white"
+        android:textStyle="italic"
+        app:cornerRadius="@dimen/small_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/navigationLottie"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="false"
+        app:lottie_rawRes="@raw/navigation_icon" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/sadFaceGroup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/yellow"
+        android:visibility="gone"
+        app:constraint_referenced_ids="btnSettings, imgMoodOnFace, txtPermission"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.constraintlayout.widget.Group>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/motivationGroup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:constraint_referenced_ids="changeLocationTitle, changeLocationTitle, txtMotivation, description"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSettings"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/medium_margin"
+        android:gravity="center"
+        android:text="@string/settings"
+        android:textColor="@color/black"
+        app:cornerRadius="@dimen/min_radius"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgMoodOnFace"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/medium_margin"
+        android:foregroundGravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/btnSettings"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtPermission"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/permission_permanently_denied"
+        android:textColor="@color/black"
+        android:textSize="@dimen/large_text_size"
+        android:textStyle="italic"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtHappyFace"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/txtMotivation" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,28 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/friends_logo"
+    android:background="@drawable/second_background"
     tools:context=".ui.fragment.SplashScreen">
 
-    <ImageView
-        android:id="@+id/imgAndroidLogo"
-        android:layout_width="wrap_content"
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_logo_logo"
-        app:layout_constraintBottom_toTopOf="@id/imgAndroidLogo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textLogo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/medium_margin"
-        android:text="@string/logoText"
-        android:textColor="@color/black"
-        android:textSize="@dimen/large_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/splash_logo_lottie" />
 </androidx.constraintlayout.widget.ConstraintLayout>

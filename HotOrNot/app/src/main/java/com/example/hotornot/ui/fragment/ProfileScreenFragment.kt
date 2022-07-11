@@ -7,14 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.example.hotornot.R
 import com.example.hotornot.data.repository.UserRepository
 import com.example.hotornot.databinding.FragmentProfileScreenBinding
 
 private const val TYPE_IMAGE_INTENT = "image/*"
 const val EMPTY_STRING = " "
 
-class ProfileScreenFragment : Fragment() {
+class ProfileScreenFragment : BaseFragment() {
 
     private lateinit var binding: FragmentProfileScreenBinding
     private lateinit var userRepository: UserRepository
@@ -32,6 +33,8 @@ class ProfileScreenFragment : Fragment() {
         userRepository = UserRepository.getInstance(view.context)
         createUserProfile()
         clickImageListener()
+        clickBtnChangeLocationConfirmation()
+        binding.btnTest.setOnClickListener { findNavController().navigate(R.id.action_profileScreenFragment_to_mainScreenFragment) }
     }
 
     private fun clickImageListener() {
@@ -74,5 +77,15 @@ class ProfileScreenFragment : Fragment() {
             }
         val intent = Intent(Intent.ACTION_PICK)
         resultLauncher.launch(intent)
+    }
+
+    private fun clickBtnChangeLocationConfirmation() {
+        binding.btnChangeLocation.setOnClickListener {
+            goToNextScreen()
+        }
+    }
+
+    override fun goToNextScreen() {
+        findNavController().navigate(R.id.action_profileScreenFragment_to_locationScreen)
     }
 }
