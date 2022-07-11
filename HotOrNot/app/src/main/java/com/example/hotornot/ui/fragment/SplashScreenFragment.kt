@@ -7,16 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.hotornot.R
 import com.example.hotornot.data.repository.FriendRepository
 import com.example.hotornot.data.repository.UserRepository
+import com.example.hotornot.data.viewModel.SplashScreenViewModel
 import com.example.hotornot.databinding.FragmentSplashScreenBinding
 
 private const val DELAY_TIME_IN_MILLIS = 4000L
 
 class SplashScreen : Fragment() {
-
+    private val splashScreenVieModel: SplashScreenViewModel by viewModels()
     private lateinit var binding: FragmentSplashScreenBinding
     private lateinit var userRepository: UserRepository
     private lateinit var friendRepository: FriendRepository
