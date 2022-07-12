@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.hotornot.R
-import com.example.hotornot.data.repository.FriendRepository
 import com.example.hotornot.data.repository.UserRepository
 import com.example.hotornot.data.viewModel.SplashScreenViewModel
 import com.example.hotornot.databinding.FragmentSplashScreenBinding
@@ -18,10 +17,10 @@ import com.example.hotornot.databinding.FragmentSplashScreenBinding
 private const val DELAY_TIME_IN_MILLIS = 4000L
 
 class SplashScreen : Fragment() {
-    private val splashScreenVieModel: SplashScreenViewModel by viewModels()
+
+    private val viewModel: SplashScreenViewModel by viewModels()
     private lateinit var binding: FragmentSplashScreenBinding
     private lateinit var userRepository: UserRepository
-    private lateinit var friendRepository: FriendRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,20 +33,30 @@ class SplashScreen : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         userRepository = UserRepository.getInstance(view.context)
-        friendRepository = FriendRepository.getInstance(view.context)
         goToNextScreenWithDelay()
     }
 
     private fun goToNextScreenWithDelay() =
         Handler(Looper.getMainLooper()).postDelayed({
-            friendRepository.generateFriends()
+//            viewModel.userData.observe(viewLifecycleOwner){
+//                it
+//            }
+            loadFriends()
             checkForSaveUser()
         }, DELAY_TIME_IN_MILLIS)
 
+    private fun loadFriends() = viewModel.loadFriends()
+
     private fun checkForSaveUser() {
-        val user = userRepository.getUser()
-        if (user == null) goToRegistrationScreen()
-        else goToMainScreen()
+//        val user = userRepository.getUser()
+        val user = viewModel.getUser()
+        viewModel.userData.observe(viewLifecycleOwner) {
+
+        }
+        if (user == null)
+            goToRegistrationScreen()
+        else
+            goToMainScreen()
     }
 
     private fun goToRegistrationScreen() =
