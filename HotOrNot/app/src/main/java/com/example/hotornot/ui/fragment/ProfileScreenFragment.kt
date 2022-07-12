@@ -34,7 +34,6 @@ class ProfileScreenFragment : BaseFragment() {
         createUserProfile()
         clickImageListener()
         clickBtnChangeLocationConfirmation()
-        binding.btnTest.setOnClickListener { findNavController().navigate(R.id.action_profileScreenFragment_to_mainScreenFragment) }
     }
 
     private fun clickImageListener() {
