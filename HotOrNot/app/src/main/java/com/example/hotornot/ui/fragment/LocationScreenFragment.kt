@@ -207,6 +207,7 @@ class LocationScreen : BaseFragment() {
     override fun goToNextScreen() =
         findNavController().navigate(R.id.action_locationScreen_to_profileScreenFragment)
 
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_CODE) {
             if (isActiveLocation(requireContext()))

@@ -77,11 +77,8 @@ class MainScreenFragment : BaseFragment() {
         binding.btnHot.visibility = View.VISIBLE
     }
 
-    private fun sendEmailConfirmClick() {
-        binding.sendEmail.setOnClickListener {
-            sendEmail()
-        }
-    }
+    private fun sendEmailConfirmClick() =
+        binding.sendEmail.setOnClickListener { sendEmail() }
 
     private fun sendEmail() {
         val user = userRepository.getUser()
@@ -103,13 +100,8 @@ class MainScreenFragment : BaseFragment() {
     }
 
     private fun appropriationHotOrNotValue() {
-        binding.btnHot.setOnClickListener {
-            rateFriend(isHot = true)
-        }
-
-        binding.btnNot.setOnClickListener {
-            rateFriend(isHot = false)
-        }
+        binding.btnHot.setOnClickListener { rateFriend(isHot = true) }
+        binding.btnNot.setOnClickListener { rateFriend(isHot = false) }
     }
 
     private fun checkForHotName() {

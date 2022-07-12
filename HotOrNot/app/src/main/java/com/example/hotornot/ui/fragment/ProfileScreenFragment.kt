@@ -78,13 +78,9 @@ class ProfileScreenFragment : BaseFragment() {
         resultLauncher.launch(intent)
     }
 
-    private fun clickBtnChangeLocationConfirmation() {
-        binding.btnChangeLocation.setOnClickListener {
-            goToNextScreen()
-        }
-    }
+    private fun clickBtnChangeLocationConfirmation() =
+        binding.btnChangeLocation.setOnClickListener { goToNextScreen() }
 
-    override fun goToNextScreen() {
+    override fun goToNextScreen() =
         findNavController().navigate(R.id.action_profileScreenFragment_to_locationScreen)
-    }
 }
