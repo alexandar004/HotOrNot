@@ -24,7 +24,6 @@ import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.location.LocationManagerCompat
-import androidx.navigation.fragment.findNavController
 import com.example.hotornot.BuildConfig
 import com.example.hotornot.R
 import com.example.hotornot.data.repository.FriendRepository
@@ -77,7 +76,7 @@ class LocationScreen : BaseFragment() {
     }
 
     private fun getLocation() {
-        if (newCheckForLocationPermission())
+        if (checkForLocationPermission())
             updateLocation()
     }
 
@@ -189,7 +188,7 @@ class LocationScreen : BaseFragment() {
             .setPositiveButton(
                 R.string.ok
             ) { _, _ ->
-                newCheckForLocationPermission()
+                checkForLocationPermission()
             }
             .setNegativeButton(
                 R.string.close
@@ -199,13 +198,9 @@ class LocationScreen : BaseFragment() {
             .show()
     }
 
-    private fun newCheckForLocationPermission(): Boolean {
+    private fun checkForLocationPermission(): Boolean {
         return ActivityCompat.checkSelfPermission(requireContext(),
             Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-    }
-
-    override fun goToNextScreen() {
-        findNavController().navigate(R.id.action_locationScreen_to_profileScreenFragment)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -228,7 +223,9 @@ class LocationScreen : BaseFragment() {
     }
 
     private fun clickBtnDoneConfirmation() =
-        binding.btnSettings.setOnClickListener { goToNextScreen() }
+        binding.btnSettings.setOnClickListener {
+            openScreen(LocationScreenDirections.actionLocationScreenToProfileScreenFragment())
+        }
 
     private fun showSadFace() {
         binding.imgMoodOnFace.setImageResource(R.drawable.ic_sad_face)
@@ -236,9 +233,7 @@ class LocationScreen : BaseFragment() {
         onBtnSettingsClicked()
     }
 
-    private fun clearRatedFriends() =
-        friendRepository.getAllSavedFriends()
+    private fun clearRatedFriends() = friendRepository.getAllSavedFriends()
 
-    private fun onBtnSettingsClicked() =
-        binding.btnSettings.setOnClickListener { openSettings() }
+    private fun onBtnSettingsClicked() = binding.btnSettings.setOnClickListener { openSettings() }
 }

@@ -32,7 +32,7 @@ class MotivationScreenFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         binding = FragmentMotivationScreenBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -56,17 +56,15 @@ class MotivationScreenFragment : Fragment() {
         binding.txtWhoIsHot.text = spannableString
     }
 
-    private fun onConfirmationButtonClicked() {
-        binding.btnIm.setOnClickListener {
-            navigateToPreviousScreen()
-        }
-    }
+    private fun onConfirmationButtonClicked() =
+        binding.btnIm.setOnClickListener { navigateToPreviousScreen() }
 
-    private fun navigateToPreviousScreen() {
+
+    private fun navigateToPreviousScreen() =
         activity?.supportFragmentManager?.popBackStack()
-    }
 
-    private fun showMessage(message: String) {
+
+    private fun showMessage(message: String) =
         requireActivity().onBackPressedDispatcher.addCallback(this) {
             Toast.makeText(
                 requireContext(),
@@ -74,11 +72,10 @@ class MotivationScreenFragment : Fragment() {
                 Toast.LENGTH_SHORT
             ).show()
         }
-    }
 
-    private fun detectOnBackClick() {
+
+    private fun detectOnBackClick() =
         requireActivity().onBackPressedDispatcher.addCallback(this) {
             showMessage((getString(R.string.cant_run_from_yourself)))
         }
-    }
 }

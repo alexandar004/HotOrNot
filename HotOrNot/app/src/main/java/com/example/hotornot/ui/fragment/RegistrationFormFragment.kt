@@ -100,20 +100,13 @@ class RegistrationFormFragment : BaseFragment() {
             showMessage(getString(R.string.field_is_required))
         } else {
             createUser()
-            goToNextScreen()
+            openScreen(RegistrationFormFragmentDirections.actionRegistrationFormFragmentToMainScreenFragment())
         }
     }
 
-    private fun clickBtnRegisterConfirmation() {
-        binding.btnRegister.setOnClickListener {
-            checkForEmptyFields()
-        }
-    }
-
-    override fun goToNextScreen() {
-        findNavController().navigate(R.id.action_registrationFormFragment_to_mainScreenFragment)
-    }
-
+    private fun clickBtnRegisterConfirmation() =
+        binding.btnRegister.setOnClickListener { checkForEmptyFields() }
+    
     private fun showMessage(message: String) =
         Toast.makeText(this.context, message, Toast.LENGTH_SHORT).show()
 

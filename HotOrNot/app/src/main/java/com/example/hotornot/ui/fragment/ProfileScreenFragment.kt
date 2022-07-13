@@ -7,8 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.navigation.fragment.findNavController
-import com.example.hotornot.R
 import com.example.hotornot.data.repository.UserRepository
 import com.example.hotornot.databinding.FragmentProfileScreenBinding
 
@@ -34,7 +32,6 @@ class ProfileScreenFragment : BaseFragment() {
         createUserProfile()
         clickImageListener()
         clickBtnChangeLocationConfirmation()
-        binding.btnTest.setOnClickListener { findNavController().navigate(R.id.action_profileScreenFragment_to_mainScreenFragment) }
     }
 
     private fun clickImageListener() {
@@ -79,13 +76,9 @@ class ProfileScreenFragment : BaseFragment() {
         resultLauncher.launch(intent)
     }
 
-    private fun clickBtnChangeLocationConfirmation() {
+    private fun clickBtnChangeLocationConfirmation() =
         binding.btnChangeLocation.setOnClickListener {
-            goToNextScreen()
+            openScreen(ProfileScreenFragmentDirections
+                .actionProfileScreenFragmentToLocationScreen())
         }
-    }
-
-    override fun goToNextScreen() {
-        findNavController().navigate(R.id.action_profileScreenFragment_to_locationScreen)
-    }
 }
