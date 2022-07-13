@@ -5,7 +5,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
-import androidx.navigation.fragment.findNavController
 import com.example.hotornot.R
 import com.example.hotornot.data.model.Friend
 import com.example.hotornot.data.repository.FriendRepository
@@ -34,9 +33,6 @@ class MainScreenFragment : BaseFragment() {
         return binding.root
     }
 
-    override fun goToNextScreen() =
-        findNavController().navigate(R.id.action_mainScreenFragment_to_profileScreenFragment)
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initializedData()
@@ -59,7 +55,7 @@ class MainScreenFragment : BaseFragment() {
         binding.toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.profileScreen -> {
-                    goToNextScreen()
+                    openScreen(MainScreenFragmentDirections.actionMainScreenFragmentToProfileScreenFragment())
                     true
                 }
                 R.id.logOut -> {

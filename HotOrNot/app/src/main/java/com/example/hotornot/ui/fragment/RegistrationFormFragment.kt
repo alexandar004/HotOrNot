@@ -100,7 +100,7 @@ class RegistrationFormFragment : BaseFragment() {
             showMessage(getString(R.string.field_is_required))
         } else {
             createUser()
-            goToNextScreen()
+            openScreen(RegistrationFormFragmentDirections.actionRegistrationFormFragmentToMainScreenFragment())
         }
     }
 
@@ -108,8 +108,8 @@ class RegistrationFormFragment : BaseFragment() {
         binding.btnRegister.setOnClickListener { checkForEmptyFields() }
 
 
-    override fun goToNextScreen() =
-        findNavController().navigate(R.id.action_registrationFormFragment_to_mainScreenFragment)
+//    override fun goToNextScreen() =
+//        findNavController().navigate(R.id.action_registrationFormFragment_to_mainScreenFragment)
 
 
     private fun showMessage(message: String) =

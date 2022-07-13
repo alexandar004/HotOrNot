@@ -48,13 +48,9 @@ class FriendRepository(val context: Context) {
         saveFriends(listOfFriends)
     }
 
-    fun getAllSavedFriends(): List<Friend> {
-        return preferencesUtil.getFriends()
-    }
+    fun getAllSavedFriends(): List<Friend> = preferencesUtil.getFriends()
 
-    fun saveFriends(friends: List<Friend>) {
-        preferencesUtil.saveFriends(friends)
-    }
+    fun saveFriends(friends: List<Friend>) = preferencesUtil.saveFriends(friends)
 
     private fun getRandomCharacteristics(): List<String> {
         val randomCharacteristics = context.resources.getStringArray(R.array.characteristics_array)
@@ -64,7 +60,6 @@ class FriendRepository(val context: Context) {
     }
 
     companion object {
-
         private var instance: FriendRepository? = null
 
         fun getInstance(context: Context): FriendRepository {
