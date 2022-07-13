@@ -106,12 +106,7 @@ class RegistrationFormFragment : BaseFragment() {
 
     private fun clickBtnRegisterConfirmation() =
         binding.btnRegister.setOnClickListener { checkForEmptyFields() }
-
-
-//    override fun goToNextScreen() =
-//        findNavController().navigate(R.id.action_registrationFormFragment_to_mainScreenFragment)
-
-
+    
     private fun showMessage(message: String) =
         Toast.makeText(this.context, message, Toast.LENGTH_SHORT).show()
 
