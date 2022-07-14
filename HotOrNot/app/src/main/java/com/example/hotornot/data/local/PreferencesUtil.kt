@@ -35,10 +35,6 @@ class PreferencesUtil(context: Context) {
         return Json.decodeFromString(json)
     }
 
-    fun resetRatedFriends() {
-
-    }
-
     fun saveFriends(friends: List<Friend>) {
         val json = Json.encodeToString(friends)
 

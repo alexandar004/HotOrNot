@@ -1,24 +1,23 @@
 package com.example.hotornot.data.viewModel
 
-import android.app.Application
 import android.graphics.Color
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.navigation.NavDirections
-import com.example.hotornot.R
 import com.example.hotornot.ui.fragment.MotivationScreenFragmentDirections
 
 private const val FIRST_INDEX = 7
-private const val LAST_INDEX = 10
+private const val LAST_INDEX = 11
 private const val TEXT_SIZE = 2f
+private const val WHO_IS_HOT = "Who is \nHOT?"
 
-class MotivationScreenViewModel(application: Application) : AndroidViewModel(application) {
+class MotivationScreenViewModel : ViewModel() {
 
     private val _motivationText = MutableLiveData<SpannableString>()
     val motivationText: LiveData<SpannableString> = _motivationText
@@ -26,16 +25,16 @@ class MotivationScreenViewModel(application: Application) : AndroidViewModel(app
     val navigationLiveData: LiveData<NavDirections> = _navigationLiveData
 
     init {
-        appropriateValue()
+        getMotivationText()
     }
 
-    private fun appropriateValue() {
+    private fun getMotivationText() {
         _motivationText.value = getQuestionStyle()
     }
 
     private fun getQuestionStyle(): SpannableString {
         val spannable =
-            SpannableString(getApplication<Application>().getString(R.string.who_is_hot))
+            SpannableString(WHO_IS_HOT)
         spannable.setSpan(
             ForegroundColorSpan(Color.RED),
             FIRST_INDEX,
