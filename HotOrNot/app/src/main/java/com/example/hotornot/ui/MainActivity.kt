@@ -9,7 +9,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.hotornot.R
 
-private const val ALLOWABLE_TIME_BEFORE_GO_TO_MOTIVATION_SCREEN = 100000L
+private const val ALLOWABLE_TIME_BEFORE_GO_TO_MOTIVATION_SCREEN = 100L
 
 class MainActivity : AppCompatActivity() {
 

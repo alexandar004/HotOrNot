@@ -15,6 +15,7 @@
     <string name="successfully_changed_location" translatable="false">Location successfully changed! X(the number of new suggestions) new suggestions found ! Get get them TIGER !" </string>
     <string name="ok" translatable="false">OK</string>
     <string name="done" translatable="false">DONE</string>
+    <string name="who_is_hot" translatable="false">Who is hot ?</string>
     <string name="close" translatable="false">Close</string>
     <string name="permission_enabled" translatable="false">PERMISSION_ENABLED</string>
     <string name="key" translatable="false">package:</string>
