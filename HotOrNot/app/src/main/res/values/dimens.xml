@@ -3,7 +3,7 @@
     <dimen name="no_dimens">0dp</dimen>
     <dimen name="small_margin">8dp</dimen>
     <dimen name="medium_margin">24dp</dimen>
-    <dimen name="xl_margin">44dp</dimen>
+    <dimen name="xl_margin">44sp</dimen>
     <dimen name="xll_margin">68dp</dimen>
     <dimen name="large_margin">84dp</dimen>
 
@@ -13,7 +13,7 @@
     <dimen name="xl_text_size">28sp</dimen>
     //roundedCorner
     <dimen name="small_corner_radius">12dp</dimen>
-    <dimen name="medium_radius">20dp</dimen>
+    <dimen name="medium_radius">18dp</dimen>
     <dimen name="min_radius">10dp</dimen>
 
     //percentage
