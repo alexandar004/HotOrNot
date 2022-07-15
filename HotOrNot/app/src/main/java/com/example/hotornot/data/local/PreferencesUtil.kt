@@ -37,7 +37,6 @@ class PreferencesUtil(context: Context) {
 
     fun saveFriends(friends: List<Friend>) {
         val json = Json.encodeToString(friends)
-
         sharedPref.edit().putString(SERIALIZABLE_FRIEND, json).apply()
     }
 

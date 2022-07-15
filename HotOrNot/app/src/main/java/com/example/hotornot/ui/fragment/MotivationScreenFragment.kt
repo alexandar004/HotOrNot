@@ -4,12 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.activity.addCallback
 import androidx.fragment.app.viewModels
 import com.example.hotornot.R
-import com.example.hotornot.data.viewModel.MotivationScreenViewModel
 import com.example.hotornot.databinding.FragmentMotivationScreenBinding
+import com.example.hotornot.viewModel.MotivationScreenViewModel
 
 class MotivationScreenFragment : BaseFragment() {
 
@@ -40,13 +38,4 @@ class MotivationScreenFragment : BaseFragment() {
             binding.uiModel = it
         }
     }
-
-    private fun showMessage(message: String) =
-        requireActivity().onBackPressedDispatcher.addCallback(this) {
-            Toast.makeText(
-                requireContext(),
-                message,
-                Toast.LENGTH_SHORT
-            ).show()
-        }
 }

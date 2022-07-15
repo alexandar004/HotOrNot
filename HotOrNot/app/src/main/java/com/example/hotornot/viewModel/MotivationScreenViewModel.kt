@@ -1,4 +1,4 @@
-package com.example.hotornot.data.viewModel
+package com.example.hotornot.viewModel
 
 import android.graphics.Color
 import android.text.Spannable
