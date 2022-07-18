@@ -18,7 +18,6 @@ import androidx.fragment.app.viewModels
 import com.example.hotornot.databinding.FragmentProfileScreenBinding
 import com.example.hotornot.viewModel.ProfileScreenFragmentViewModel
 
-const val EMPTY_STRING = " "
 private const val ANDROID_VERSION = 28
 
 class ProfileScreenFragment : BaseFragment() {
@@ -39,11 +38,8 @@ class ProfileScreenFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        onLoadUser()
         observeData()
-        binding.profileImg.setOnClickListener {
-            getImage()
-        }
+        binding.profileImg.setOnClickListener { getImage() }
     }
 
     private fun getImage() {
@@ -106,16 +102,13 @@ class ProfileScreenFragment : BaseFragment() {
         }
     }
 
-    private fun onLoadUser() {
-        viewModel.userLiveData.observe(viewLifecycleOwner) {
-            (it?.firstName + EMPTY_STRING + it?.lastName).also { binding.name.text = it }
-            binding.email.text = it?.email
-            binding.sex.text = it?.gender.toString()
-        }
-    }
-
-    private fun observeData() =
+    private fun observeData() {
         viewModel.navigationLiveData.observe(viewLifecycleOwner) {
             openScreen(it)
         }
+
+        viewModel.userLiveData.observe(viewLifecycleOwner){
+            binding.uiModel = it
+        }
+    }
 }

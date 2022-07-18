@@ -6,7 +6,6 @@ import com.example.hotornot.data.model.User
 
 class UserRepository(context: Context) {
 
-
     private val preferencesUtil: PreferencesUtil = PreferencesUtil.getInstance(context)
 
     fun getUser(): User? {
@@ -22,7 +21,6 @@ class UserRepository(context: Context) {
     }
 
     companion object {
-
         private var instance: UserRepository? = null
 
         fun getInstance(context: Context): UserRepository {

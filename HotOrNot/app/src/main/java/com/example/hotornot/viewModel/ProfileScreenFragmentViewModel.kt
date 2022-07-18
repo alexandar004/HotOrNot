@@ -12,8 +12,10 @@ import com.example.hotornot.ui.fragment.ProfileScreenFragmentDirections
 class ProfileScreenFragmentViewModel(application: Application) : AndroidViewModel(application) {
 
     private lateinit var userRepository: UserRepository
+
     private val _navigationLiveData = MutableLiveData<NavDirections>()
     val navigationLiveData: LiveData<NavDirections> = _navigationLiveData
+
     private val _userLiveData = MutableLiveData<User?>()
     val userLiveData: LiveData<User?> = _userLiveData
 
