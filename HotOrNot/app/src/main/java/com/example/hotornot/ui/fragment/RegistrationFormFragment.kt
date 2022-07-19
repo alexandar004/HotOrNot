@@ -8,8 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Toast
-import androidx.navigation.fragment.findNavController
 import com.example.hotornot.R
 import com.example.hotornot.data.model.Gender
 import com.example.hotornot.data.model.User
@@ -106,9 +104,6 @@ class RegistrationFormFragment : BaseFragment() {
 
     private fun clickBtnRegisterConfirmation() =
         binding.btnRegister.setOnClickListener { checkForEmptyFields() }
-    
-    private fun showMessage(message: String) =
-        Toast.makeText(this.context, message, Toast.LENGTH_SHORT).show()
 
     private fun setCountryFlag() {
         val currentLanguage = Locale.getDefault().displayLanguage

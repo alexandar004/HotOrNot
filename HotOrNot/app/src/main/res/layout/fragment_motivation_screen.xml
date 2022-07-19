@@ -5,7 +5,7 @@
 
         <variable
             name="viewmodel"
-            type="com.example.hotornot.data.viewModel.MotivationScreenViewModel" />
+            type="com.example.hotornot.viewModel.MotivationScreenViewModel" />
 
         <variable
             name="uiModel"

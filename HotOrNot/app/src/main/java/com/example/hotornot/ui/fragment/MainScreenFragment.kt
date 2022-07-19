@@ -13,6 +13,7 @@ import com.example.hotornot.databinding.FragmentMainScreenBinding
 import com.google.android.material.chip.Chip
 
 private const val TYPE_SEND_EMAIL_INTENT = "text/plain"
+private const val EMPTY_STRING = " "
 private const val DATA_SEND_EMAIL_INTENT = "mailto"
 private const val HOT_NAME = "Georgi"
 private const val NOT_HOT_NAME = "Stan"
@@ -80,15 +81,17 @@ class MainScreenFragment : BaseFragment() {
         val user = userRepository.getUser()
         val recipient = user?.email
         val text = getString(R.string.email_text)
-        val sendMassageWithEmail = Intent(Intent.ACTION_SENDTO)
+        val messageIntent = Intent(Intent.ACTION_SENDTO)
 
-        sendMassageWithEmail.data = Uri.parse(DATA_SEND_EMAIL_INTENT)
-        sendMassageWithEmail.type = (TYPE_SEND_EMAIL_INTENT)
-        sendMassageWithEmail.putExtra(Intent.EXTRA_EMAIL, arrayOf(recipient))
-        sendMassageWithEmail.putExtra(Intent.EXTRA_TEXT, text + EMPTY_STRING + recipient)
+        messageIntent.apply {
+            data = Uri.parse(DATA_SEND_EMAIL_INTENT)
+            type = (TYPE_SEND_EMAIL_INTENT)
+            putExtra(Intent.EXTRA_EMAIL, arrayOf(recipient))
+            putExtra(Intent.EXTRA_TEXT, text + EMPTY_STRING + recipient)
+        }
 
         try {
-            startActivity(Intent.createChooser(sendMassageWithEmail,
+            startActivity(Intent.createChooser(messageIntent,
                 getString(R.string.send_email)))
         } catch (e: Exception) {
             Toast.makeText(this.context, e.message, Toast.LENGTH_LONG).show()

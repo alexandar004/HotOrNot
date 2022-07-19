@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.example.hotornot.data.viewModel.SplashScreenViewModel
+import com.example.hotornot.viewModel.SplashScreenViewModel
 import com.example.hotornot.databinding.FragmentSplashScreenBinding
 
 private const val DELAY_TIME_IN_MILLIS = 4000L
