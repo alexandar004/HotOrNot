@@ -1,29 +1,29 @@
 package com.example.hotornot.ui.fragment
 
 import android.Manifest
-import android.app.Activity
+import android.app.Activity.RESULT_OK
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.ImageDecoder
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.viewModels
 import com.example.hotornot.databinding.FragmentProfileScreenBinding
 import com.example.hotornot.viewModel.ProfileScreenFragmentViewModel
 
-private const val ANDROID_VERSION = 28
+private const val INTENT_TYPE = "image/*"
 
 class ProfileScreenFragment : BaseFragment() {
 
     private lateinit var binding: FragmentProfileScreenBinding
     private val viewModel: ProfileScreenFragmentViewModel by viewModels()
+    private lateinit var registerForActivityResult: ActivityResultLauncher<Intent>
+    private lateinit var requestMultiplePermissions: ActivityResultLauncher<Array<String>>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,83 +32,57 @@ class ProfileScreenFragment : BaseFragment() {
         binding = FragmentProfileScreenBinding.inflate(inflater, container, false)
         binding.viewmodel = viewModel
         binding.lifecycleOwner = this
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeData()
-        binding.profileImg.setOnClickListener { getImage() }
+        registerForActivityResult()
+        registerForPermissionsResult()
+        binding.imgProfile.setOnClickListener { checkPermissionForImage(requireContext()) }
     }
 
-    private fun getImage() {
-        activity.let {
-            if (it?.let { it1 ->
-                    ContextCompat.checkSelfPermission(it1.applicationContext,
-                        Manifest.permission.READ_EXTERNAL_STORAGE)
-                } != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1)
-            } else {
-                val intent =
-                    Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-                startActivityForResult(intent, 2)
-            }
-        }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray,
-    ) {
-        if (requestCode == 1) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                val intent =
-                    Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-                startActivityForResult(intent, 2)
-            }
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        var selectImage: Uri? = null
-        var bitmap: Bitmap?
-        if (requestCode == 2 && resultCode == Activity.RESULT_OK && data != null) {
-            selectImage = data.data
-        }
-        try {
-            context.let {
-                if (selectImage != null) {
-                    if (Build.VERSION.SDK_INT >= ANDROID_VERSION) {
-                        val source = it?.let { it ->
-                            ImageDecoder.createSource(it.contentResolver,
-                                selectImage)
-                        }
-                        bitmap = source?.let { it1 -> ImageDecoder.decodeBitmap(it1) }
-                        binding.profileImg.setImageBitmap(bitmap)
-
-                    } else {
-                        if (it != null) {
-                            bitmap =
-                                MediaStore.Images.Media.getBitmap(it.contentResolver, selectImage)
-                            binding.profileImg.setImageBitmap(bitmap)
-                        }
-                    }
+    private fun registerForPermissionsResult() {
+        requestMultiplePermissions =
+            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+                if (permissions[Manifest.permission.READ_EXTERNAL_STORAGE] == true) {
+                    pickImageFromGallery()
                 }
             }
-        } catch (e: Exception) {
-            e.printStackTrace()
+    }
+
+    private fun checkPermissionForImage(context: Context) =
+        if ((checkSelfPermission(
+                context,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ) == PackageManager.PERMISSION_DENIED)
+        ) {
+            requestMultiplePermissions.launch(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE))
+        } else {
+            pickImageFromGallery()
         }
+
+    private fun registerForActivityResult() {
+        registerForActivityResult =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == RESULT_OK) {
+                    val data: Intent? = result.data
+                    binding.imgProfile.setImageURI(data?.data)
+                }
+            }
+    }
+
+    private fun pickImageFromGallery() = registerForActivityResult.launch(getGalleryIntent())
+
+    private fun getGalleryIntent(): Intent {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = INTENT_TYPE
+        return intent
     }
 
     private fun observeData() {
-        viewModel.navigationLiveData.observe(viewLifecycleOwner) {
-            openScreen(it)
-        }
-
-        viewModel.userLiveData.observe(viewLifecycleOwner){
-            binding.uiModel = it
-        }
+        viewModel.navigationLiveData.observe(viewLifecycleOwner) { openScreen(it) }
+        viewModel.userLiveData.observe(viewLifecycleOwner) { binding.uiModel = it }
     }
 }

@@ -15,7 +15,6 @@ class ProfileScreenFragmentViewModel(application: Application) : AndroidViewMode
 
     private val _navigationLiveData = MutableLiveData<NavDirections>()
     val navigationLiveData: LiveData<NavDirections> = _navigationLiveData
-
     private val _userLiveData = MutableLiveData<User?>()
     val userLiveData: LiveData<User?> = _userLiveData
 

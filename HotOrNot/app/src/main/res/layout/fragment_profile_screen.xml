@@ -48,11 +48,12 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/profileImg"
+                    android:id="@+id/imgProfile"
                     android:layout_width="@dimen/large_margin"
                     android:layout_height="@dimen/large_margin"
-                    android:layout_margin="@dimen/small_margin"
-                    android:src="@drawable/profile_icon"
+                    android:layout_margin="@dimen/medium_margin"
+                    android:src="@drawable/ic_people"
+                    app:layout_constraintBottom_toTopOf="@+id/txtName"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/profileTitle"
@@ -60,34 +61,43 @@
                     app:srcCompat="@mipmap/ic_launcher" />
 
                 <TextView
-                    android:id="@+id/name"
+                    android:id="@+id/txtName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/medium_margin"
                     android:layout_marginTop="@dimen/small_margin"
+                    android:drawableStart="@drawable/ic_profile"
                     android:gravity="center"
                     android:text="@{viewmodel.userLiveData.firstName + viewmodel.userLiveData.lastName}"
                     android:textColor="@color/black"
                     android:textSize="@dimen/large_text_size"
                     android:textStyle="italic"
-                    app:layout_constraintTop_toBottomOf="@+id/profileImg" />
+                    app:layout_constraintTop_toBottomOf="@+id/imgProfile" />
 
                 <TextView
-                    android:id="@+id/email"
+                    android:id="@+id/txtEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:layout_margin="@dimen/medium_margin"
+                    android:drawableStart="@drawable/ic_mail_1008"
                     android:text="@{viewmodel.userLiveData.email}"
-                    app:layout_constraintTop_toBottomOf="@+id/name" />
+                    android:drawablePadding="@dimen/medium_margin"
+                    android:textColor="@color/black"
+                    app:layout_constraintTop_toBottomOf="@+id/txtName" />
 
                 <TextView
-                    android:id="@+id/sex"
+                    android:id="@+id/txtGender"
                     genderIcon="@{uiModel.gender.iconResource}"
                     genderType="@{uiModel.gender.stringResourceId}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:layout_margin="@dimen/medium_margin"
+                    android:drawableStart="@drawable/ic_baseline_person_pin_24"
+                    android:drawablePadding="@dimen/medium_margin"
                     android:textColor="@color/black"
-                    app:layout_constraintTop_toBottomOf="@+id/email" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtEmail" />
+
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnChangeLocation"

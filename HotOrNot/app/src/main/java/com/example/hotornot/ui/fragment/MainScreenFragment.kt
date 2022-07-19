@@ -81,9 +81,9 @@ class MainScreenFragment : BaseFragment() {
         val user = userRepository.getUser()
         val recipient = user?.email
         val text = getString(R.string.email_text)
-        val sendMsgIntent = Intent(Intent.ACTION_SENDTO)
+        val messageIntent = Intent(Intent.ACTION_SENDTO)
 
-        sendMsgIntent.apply {
+        messageIntent.apply {
             data = Uri.parse(DATA_SEND_EMAIL_INTENT)
             type = (TYPE_SEND_EMAIL_INTENT)
             putExtra(Intent.EXTRA_EMAIL, arrayOf(recipient))
@@ -91,7 +91,7 @@ class MainScreenFragment : BaseFragment() {
         }
 
         try {
-            startActivity(Intent.createChooser(sendMsgIntent,
+            startActivity(Intent.createChooser(messageIntent,
                 getString(R.string.send_email)))
         } catch (e: Exception) {
             Toast.makeText(this.context, e.message, Toast.LENGTH_LONG).show()
