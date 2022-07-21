@@ -3,6 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.example.hotornot.viewModel.MainScreenFragmentViewModel" />
+
+        <variable
+            name="uiModel"
+            type="com.example.hotornot.data.model.Friend" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -26,6 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/no_dimens"
             android:layout_margin="@dimen/small_margin"
+            setVisibility="@{!viewmodel.visibilityLiveData}"
             android:layout_marginBottom="@dimen/medium_margin"
             app:cardCornerRadius="@dimen/xl_margin"
             app:layout_constraintBottom_toTopOf="@+id/btnHot"
@@ -36,31 +48,38 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/sendEmail"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/icSendEmail"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_baseline_alternate_email_24"
+                    android:layout_margin="@dimen/small_margin"
+                    android:foregroundGravity="center"
+                    android:src="@drawable/ic_mail_1008"
                     app:layout_constraintBottom_toTopOf="@+id/scrollView"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
-                    android:id="@+id/friendEmail"
+                    android:id="@+id/txtFriendEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/small_margin"
                     android:gravity="center"
+                    android:text="@{viewmodel.friendLiveData.email}"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/medium_text_size"
-                    app:layout_constraintBottom_toTopOf="@+id/sendEmail" />
+                    app:layout_constraintBottom_toTopOf="@+id/icSendEmail" />
 
                 <TextView
-                    android:id="@+id/friendName"
+                    android:id="@+id/txtFriendName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/small_margin"
                     android:gravity="center"
+                    android:text="@{viewmodel.friendLiveData.name}"
                     android:textColor="@color/black"
                     android:textSize="@dimen/xl_text_size"
                     android:textStyle="italic"
-                    app:layout_constraintBottom_toTopOf="@+id/friendEmail" />
+                    app:layout_constraintBottom_toTopOf="@+id/txtFriendEmail" />
 
                 <ImageView
                     android:id="@+id/imgFriend"
@@ -68,10 +87,13 @@
                     android:layout_height="0dp"
                     android:layout_margin="@dimen/small_margin"
                     android:scaleType="centerCrop"
-                    app:layout_constraintBottom_toTopOf="@+id/friendName"
+                    app:imageResource='@{uiModel.image}'
+                    app:layout_constraintBottom_toTopOf="@+id/txtFriendName"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.312" />
 
                 <HorizontalScrollView
                     android:id="@+id/scrollView"
@@ -113,6 +135,8 @@
             android:layout_margin="@dimen/small_margin"
             android:layout_marginBottom="@dimen/no_dimens"
             android:background="@drawable/radius"
+            setVisibility="@{!viewmodel.visibilityLiveData}"
+            android:onClick="@{() -> viewmodel.rateFriend(true)}"
             android:text="@string/hot"
             android:textSize="@dimen/large_text_size"
             app:icon="@drawable/ic_baseline_local_fire_department_24"
@@ -126,7 +150,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/small_margin"
             android:layout_marginBottom="@dimen/no_dimens"
+            setVisibility="@{!viewmodel.visibilityLiveData}"
             android:background="@drawable/radius"
+            android:onClick="@{() -> viewmodel.rateFriend(false)}"
             android:text="@string/not"
             android:textSize="@dimen/large_text_size"
             app:icon="@drawable/ic_baseline_local_fire_department_24"
@@ -136,8 +162,8 @@
         <androidx.constraintlayout.widget.Group
             android:id="@+id/chickenGroup"
             android:layout_width="match_parent"
+            setVisibility="@{viewmodel.visibilityLiveData}"
             android:layout_height="match_parent"
-            android:visibility="gone"
             app:constraint_referenced_ids="imgChicken,txtChicken">
 
         </androidx.constraintlayout.widget.Group>
@@ -149,7 +175,6 @@
             android:layout_marginTop="@dimen/medium_margin"
             android:scaleType="center"
             android:src="@drawable/chicken"
-            android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
         <TextView
@@ -161,7 +186,6 @@
             android:textColor="@color/yellow"
             android:textSize="@dimen/large_text_size"
             android:textStyle="italic"
-            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imgChicken" />
     </androidx.constraintlayout.widget.ConstraintLayout>
