@@ -8,7 +8,6 @@ import androidx.navigation.NavDirections
 import com.example.hotornot.data.model.Friend
 import com.example.hotornot.data.model.User
 import com.example.hotornot.data.repository.FriendRepository
-import com.example.hotornot.data.repository.FriendService
 import com.example.hotornot.data.repository.UserRepository
 import com.example.hotornot.ui.fragment.MainScreenFragmentDirections
 
@@ -20,11 +19,11 @@ class MainScreenFragmentViewModel(application: Application) : AndroidViewModel(a
     private val _navigateLiveData = MutableLiveData<NavDirections>()
     val navigateLiveData: LiveData<NavDirections> = _navigateLiveData
 
-    private val _randomisedFriendLiveData = MutableLiveData<Friend?>()
-    val randomisedFriendLiveData: LiveData<Friend?> = _randomisedFriendLiveData
-
-    private val _hasFriendToRateLiveData = MutableLiveData<Boolean>()
-    val hasFriendToRateLiveData: LiveData<Boolean> = _hasFriendToRateLiveData
+//    private val _randomisedFriendLiveData = MutableLiveData<Friend?>()
+//    val randomisedFriendLiveData: LiveData<Friend?> = _randomisedFriendLiveData
+//
+//    private val _hasFriendToRateLiveData = MutableLiveData<Boolean>()
+//    val hasFriendToRateLiveData: LiveData<Boolean> = _hasFriendToRateLiveData
 
     private val _isButtonHotVisible = MutableLiveData<Boolean>()
     val isButtonHotVisible: LiveData<Boolean> = _isButtonHotVisible
