@@ -7,6 +7,7 @@ import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.example.hotornot.R
+import com.example.hotornot.data.model.Friend
 import com.example.hotornot.databinding.FragmentMainScreenBinding
 import com.example.hotornot.viewModel.MainScreenFragmentViewModel
 import com.google.android.material.chip.Chip
@@ -33,8 +34,6 @@ class MainScreenFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeFriends()
-        viewModel.initViews()
-        observe()
         sendEmailConfirmClick()
         selectItemFromToolbar()
     }
@@ -43,7 +42,19 @@ class MainScreenFragment : BaseFragment() {
         inflater.inflate(R.menu.toolbar_menu, menu)
     }
 
-    private fun selectItemFromToolbar() {
+    private fun observeFriends() =
+        viewModel.randomisedFriendLiveData.observe(viewLifecycleOwner) { onRandomFriendLoaded(it) }
+
+    private fun sendEmailConfirmClick() = binding.icSendEmail.setOnClickListener { sendEmail() }
+
+    private fun onRandomFriendLoaded(friend: Friend?) {
+        binding.uiModel = friend
+        if (friend != null) {
+            setFriendCharacteristics(friend.characteristics)
+        }
+    }
+
+    private fun selectItemFromToolbar() =
         binding.toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.profileScreen -> {
@@ -51,23 +62,13 @@ class MainScreenFragment : BaseFragment() {
                     true
                 }
                 R.id.logOut -> {
-                    viewModel.clearUserInfo()
+                    viewModel.clearPref()
                     activity?.finish()
                     true
                 }
                 else -> true
             }
         }
-    }
-
-    private fun observeFriends() =
-        viewModel.friendLiveData.observe(viewLifecycleOwner) { binding.uiModel = it }
-
-    private fun observe() {
-        viewModel.visibilityLiveData.observe(viewLifecycleOwner) { it }
-    }
-
-    private fun sendEmailConfirmClick() = binding.icSendEmail.setOnClickListener { sendEmail() }
 
     private fun sendEmail() {
         val user = viewModel.getUser()

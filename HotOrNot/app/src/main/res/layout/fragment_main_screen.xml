@@ -34,13 +34,13 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
+            setVisibility="@{viewmodel.hasFriendToRateLiveData}"
             android:layout_width="match_parent"
             android:layout_height="@dimen/no_dimens"
             android:layout_margin="@dimen/small_margin"
-            setVisibility="@{!viewmodel.visibilityLiveData}"
             android:layout_marginBottom="@dimen/medium_margin"
             app:cardCornerRadius="@dimen/xl_margin"
-            app:layout_constraintBottom_toTopOf="@+id/btnHot"
+            app:layout_constraintBottom_toTopOf="@+id/btnCenter"
             app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -64,7 +64,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/small_margin"
                     android:gravity="center"
-                    android:text="@{viewmodel.friendLiveData.email}"
+                    android:text="@{viewmodel.randomisedFriendLiveData.email}"
                     android:textColor="@color/black"
                     android:textSize="@dimen/medium_text_size"
                     app:layout_constraintBottom_toTopOf="@+id/icSendEmail" />
@@ -75,7 +75,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/small_margin"
                     android:gravity="center"
-                    android:text="@{viewmodel.friendLiveData.name}"
+                    android:text="@{viewmodel.randomisedFriendLiveData.name}"
                     android:textColor="@color/black"
                     android:textSize="@dimen/xl_text_size"
                     android:textStyle="italic"
@@ -130,13 +130,13 @@
 
         <Button
             android:id="@+id/btnHot"
+            setVisibility="@{viewmodel.isButtonHotVisible()}"
             android:layout_width="@dimen/no_dimens"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/small_margin"
             android:layout_marginBottom="@dimen/no_dimens"
             android:background="@drawable/radius"
-            setVisibility="@{!viewmodel.visibilityLiveData}"
-            android:onClick="@{() -> viewmodel.rateFriend(true)}"
+            android:onClick="@{() -> viewmodel.ratedFriend(false)}"
             android:text="@string/hot"
             android:textSize="@dimen/large_text_size"
             app:icon="@drawable/ic_baseline_local_fire_department_24"
@@ -145,14 +145,27 @@
             app:layout_constraintRight_toRightOf="parent" />
 
         <Button
+            android:id="@+id/btnCenter"
+            android:layout_width="@dimen/no_dimens"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/small_margin"
+            android:text="@string/hot"
+            android:textSize="@dimen/large_text_size"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnHot"
+            app:layout_constraintStart_toEndOf="@+id/btnNot" />
+
+
+        <Button
             android:id="@+id/btnNot"
+            setVisibility="@{viewmodel.isButtonNotVisible}"
             android:layout_width="@dimen/no_dimens"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/small_margin"
             android:layout_marginBottom="@dimen/no_dimens"
-            setVisibility="@{!viewmodel.visibilityLiveData}"
             android:background="@drawable/radius"
-            android:onClick="@{() -> viewmodel.rateFriend(false)}"
+            android:onClick="@{() -> viewmodel.ratedFriend(false)}"
             android:text="@string/not"
             android:textSize="@dimen/large_text_size"
             app:icon="@drawable/ic_baseline_local_fire_department_24"
@@ -161,8 +174,8 @@
 
         <androidx.constraintlayout.widget.Group
             android:id="@+id/chickenGroup"
+            setVisibility="@{!viewmodel.hasFriendToRateLiveData}"
             android:layout_width="match_parent"
-            setVisibility="@{viewmodel.visibilityLiveData}"
             android:layout_height="match_parent"
             app:constraint_referenced_ids="imgChicken,txtChicken">
 

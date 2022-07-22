@@ -59,6 +59,18 @@ class FriendRepository(val context: Context) {
         return randomCharacteristics.toList().take(randomCountOfCharacteristics)
     }
 
+    fun getRandomFriend(): Friend? {
+        val filterFriends = getAllSavedFriends().filter { it.isHot == null }.toList()
+        return if (filterFriends.isEmpty()) null
+        else filterFriends.random()
+    }
+
+    fun updateFriend(isHot: Boolean, friendId: String) {
+        val allFriends = getAllSavedFriends()
+        allFriends.find { it.friendId == friendId }?.isHot = isHot
+        saveFriends(allFriends)
+    }
+
     companion object {
         private var instance: FriendRepository? = null
 

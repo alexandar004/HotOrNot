@@ -8,38 +8,52 @@ import androidx.navigation.NavDirections
 import com.example.hotornot.data.model.Friend
 import com.example.hotornot.data.model.User
 import com.example.hotornot.data.repository.FriendRepository
+import com.example.hotornot.data.repository.FriendService
 import com.example.hotornot.data.repository.UserRepository
 import com.example.hotornot.ui.fragment.MainScreenFragmentDirections
 
 class MainScreenFragmentViewModel(application: Application) : AndroidViewModel(application) {
 
-    private lateinit var friendRepository: FriendRepository
     private lateinit var userRepository: UserRepository
-    private lateinit var randomFriend: Friend
-    private lateinit var allFriends: List<Friend>
+    private lateinit var friendRepository: FriendRepository
 
     private val _navigateLiveData = MutableLiveData<NavDirections>()
     val navigateLiveData: LiveData<NavDirections> = _navigateLiveData
-    private val _friendLiveData = MutableLiveData<Friend>()
-    val friendLiveData: LiveData<Friend> = _friendLiveData
-    private val _visibilityLiveData = MutableLiveData<Boolean>()
-    val visibilityLiveData: LiveData<Boolean> = _visibilityLiveData
+
+    private val _randomisedFriendLiveData = MutableLiveData<Friend?>()
+    val randomisedFriendLiveData: LiveData<Friend?> = _randomisedFriendLiveData
+
+    private val _hasFriendToRateLiveData = MutableLiveData<Boolean>()
+    val hasFriendToRateLiveData: LiveData<Boolean> = _hasFriendToRateLiveData
+
+    private val _isButtonHotVisible = MutableLiveData<Boolean>()
+    val isButtonHotVisible: LiveData<Boolean> = _isButtonHotVisible
+
+    private val _isButtonNotVisible = MutableLiveData<Boolean>()
+    val isButtonNotVisible: LiveData<Boolean> = _isButtonNotVisible
+
+    private var friend: Friend? = null
 
     init {
-        initializedData()
-        initViews()
+        initData()
+        loadRandomFriend()
         navigateToProfileScreen()
-        getRandomFriend()
     }
 
-    private fun initializedData() {
-        friendRepository = FriendRepository(getApplication())
-        userRepository = UserRepository(getApplication())
+    private fun initData() {
+        userRepository = UserRepository.getInstance(getApplication())
+        friendRepository = FriendRepository.getInstance(getApplication())
     }
-
-    fun clearUserInfo() = userRepository.clearPreferenceUser()
 
     fun getUser(): User? = userRepository.getUser()
+
+    fun clearPref() = userRepository.clearPreferenceUser()
+
+    fun ratedFriend(isHot: Boolean) {
+        val friendId = randomisedFriendLiveData.value?.friendId ?: return
+        friendRepository.updateFriend(isHot, friendId)
+        loadRandomFriend()
+    }
 
     private fun navigateToProfileScreen() {
         val navDirection =
@@ -47,40 +61,17 @@ class MainScreenFragmentViewModel(application: Application) : AndroidViewModel(a
         _navigateLiveData.postValue(navDirection)
     }
 
-    private fun getRandomFriend() {
-        randomFriend = friendRepository.getAllSavedFriends().random()
-        _friendLiveData.postValue(randomFriend)
-//        checkForHotName(randomFriend)
-    }
-
-    private fun updateFriends(isHot: Boolean) {
-        allFriends = friendRepository.getAllSavedFriends()
-        allFriends.find { it.friendId == randomFriend.friendId }?.isHot = isHot
-        friendRepository.saveFriends(allFriends)
-    }
-
-    fun initViews() {
-        allFriends = friendRepository.getAllSavedFriends()
-        val allRandomFriends = allFriends.filter { it.isHot == null }
-        if (allRandomFriends.isNotEmpty()) {
-            getRandomFriend()
-        } else {
-            _visibilityLiveData.postValue(true)
+    private fun loadRandomFriend() {
+        friend = friendRepository.getRandomFriend()
+        friend?.let {
+            _isButtonHotVisible.postValue(!it.isStan())
+            _isButtonNotVisible.postValue(!it.isGeorgi())
         }
-    }
-
-//    private fun checkForHotName(friend: Friend) {
-//        if (friend.name == "Stan") {
-//            _visibilityLiveData.postValue(true)
-//        } else {
-//            _visibilityLiveData.postValue(false)
-//        }
-//    }
-
-
-    fun rateFriend(isHot: Boolean) {
-        randomFriend.isHot = isHot
-        updateFriends(isHot)
-        initViews()
+        _hasFriendToRateLiveData.postValue(friend != null)
+        if (friend == null) {
+            _isButtonHotVisible.postValue(false)
+            _isButtonNotVisible.postValue(false)
+        }
+        _randomisedFriendLiveData.postValue(friend)
     }
 }
