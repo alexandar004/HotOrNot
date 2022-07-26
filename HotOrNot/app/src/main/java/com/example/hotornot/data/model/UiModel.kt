@@ -1,6 +1,7 @@
 package com.example.hotornot.data.model
 
 data class UiModel(
-    val isRatedFriend: Boolean,
-    val ratedFriend: List<Friend>
+    var isButtonHotVisible: Boolean,
+    var isButtonNotVisible: Boolean ,
+    var isRatedFriend: Boolean,
 )

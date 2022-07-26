@@ -10,8 +10,12 @@
             type="com.example.hotornot.viewModel.MainScreenFragmentViewModel" />
 
         <variable
-            name="uiModel"
+            name="friend"
             type="com.example.hotornot.data.model.Friend" />
+
+        <variable
+            name="uiModel"
+            type="com.example.hotornot.data.model.UiModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,7 +38,8 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
-            setVisibility="@{viewmodel.hasFriendToRateLiveData}"
+            setVisibility="@{uiModel.ratedFriend}"
+
             android:layout_width="match_parent"
             android:layout_height="@dimen/no_dimens"
             android:layout_margin="@dimen/small_margin"
@@ -87,7 +92,7 @@
                     android:layout_height="0dp"
                     android:layout_margin="@dimen/small_margin"
                     android:scaleType="centerCrop"
-                    app:imageResource='@{uiModel.image}'
+                    app:imageResource='@{friend.image}'
                     app:layout_constraintBottom_toTopOf="@+id/txtFriendName"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
@@ -130,7 +135,7 @@
 
         <Button
             android:id="@+id/btnHot"
-            setVisibility="@{viewmodel.isButtonHotVisible()}"
+            setVisibility="@{viewmodel.fetchUiModel.buttonHotVisible}"
             android:layout_width="@dimen/no_dimens"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/small_margin"
@@ -156,10 +161,9 @@
             app:layout_constraintEnd_toStartOf="@+id/btnHot"
             app:layout_constraintStart_toEndOf="@+id/btnNot" />
 
-
         <Button
             android:id="@+id/btnNot"
-            setVisibility="@{viewmodel.isButtonNotVisible}"
+            setVisibility="@{viewmodel.fetchUiModel.buttonNotVisible}"
             android:layout_width="@dimen/no_dimens"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/small_margin"
@@ -174,7 +178,7 @@
 
         <androidx.constraintlayout.widget.Group
             android:id="@+id/chickenGroup"
-            setVisibility="@{!viewmodel.hasFriendToRateLiveData}"
+            setVisibility="@{!uiModel.ratedFriend}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:constraint_referenced_ids="imgChicken,txtChicken">
