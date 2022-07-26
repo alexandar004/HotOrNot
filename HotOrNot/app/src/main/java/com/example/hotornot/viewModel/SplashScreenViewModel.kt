@@ -5,7 +5,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavDirections
-import com.example.hotornot.data.model.User
 import com.example.hotornot.data.repository.FriendRepository
 import com.example.hotornot.data.repository.UserRepository
 import com.example.hotornot.ui.fragment.SplashScreenDirections

@@ -1,5 +1,6 @@
 package com.example.hotornot.ui
 
+import android.view.View
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 
@@ -20,6 +21,12 @@ class BindingAdapter {
                     NO_VALUE,
                     NO_VALUE
                 )
+        }
+
+        @BindingAdapter("setVisibility")
+        @JvmStatic
+        fun setVisibility(view: View, value: Boolean) {
+            view.visibility = if (value) View.VISIBLE else View.GONE
         }
     }
 }
