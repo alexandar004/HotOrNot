@@ -10,10 +10,6 @@
             type="com.example.hotornot.viewModel.MainScreenFragmentViewModel" />
 
         <variable
-            name="friend"
-            type="com.example.hotornot.data.model.Friend" />
-
-        <variable
             name="uiModel"
             type="com.example.hotornot.data.model.UiModel" />
     </data>
@@ -39,7 +35,6 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
             setVisibility="@{uiModel.ratedFriend}"
-
             android:layout_width="match_parent"
             android:layout_height="@dimen/no_dimens"
             android:layout_margin="@dimen/small_margin"
@@ -92,7 +87,7 @@
                     android:layout_height="0dp"
                     android:layout_margin="@dimen/small_margin"
                     android:scaleType="centerCrop"
-                    app:imageResource='@{friend.image}'
+                    app:imageResource='@{uiModel.friend.image}'
                     app:layout_constraintBottom_toTopOf="@+id/txtFriendName"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"

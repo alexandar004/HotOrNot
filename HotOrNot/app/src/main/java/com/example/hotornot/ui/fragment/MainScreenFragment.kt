@@ -62,7 +62,6 @@ class MainScreenFragment : BaseFragment() {
     private fun sendEmailConfirmClick() = binding.icSendEmail.setOnClickListener { sendEmail() }
 
     private fun onRandomFriendLoaded(friend: Friend?) {
-        binding.friend = friend
         if (friend != null)
             setFriendCharacteristics(friend.characteristics)
     }

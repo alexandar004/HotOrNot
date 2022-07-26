@@ -24,10 +24,12 @@ import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.location.LocationManagerCompat
+import androidx.fragment.app.viewModels
 import com.example.hotornot.BuildConfig
 import com.example.hotornot.R
 import com.example.hotornot.data.repository.FriendRepository
 import com.example.hotornot.databinding.FragmentLocationScreenBinding
+import com.example.hotornot.viewModel.LocationScreenFragmentViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -42,6 +44,7 @@ private const val REQUEST_CODE = 1
 
 class LocationScreen : BaseFragment() {
 
+    private val viewModel: LocationScreenFragmentViewModel by viewModels()
     private lateinit var binding: FragmentLocationScreenBinding
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var friendRepository: FriendRepository
@@ -69,7 +72,7 @@ class LocationScreen : BaseFragment() {
     }
 
     private fun updateAddressUI(location: Location) {
-        clearRatedFriends()
+        viewModel.clearRatedFriends()
         val geocoder = Geocoder(requireContext(), Locale.getDefault())
         val addressList = geocoder.getFromLocation(location.latitude,
             location.longitude, REQUEST_CODE) as ArrayList<Address>
@@ -232,8 +235,6 @@ class LocationScreen : BaseFragment() {
         binding.sadFaceGroup.visibility = View.VISIBLE
         onBtnSettingsClicked()
     }
-
-    private fun clearRatedFriends() = friendRepository.getAllSavedFriends()
 
     private fun onBtnSettingsClicked() = binding.btnSettings.setOnClickListener { openSettings() }
 }
