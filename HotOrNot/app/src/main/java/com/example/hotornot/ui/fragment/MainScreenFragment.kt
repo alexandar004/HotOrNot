@@ -51,9 +51,7 @@ class MainScreenFragment : BaseFragment() {
     private fun observeData() {
         viewModel.fetchUiModel.observe(viewLifecycleOwner) {
             binding.uiModel = it
-        }
-        viewModel.randomisedFriendLiveData.observe(viewLifecycleOwner) {
-            onRandomFriendLoaded(it)
+            onRandomFriendLoaded(it.friend)
         }
         viewModel.navigateLiveData.observe(viewLifecycleOwner) {
             openScreen(it)

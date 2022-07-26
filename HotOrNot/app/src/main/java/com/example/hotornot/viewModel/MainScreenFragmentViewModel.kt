@@ -20,15 +20,12 @@ class MainScreenFragmentViewModel(application: Application) : AndroidViewModel(a
     private val _navigateLiveData = MutableLiveData<NavDirections>()
     val navigateLiveData: LiveData<NavDirections> = _navigateLiveData
 
-    private val _randomisedFriendLiveData = MutableLiveData<Friend?>()
-    val randomisedFriendLiveData: LiveData<Friend?> = _randomisedFriendLiveData
-
-    private val _fetchUiModel = MutableLiveData(UiModel(
-        isButtonHotVisible = true, isButtonNotVisible = true, isRatedFriend = false))
-    val fetchUiModel: LiveData<UiModel> = _fetchUiModel
-
     private var randomFriend: Friend? = null
     private var friendArgsValue: UiModel? = null
+
+    private val _fetchUiModel = MutableLiveData(UiModel(
+        isButtonHotVisible = true, isButtonNotVisible = true, isRatedFriend = false,randomFriend))
+    val fetchUiModel: LiveData<UiModel> = _fetchUiModel
 
     init {
         initData()
@@ -45,7 +42,7 @@ class MainScreenFragmentViewModel(application: Application) : AndroidViewModel(a
     fun clearPref() = userRepository.clearPreferenceUser()
 
     fun ratedFriend(isHot: Boolean) {
-        val friendId = randomisedFriendLiveData.value?.friendId ?: return
+        val friendId = fetchUiModel.value?.friend?.friendId ?: return
         friendRepository.updateFriend(isHot, friendId)
         onViewResumed()
     }
@@ -60,7 +57,7 @@ class MainScreenFragmentViewModel(application: Application) : AndroidViewModel(a
         randomFriend = friendRepository.getRandomFriend()
         friendArgsValue = _fetchUiModel.value
         loadRandomFriends()
-        _randomisedFriendLiveData.value = randomFriend
+        friendArgsValue?.friend = randomFriend
         _fetchUiModel.value = friendArgsValue
     }
 
