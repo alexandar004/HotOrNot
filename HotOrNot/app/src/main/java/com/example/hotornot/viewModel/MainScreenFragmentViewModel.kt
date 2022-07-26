@@ -57,7 +57,6 @@ class MainScreenFragmentViewModel(application: Application) : AndroidViewModel(a
         _navigateLiveData.postValue(navDirection)
     }
 
-
     fun onViewResumed() {
         friend = friendRepository.getRandomFriend()
         friendArgsValue = _fetchUiModel.value

@@ -50,7 +50,7 @@ class FriendRepository(val context: Context) {
 
     fun getAllSavedFriends(): List<Friend> = preferencesUtil.getFriends()
 
-    fun saveFriends(friends: List<Friend>) = preferencesUtil.saveFriends(friends)
+    private fun saveFriends(friends: List<Friend>) = preferencesUtil.saveFriends(friends)
 
     private fun getRandomCharacteristics(): List<String> {
         val randomCharacteristics = context.resources.getStringArray(R.array.characteristics_array)

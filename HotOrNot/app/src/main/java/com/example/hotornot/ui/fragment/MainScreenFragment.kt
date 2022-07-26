@@ -90,7 +90,6 @@ class MainScreenFragment : BaseFragment() {
             putExtra(Intent.EXTRA_EMAIL, arrayOf(recipient))
             putExtra(Intent.EXTRA_TEXT, text + EMPTY_STRING + recipient)
         }
-
         try {
             startActivity(Intent.createChooser(messageIntent, getString(R.string.send_email)))
         } catch (e: Exception) {

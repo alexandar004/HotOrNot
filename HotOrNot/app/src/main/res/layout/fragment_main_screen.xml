@@ -125,7 +125,6 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="@integer/guidelineStart" />
 
-
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineEnd"
             android:layout_width="wrap_content"

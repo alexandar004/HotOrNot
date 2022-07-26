@@ -17,6 +17,5 @@ data class Friend(
     val friendId = UUID.randomUUID().toString()
 
     fun isGeorgi() = name == HOT_NAME
-
     fun isStan() = name == NOT_HOT_NAME
 }
