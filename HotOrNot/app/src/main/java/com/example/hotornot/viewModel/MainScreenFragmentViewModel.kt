@@ -24,17 +24,15 @@ class MainScreenFragmentViewModel(application: Application) : AndroidViewModel(a
     val randomisedFriendLiveData: LiveData<Friend?> = _randomisedFriendLiveData
 
     private val _fetchUiModel = MutableLiveData(UiModel(
-        isButtonHotVisible = true,
-        isButtonNotVisible = true,
-        isRatedFriend = false))
+        isButtonHotVisible = true, isButtonNotVisible = true, isRatedFriend = false))
     val fetchUiModel: LiveData<UiModel> = _fetchUiModel
 
-//    private var friend: Friend? = null
+    private var friend: Friend? = null
+    private var friendArgsValue: UiModel? = null
 
     init {
         initData()
         onViewResumed()
-//        loadRandomFriend()
         navigateToProfileScreen()
     }
 
@@ -59,32 +57,25 @@ class MainScreenFragmentViewModel(application: Application) : AndroidViewModel(a
         _navigateLiveData.postValue(navDirection)
     }
 
+
     fun onViewResumed() {
-        val friends = friendRepository.getAllSavedFriends()
-        val friend = friendRepository.getRandomFriend()
+        friend = friendRepository.getRandomFriend()
+        friendArgsValue = _fetchUiModel.value
+        _randomisedFriendLiveData.value = friend
+        _fetchUiModel.value = friendArgsValue
+        loadRandomFriends()
+    }
 
-        val friendArgsValue = _fetchUiModel.value
-//        friendArgsValue?.isRatedFriend = friends.isNotEmpty()
-
-
-
+    private fun loadRandomFriends() {
         friend?.let {
             friendArgsValue?.isButtonNotVisible = !it.isGeorgi()
             friendArgsValue?.isButtonHotVisible = !it.isStan()
         }
         friendArgsValue?.isRatedFriend = (friend != null)
+
         if (friend == null) {
             friendArgsValue?.isButtonHotVisible = false
             friendArgsValue?.isButtonNotVisible = false
-            friendArgsValue?.isRatedFriend=false
-
         }
-
-        _randomisedFriendLiveData.value = friend
-        _fetchUiModel.postValue(friendArgsValue)
-    }
-
-    private fun loadRandomFriend() {
-
     }
 }

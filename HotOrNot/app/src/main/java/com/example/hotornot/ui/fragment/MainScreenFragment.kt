@@ -36,20 +36,20 @@ class MainScreenFragment : BaseFragment() {
         observeFriends()
         sendEmailConfirmClick()
         selectItemFromToolbar()
-
-viewModel.onViewResumed()
-        viewModel.fetchUiModel.observe(viewLifecycleOwner) {
-            binding.uiModel = it
-        }
+        observeUiModel()
     }
 
     override fun onResume() {
         super.onResume()
         viewModel.onViewResumed()
     }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.toolbar_menu, menu)
     }
+
+    private fun observeUiModel() =
+        viewModel.fetchUiModel.observe(viewLifecycleOwner) { binding.uiModel = it }
 
     private fun observeFriends() =
         viewModel.randomisedFriendLiveData.observe(viewLifecycleOwner) { onRandomFriendLoaded(it) }
@@ -57,12 +57,9 @@ viewModel.onViewResumed()
     private fun sendEmailConfirmClick() = binding.icSendEmail.setOnClickListener { sendEmail() }
 
     private fun onRandomFriendLoaded(friend: Friend?) {
-
         binding.friend = friend
-        if (friend != null) {
+        if (friend != null)
             setFriendCharacteristics(friend.characteristics)
-        }
-
     }
 
     private fun selectItemFromToolbar() =
