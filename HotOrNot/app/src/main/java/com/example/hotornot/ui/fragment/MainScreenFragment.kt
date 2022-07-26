@@ -33,10 +33,9 @@ class MainScreenFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        observeFriends()
         sendEmailConfirmClick()
-        selectItemFromToolbar()
-        observeUiModel()
+        onOptionsItemsSelected()
+        observeData()
     }
 
     override fun onResume() {
@@ -48,11 +47,19 @@ class MainScreenFragment : BaseFragment() {
         inflater.inflate(R.menu.toolbar_menu, menu)
     }
 
-    private fun observeUiModel() =
-        viewModel.fetchUiModel.observe(viewLifecycleOwner) { binding.uiModel = it }
 
-    private fun observeFriends() =
-        viewModel.randomisedFriendLiveData.observe(viewLifecycleOwner) { onRandomFriendLoaded(it) }
+    private fun observeData() {
+        viewModel.fetchUiModel.observe(viewLifecycleOwner) {
+            binding.uiModel = it
+        }
+        viewModel.randomisedFriendLiveData.observe(viewLifecycleOwner) {
+            onRandomFriendLoaded(it)
+        }
+        viewModel.navigateLiveData.observe(viewLifecycleOwner) {
+            openScreen(it)
+        }
+    }
+
 
     private fun sendEmailConfirmClick() = binding.icSendEmail.setOnClickListener { sendEmail() }
 
@@ -62,11 +69,11 @@ class MainScreenFragment : BaseFragment() {
             setFriendCharacteristics(friend.characteristics)
     }
 
-    private fun selectItemFromToolbar() =
+    private fun onOptionsItemsSelected() =
         binding.toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.profileScreen -> {
-                    viewModel.navigateLiveData.observe(viewLifecycleOwner) { openScreen(it) }
+                    viewModel.navigateToProfileScreen()
                     true
                 }
                 R.id.logOut -> {

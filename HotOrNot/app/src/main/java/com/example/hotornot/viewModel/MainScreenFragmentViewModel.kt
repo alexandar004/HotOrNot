@@ -27,13 +27,12 @@ class MainScreenFragmentViewModel(application: Application) : AndroidViewModel(a
         isButtonHotVisible = true, isButtonNotVisible = true, isRatedFriend = false))
     val fetchUiModel: LiveData<UiModel> = _fetchUiModel
 
-    private var friend: Friend? = null
+    private var randomFriend: Friend? = null
     private var friendArgsValue: UiModel? = null
 
     init {
         initData()
         onViewResumed()
-        navigateToProfileScreen()
     }
 
     private fun initData() {
@@ -51,28 +50,28 @@ class MainScreenFragmentViewModel(application: Application) : AndroidViewModel(a
         onViewResumed()
     }
 
-    private fun navigateToProfileScreen() {
+     fun navigateToProfileScreen() {
         val navDirection =
             MainScreenFragmentDirections.actionMainScreenFragmentToProfileScreenFragment()
         _navigateLiveData.postValue(navDirection)
     }
 
     fun onViewResumed() {
-        friend = friendRepository.getRandomFriend()
+        randomFriend = friendRepository.getRandomFriend()
         friendArgsValue = _fetchUiModel.value
-        _randomisedFriendLiveData.value = friend
-        _fetchUiModel.value = friendArgsValue
         loadRandomFriends()
+        _randomisedFriendLiveData.value = randomFriend
+        _fetchUiModel.value = friendArgsValue
     }
 
     private fun loadRandomFriends() {
-        friend?.let {
+        randomFriend?.let {
             friendArgsValue?.isButtonNotVisible = !it.isGeorgi()
             friendArgsValue?.isButtonHotVisible = !it.isStan()
         }
-        friendArgsValue?.isRatedFriend = (friend != null)
+        friendArgsValue?.isRatedFriend = (randomFriend != null)
 
-        if (friend == null) {
+        if (randomFriend == null) {
             friendArgsValue?.isButtonHotVisible = false
             friendArgsValue?.isButtonNotVisible = false
         }
