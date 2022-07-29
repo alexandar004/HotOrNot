@@ -6,14 +6,9 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
-import android.location.Address
 import android.location.Geocoder
-import android.location.Location
 import android.location.LocationManager
-import android.net.Uri
 import android.os.Bundle
-import android.os.Looper
-import android.provider.Settings
 import android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS
 import android.text.Spannable
 import android.text.SpannableString
@@ -21,88 +16,104 @@ import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.location.LocationManagerCompat
 import androidx.fragment.app.viewModels
-import com.example.hotornot.BuildConfig
 import com.example.hotornot.R
-import com.example.hotornot.data.repository.FriendRepository
 import com.example.hotornot.databinding.FragmentLocationScreenBinding
 import com.example.hotornot.viewModel.LocationScreenFragmentViewModel
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationCallback
-import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.LocationResult
-import java.util.*
 
 private const val START_PAINTED_INDEX = 6
 private const val END_PAINTED_INDEX = 8
-private const val LOCATION_INTERVAL = 10000L
-private const val LOCATION_FASTEST_INTERVAL = 5000L
-private const val REQUEST_CODE = 1
 
 class LocationScreen : BaseFragment() {
 
     private val viewModel: LocationScreenFragmentViewModel by viewModels()
     private lateinit var binding: FragmentLocationScreenBinding
-    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
-    private lateinit var friendRepository: FriendRepository
 
-    private var locationCallback = object : LocationCallback() {
-        override fun onLocationResult(p0: LocationResult) {
-            val location: Location = p0.lastLocation
-            updateAddressUI(location)
-        }
-    }
+    private lateinit var registerForActivityResult: ActivityResultLauncher<Intent>
+    private lateinit var requestMultiplePermissions: ActivityResultLauncher<Array<String>>
+
+//    private var locationCallback = object : LocationCallback() {
+//        override fun onLocationResult(p0: LocationResult) {
+//            val location: Location = p0.lastLocation!!
+//            updateAddressUI(location)
+//        }
+//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentLocationScreenBinding.inflate(inflater, container, false)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        friendRepository = FriendRepository.getInstance(view.context)
         spanText()
-        clickBtnChangeConfirmation()
+        registerForActivityResult()
+        binding.btnChange.setOnClickListener {
+            checkPermissionForLocation(view.context)
+        }
+        registerForPermissionsResult()
+        observeData()
     }
 
-    private fun updateAddressUI(location: Location) {
-        viewModel.clearRatedFriends()
-        val geocoder = Geocoder(requireContext(), Locale.getDefault())
-        val addressList = geocoder.getFromLocation(location.latitude,
-            location.longitude, REQUEST_CODE) as ArrayList<Address>
+    private fun checkPermissionForLocation(context: Context) {
+        if ((ContextCompat.checkSelfPermission(
+                context,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_DENIED)
+        ) {
+            val permission = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
+            requestMultiplePermissions.launch(permission)
+        } else {
+            checkForLocationEnabled()
+        }
+    }
+
+    private fun observeData() {
+        viewModel.findLocationLiveData.observe(viewLifecycleOwner) {
+            showHappyFace()
+            if (it != null) {
+                findCountry(it.latitude, it.longitude)
+            }
+        }
+    }
+
+    private fun findCountry(latitude: Double, longitude: Double) {
+        val geoCoder = Geocoder(context)
+        geoCoder.getFromLocation(latitude, longitude, 5)
     }
 
     private fun getLocation() {
-        if (checkForLocationPermission())
-            updateLocation()
-    }
+        val context = context ?: return
 
-    private fun updateLocation() {
-        val locationRequest = LocationRequest()
-        locationRequest.apply {
-            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-            interval = LOCATION_INTERVAL
-            fastestInterval = LOCATION_FASTEST_INTERVAL
-        }
-        fusedLocationProviderClient = FusedLocationProviderClient(this.requireContext())
-        if (ActivityCompat.checkSelfPermission(requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-            ActivityCompat.checkSelfPermission(requireContext(),
-                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
+        if ((ContextCompat.checkSelfPermission(context,
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
         ) {
-            showHappyFace()
             return
         }
-        fusedLocationProviderClient.requestLocationUpdates(locationRequest,
-            locationCallback,
-            Looper.myLooper())
+        viewModel.findLocation()
     }
+
+    private fun registerForActivityResult() {
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (viewModel.hasLocationEnabled()) {
+                observeData()
+                getLocation()
+            } else {
+                showSadFace()
+            }
+        }
+    }
+
 
     private fun spanText() {
         val spannableString = SpannableString(getString(R.string.lets_go))
@@ -114,21 +125,39 @@ class LocationScreen : BaseFragment() {
         binding.txtMotivation.text = spannableString
     }
 
-    private fun checkPermissionForLocation(context: Context) {
-        if ((ContextCompat.checkSelfPermission(
-                context,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_DENIED)
-        ) {
-            val permission = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
-            requestPermissions(permission, REQUEST_CODE)
-        } else {
-            checkLocationEnabled()
-        }
+    private fun registerForPermissionsResult() {
+        requestMultiplePermissions =
+            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+                if (permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true)
+                    checkForLocationEnabled()
+                else
+                    repeatAlertDialog()
+            }
+    }
+
+
+    private fun checkForLocationEnabled() {
+        if (!viewModel.hasLocationEnabled()) {
+            AlertDialog.Builder(context)
+                .setMessage(R.string.gps_network_not_enabled)
+                .setPositiveButton(
+                    R.string.permission_denied
+                ) { _, _ ->
+                    showLottie()
+                    registerForActivityResult.launch(Intent(ACTION_LOCATION_SOURCE_SETTINGS))
+                }
+                .setNegativeButton(
+                    R.string.cancel
+                ) { _, _ ->
+                    showSadFace()
+                }
+                .show()
+        } else
+            showHappyFace()
     }
 
     private fun checkLocationEnabled() {
-        val gpsEnabled = isActiveLocation(requireContext())
+        val gpsEnabled = viewModel.hasLocationEnabled()
         if (!gpsEnabled) {
             AlertDialog.Builder(context)
                 .setMessage(R.string.gps_network_not_enabled)
@@ -157,18 +186,6 @@ class LocationScreen : BaseFragment() {
     private fun isActiveLocation(context: Context): Boolean {
         val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         return LocationManagerCompat.isLocationEnabled(locationManager)
-    }
-
-    private fun openSettings() =
-        startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-            Uri.parse(getString(R.string.key) + BuildConfig.APPLICATION_ID)))
-
-
-    private fun clickBtnChangeConfirmation() {
-        binding.btnChange.setOnClickListener {
-            checkPermissionForLocation(this.requireContext())
-            getLocation()
-        }
     }
 
     override fun onRequestPermissionsResult(
@@ -207,7 +224,7 @@ class LocationScreen : BaseFragment() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_CODE) {
+        if (requestCode == 1) {
             if (isActiveLocation(requireContext()))
                 showHappyFace()
             else
@@ -216,7 +233,7 @@ class LocationScreen : BaseFragment() {
     }
 
     private fun showHappyFace() {
-        val numberOfSuggestion = friendRepository.getAllSavedFriends().size
+        val numberOfSuggestion = viewModel.getNumberOfSuggestions()
         binding.sadFaceGroup.visibility = View.VISIBLE
         binding.imgMoodOnFace.setImageResource(R.drawable.ic_happy_face)
         binding.btnSettings.text = getString(R.string.done)
@@ -236,5 +253,6 @@ class LocationScreen : BaseFragment() {
         onBtnSettingsClicked()
     }
 
-    private fun onBtnSettingsClicked() = binding.btnSettings.setOnClickListener { openSettings() }
+    private fun onBtnSettingsClicked() =
+        binding.btnSettings.setOnClickListener { viewModel.openSettings() }
 }
