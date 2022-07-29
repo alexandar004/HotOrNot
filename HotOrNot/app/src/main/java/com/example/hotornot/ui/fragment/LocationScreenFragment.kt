@@ -33,16 +33,8 @@ class LocationScreen : BaseFragment() {
 
     private val viewModel: LocationScreenFragmentViewModel by viewModels()
     private lateinit var binding: FragmentLocationScreenBinding
-
     private lateinit var registerForActivityResult: ActivityResultLauncher<Intent>
     private lateinit var requestMultiplePermissions: ActivityResultLauncher<Array<String>>
-
-//    private var locationCallback = object : LocationCallback() {
-//        override fun onLocationResult(p0: LocationResult) {
-//            val location: Location = p0.lastLocation!!
-//            updateAddressUI(location)
-//        }
-//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -65,7 +57,7 @@ class LocationScreen : BaseFragment() {
         observeData()
     }
 
-    private fun checkPermissionForLocation(context: Context) {
+    private fun checkPermissionForLocation(context: Context) =
         if ((ContextCompat.checkSelfPermission(
                 context,
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -73,19 +65,15 @@ class LocationScreen : BaseFragment() {
         ) {
             val permission = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
             requestMultiplePermissions.launch(permission)
-        } else {
+        } else
             checkForLocationEnabled()
-        }
-    }
 
-    private fun observeData() {
+    private fun observeData() =
         viewModel.findLocationLiveData.observe(viewLifecycleOwner) {
             showHappyFace()
-            if (it != null) {
+            if (it != null)
                 findCountry(it.latitude, it.longitude)
-            }
         }
-    }
 
     private fun findCountry(latitude: Double, longitude: Double) {
         val geoCoder = Geocoder(context)
@@ -108,12 +96,10 @@ class LocationScreen : BaseFragment() {
             if (viewModel.hasLocationEnabled()) {
                 observeData()
                 getLocation()
-            } else {
+            } else
                 showSadFace()
-            }
         }
     }
-
 
     private fun spanText() {
         val spannableString = SpannableString(getString(R.string.lets_go))
@@ -130,11 +116,9 @@ class LocationScreen : BaseFragment() {
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
                 if (permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true)
                     checkForLocationEnabled()
-                else
-                    repeatAlertDialog()
+                else repeatAlertDialog()
             }
     }
-
 
     private fun checkForLocationEnabled() {
         if (!viewModel.hasLocationEnabled()) {
@@ -156,28 +140,6 @@ class LocationScreen : BaseFragment() {
             showHappyFace()
     }
 
-    private fun checkLocationEnabled() {
-        val gpsEnabled = viewModel.hasLocationEnabled()
-        if (!gpsEnabled) {
-            AlertDialog.Builder(context)
-                .setMessage(R.string.gps_network_not_enabled)
-                .setPositiveButton(
-                    R.string.change_location
-                ) { _, _ ->
-                    showLottie()
-                    startActivityForResult(Intent(ACTION_LOCATION_SOURCE_SETTINGS), 1)
-                }
-                .setNegativeButton(
-                    R.string.cancel
-                ) { _, _ ->
-                    showSadFace()
-                }
-                .show()
-        } else {
-            showHappyFace()
-        }
-    }
-
     private fun showLottie() {
         binding.motivationGroup.visibility = View.GONE
         binding.navigationLottie.visibility = View.VISIBLE
@@ -197,7 +159,7 @@ class LocationScreen : BaseFragment() {
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED)
         )
-            checkLocationEnabled()
+            checkForLocationEnabled()
         else
             repeatAlertDialog()
     }
