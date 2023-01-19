@@ -1,172 +1,178 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/second_background">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:context=".ui.fragment.RegistrationFormFragment">
+        android:layout_height="match_parent">
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent" />
+            tools:context=".ui.fragment.RegistrationFormFragment">
 
-        <TextView
-            android:id="@+id/txtCreateAccount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/create_account"
-            android:textColor="@color/white"
-            android:textSize="@dimen/large_text_size"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/progressBar" />
-
-        <ImageView
-            android:id="@+id/imgLogo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_logo_logo"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/countryFlag"
-            app:layout_constraintTop_toBottomOf="@+id/txtCreateAccount" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edtFirstName"
-            style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/small_margin"
-            android:hint="@string/first_name"
-            app:counterEnabled="true"
-            app:counterMaxLength="100"
-            app:errorEnabled="true"
-            app:hintTextColor="@color/blue"
-            app:layout_constraintTop_toBottomOf="@+id/countryFlag">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/userFirstName"
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLength="100" />
+                app:layout_constraintTop_toTopOf="parent" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:id="@+id/txtCreateAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/create_account"
+                android:textSize="@dimen/large_text_size"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/progressBar" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edtLastName"
-            style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/small_margin"
-            android:hint="@string/last_name"
-            app:boxStrokeColor="@color/blue"
-            app:boxStrokeErrorColor="@color/red"
-            app:counterEnabled="true"
-            app:counterMaxLength="100"
-            app:errorEnabled="true"
-            app:hintTextColor="@color/blue"
-            app:layout_constraintTop_toBottomOf="@+id/edtFirstName">
+            <ImageView
+                android:id="@+id/imgLogo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_logo_logo"
+                app:layout_constraintBottom_toTopOf="@+id/countryFlag"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtCreateAccount" />
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edtFirstName"
+                style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLength="100" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_margin="@dimen/small_margin"
+                android:hint="@string/first_name"
+                app:boxStrokeColor="@color/orange"
+                app:counterEnabled="true"
+                app:counterMaxLength="100"
+                app:errorEnabled="true"
+                app:hintTextColor="@color/blue"
+                app:layout_constraintTop_toBottomOf="@+id/countryFlag">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edtEmail"
-            style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/small_margin"
-            android:hint="@string/email"
-            app:errorEnabled="true"
-            app:hintTextColor="@color/blue"
-            app:layout_constraintTop_toBottomOf="@+id/edtLastName">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/userFirstName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="100" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editEmail"
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edtLastName"
+                style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/small_margin"
+                android:hint="@string/last_name"
+                app:boxStrokeColor="@color/orange"
+                app:boxStrokeErrorColor="@color/red"
+                app:counterEnabled="true"
+                app:counterMaxLength="100"
+                app:errorEnabled="true"
+                app:hintTextColor="@color/blue"
+                app:layout_constraintTop_toBottomOf="@+id/edtFirstName">
 
-        <RadioGroup
-            android:id="@+id/radioGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/small_margin"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edtEmail">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="100" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <RadioButton
-                android:id="@+id/radioBtnMan"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edtEmail"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/small_margin"
+                android:hint="@string/email"
+                app:boxStrokeColor="@color/orange"
+                app:errorEnabled="true"
+                app:hintTextColor="@color/blue"
+                app:layout_constraintTop_toBottomOf="@+id/edtLastName">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/small_margin"
-                android:layout_weight="1"
-                android:text="@string/man"
-                android:textColor="@color/white"
-                android:textSize="@dimen/large_text_size" />
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edtEmail">
 
-            <RadioButton
-                android:id="@+id/radioBtnWoman"
-                android:layout_width="wrap_content"
+                <RadioButton
+                    android:id="@+id/radioBtnMan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/small_margin"
+                    android:layout_weight="1"
+                    android:text="@string/man"
+                    android:textSize="@dimen/large_text_size" />
+
+                <RadioButton
+                    android:id="@+id/radioBtnWoman"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/small_margin"
+                    android:text="@string/woman"
+                    android:textSize="@dimen/large_text_size" />
+
+                <RadioButton
+                    android:id="@+id/radioBtnOther"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/small_margin"
+                    android:text="@string/other"
+                    android:textSize="@dimen/large_text_size" />
+            </RadioGroup>
+
+            <Spinner
+                android:id="@+id/spinnerMenu"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/small_margin"
-                android:text="@string/woman"
-                android:textColor="@color/white"
-                android:textSize="@dimen/large_text_size" />
+                android:layout_margin="@dimen/medium_margin"
+                app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
-            <RadioButton
-                android:id="@+id/radioBtnOther"
-                android:layout_width="wrap_content"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnRegister"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/small_margin"
-                android:text="@string/other"
+                android:layout_marginTop="@dimen/margin_medium_large"
+                android:layout_marginBottom="@dimen/small_margin"
+                android:backgroundTint="@color/orange"
+                android:clickable="true"
+                android:focusable="true"
+                android:text="@string/register"
+                android:textAlignment="center"
+                android:textAllCaps="true"
                 android:textColor="@color/white"
-                android:textSize="@dimen/large_text_size" />
-        </RadioGroup>
+                app:cornerRadius="@dimen/margin_medium"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerMenu"
+                app:layout_constraintWidth_percent="@integer/large_percentage"
+                app:layout_goneMarginBottom="@dimen/margin_medium" />
 
-        <Spinner
-            android:id="@+id/spinnerMenu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/medium_margin"
-            app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
-
-        <Button
-            android:id="@+id/btnRegister"
-            style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/small_margin"
-            android:layout_marginEnd="@dimen/small_margin"
-            android:text="@string/register"
-            android:textColor="@color/white"
-            android:textSize="@dimen/large_text_size"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinnerMenu" />
-
-        <ImageView
-            android:id="@+id/countryFlag"
-            android:layout_width="@dimen/xl_margin"
-            android:layout_height="@dimen/xl_margin"
-            app:layout_constraintTop_toBottomOf="@id/imgLogo"
-            app:layout_constraintBottom_toTopOf="@id/edtFirstName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+            <ImageView
+                android:id="@+id/countryFlag"
+                android:layout_width="@dimen/xl_margin"
+                android:layout_height="@dimen/xl_margin"
+                app:layout_constraintBottom_toTopOf="@id/edtFirstName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imgLogo" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>

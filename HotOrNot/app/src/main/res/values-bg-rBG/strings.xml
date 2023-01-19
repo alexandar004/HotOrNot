@@ -32,4 +32,6 @@
     <string name="change">промени</string>
     <string name="settings">настройки</string>
     <string name="permission_permanently_denied">Разрешението е окончателно отказано!</string>
+    <string name="test">%s\u0020%s </string>
+
 </resources>

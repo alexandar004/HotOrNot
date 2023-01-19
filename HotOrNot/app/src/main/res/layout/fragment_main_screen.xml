@@ -20,17 +20,17 @@
         android:background="@drawable/second_background"
         tools:context=".MainScreenFragment">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/purple_700"
-            android:fitsSystemWindows="true"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:layout_constraintTop_toTopOf="parent"
-            app:menu="@menu/toolbar_menu"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:title="@string/hor_or_not" />
+        <!--        <androidx.appcompat.widget.Toolbar-->
+        <!--            android:id="@+id/toolbar"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="?attr/actionBarSize"-->
+        <!--            android:background="@color/purple_700"-->
+        <!--            android:fitsSystemWindows="true"-->
+        <!--            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"-->
+        <!--            app:layout_constraintTop_toTopOf="parent"-->
+        <!--            app:menu="@menu/toolbar_menu"-->
+        <!--            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"-->
+        <!--            app:title="@string/hor_or_not" />-->
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
@@ -41,7 +41,7 @@
             android:layout_marginBottom="@dimen/medium_margin"
             app:cardCornerRadius="@dimen/xl_margin"
             app:layout_constraintBottom_toTopOf="@+id/btnCenter"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -139,20 +139,7 @@
             android:textSize="@dimen/large_text_size"
             app:icon="@drawable/ic_baseline_local_fire_department_24"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/guidelineEnd"
-            app:layout_constraintRight_toRightOf="parent" />
-
-        <Button
-            android:id="@+id/btnCenter"
-            android:layout_width="@dimen/no_dimens"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/small_margin"
-            android:text="@string/hot"
-            android:textSize="@dimen/large_text_size"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnHot"
-            app:layout_constraintStart_toEndOf="@+id/btnNot" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <Button
             android:id="@+id/btnNot"
@@ -168,6 +155,18 @@
             app:icon="@drawable/ic_baseline_local_fire_department_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/btnCenter"
+            android:layout_width="@dimen/no_dimens"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/small_margin"
+            android:text="@string/hot"
+            android:textSize="@dimen/large_text_size"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnHot"
+            app:layout_constraintStart_toEndOf="@+id/btnNot" />
 
         <androidx.constraintlayout.widget.Group
             android:id="@+id/chickenGroup"
@@ -185,7 +184,7 @@
             android:layout_marginTop="@dimen/medium_margin"
             android:scaleType="center"
             android:src="@drawable/chicken"
-            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/txtChicken"

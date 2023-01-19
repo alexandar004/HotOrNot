@@ -35,6 +35,6 @@ class ProfileScreenFragmentViewModel(application: Application) : AndroidViewMode
 
     private fun getUser() {
         val user = userRepository.getUser()
-        _userLiveData.postValue(user)
+        _userLiveData.value = user
     }
 }

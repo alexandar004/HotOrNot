@@ -1,31 +1,44 @@
 package com.example.hotornot.ui
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.hotornot.R
+import com.example.hotornot.databinding.ActivityMainBinding
+import com.example.hotornot.ui.fragment.BaseFragment
+import com.google.android.material.appbar.MaterialToolbar
 
 private const val ALLOWABLE_TIME_BEFORE_GO_TO_MOTIVATION_SCREEN = 100000L
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), BaseFragment.ActivityListener {
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
+    lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
     private var offlineTimeCounter = System.currentTimeMillis()
 
+    lateinit var toolbar: MaterialToolbar
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.lifecycleOwner = this
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
         navController = navHostFragment.navController
-        appBarConfiguration = AppBarConfiguration(navController.graph)
+        toolbar = binding.toolbar
+        setupApplicationToolbar()
+    }
+
+    private fun setupApplicationToolbar() {
+        val appBarConfiguration = AppBarConfiguration(navController.graph)
+        setSupportActionBar(toolbar)
         setupActionBarWithNavController(navController, appBarConfiguration)
-        supportActionBar?.hide()
     }
 
     override fun onPause() {
@@ -51,4 +64,13 @@ class MainActivity : AppCompatActivity() {
         if (currentDestination != R.id.registrationFormFragment && currentDestination != R.id.splashScreenFragment)
             navController.navigate(R.id.motivationScreen)
     }
+
+    override fun setToolbar() =
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.id != R.id.mainScreenFragment) {
+                toolbar.visibility = View.GONE
+            } else {
+                toolbar.visibility = View.VISIBLE
+            }
+        }
 }

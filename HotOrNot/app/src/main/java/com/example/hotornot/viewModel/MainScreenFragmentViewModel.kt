@@ -24,7 +24,7 @@ class MainScreenFragmentViewModel(application: Application) : AndroidViewModel(a
     private var friendArgsValue: UiModel? = null
 
     private val _fetchUiModel = MutableLiveData(UiModel(
-        isButtonHotVisible = true, isButtonNotVisible = true, isRatedFriend = false,randomFriend))
+        isButtonHotVisible = true, isButtonNotVisible = true, isRatedFriend = false, randomFriend))
     val fetchUiModel: LiveData<UiModel> = _fetchUiModel
 
     init {
@@ -47,7 +47,7 @@ class MainScreenFragmentViewModel(application: Application) : AndroidViewModel(a
         onViewResumed()
     }
 
-     fun navigateToProfileScreen() {
+    fun navigateToProfileScreen() {
         val navDirection =
             MainScreenFragmentDirections.actionMainScreenFragmentToProfileScreenFragment()
         _navigateLiveData.postValue(navDirection)

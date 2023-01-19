@@ -1,13 +1,12 @@
 package com.example.hotornot.viewModel
 
+
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
-
-
 import android.os.Bundle
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -59,15 +58,15 @@ class LocationScreenFragmentViewModel(application: Application) : AndroidViewMod
             _findLocationLiveData.value = location
             resetRatedFriends()
         } else {
-                try {
-                    locationManager.requestLocationUpdates(
-                        LocationManager.NETWORK_PROVIDER,
-                        MIN_TIME_MS,
-                        MIN_DISTANCE_M,
-                        locationListener
-                    )
-                } catch (ex: SecurityException) {
-                }
+            try {
+                locationManager.requestLocationUpdates(
+                    LocationManager.NETWORK_PROVIDER,
+                    MIN_TIME_MS,
+                    MIN_DISTANCE_M,
+                    locationListener
+                )
+            } catch (ex: SecurityException) {
+            }
         }
     }
 

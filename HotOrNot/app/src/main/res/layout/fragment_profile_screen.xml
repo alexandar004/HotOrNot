@@ -66,9 +66,9 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/medium_margin"
                     android:layout_marginTop="@dimen/small_margin"
-                    android:drawablePadding="@dimen/medium_margin"
                     android:drawableStart="@drawable/ic_profile"
-                    android:text="@{viewmodel.userLiveData.firstName + viewmodel.userLiveData.lastName}"
+                    android:drawablePadding="@dimen/medium_margin"
+                    android:text="@{uiModel.firstName + uiModel.lastName}"
                     android:textColor="@color/black"
                     android:textSize="@dimen/large_text_size"
                     android:textStyle="italic"
@@ -80,8 +80,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/medium_margin"
                     android:drawableStart="@drawable/ic_mail_1008"
-                    android:text="@{viewmodel.userLiveData.email}"
                     android:drawablePadding="@dimen/medium_margin"
+                    android:text="@{uiModel.email}"
                     android:textColor="@color/black"
                     app:layout_constraintTop_toBottomOf="@+id/txtName" />
 
@@ -98,22 +98,28 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txtEmail" />
 
-
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnChangeLocation"
+                    android:id="@+id/btnLogin"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:layout_width="match_parent"
+                    android:layout_width="@dimen/no_dimen"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/medium_margin"
+                    android:layout_marginBottom="@dimen/margin_large"
+                    android:backgroundTint="@color/orange"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:onClick="@{() -> viewmodel.navigateBtnChangeLocation()}"
+                    android:paddingVertical="@dimen/padding_medium"
                     android:text="@string/change_location"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/medium_text_size"
-                    android:textStyle="italic"
-                    app:cornerRadius="@dimen/small_corner_radius"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    app:cornerRadius="@dimen/margin_medium"
                     app:icon="@drawable/ic_baseline_add_location_alt_24"
-                    app:iconGravity="textStart"
-                    app:layout_constraintBottom_toBottomOf="parent" />
+                    app:iconTint="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintWidth_percent="@integer/large_percentage" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
     </FrameLayout>

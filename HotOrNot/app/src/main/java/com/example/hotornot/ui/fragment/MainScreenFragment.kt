@@ -5,10 +5,15 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import com.example.hotornot.R
 import com.example.hotornot.data.model.Friend
 import com.example.hotornot.databinding.FragmentMainScreenBinding
+import com.example.hotornot.ui.MainActivity
 import com.example.hotornot.viewModel.MainScreenFragmentViewModel
 import com.google.android.material.chip.Chip
 
@@ -33,8 +38,9 @@ class MainScreenFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setEditButton()
         sendEmailConfirmClick()
-        onOptionsItemsSelected()
+//        onOptionsItemsSelected()
         observeData()
     }
 
@@ -65,20 +71,38 @@ class MainScreenFragment : BaseFragment() {
             setFriendCharacteristics(friend.characteristics)
     }
 
-    private fun onOptionsItemsSelected() =
-        binding.toolbar.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.profileScreen -> {
-                    viewModel.navigateToProfileScreen()
-                    true
-                }
-                R.id.logOut -> {
-                    viewModel.clearPref()
-                    activity?.finish()
-                    true
-                }
-                else -> true
+    private fun setEditButton() {
+        val toolbar = (activity as MainActivity?)?.toolbar
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                toolbar?.overflowIcon =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.ic_three_dots)
+                menuInflater.inflate(R.menu.toolbar_menu, toolbar?.menu)
             }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+//                viewModel.onEditButtonClicked()
+//                menuItem.isVisible = false
+                onSortedOptionsItemSelected(menuItem)
+                return true
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+    }
+
+    private fun onSortedOptionsItemSelected(menuItem: MenuItem) =
+        when (menuItem.itemId) {
+            R.id.profileScreen -> {
+                viewModel.navigateToProfileScreen()
+                true
+
+            }
+            R.id.logOut -> {
+                viewModel.clearPref()
+                activity?.finish()
+                true
+            }
+            else -> false
         }
 
     private fun sendEmail() {
