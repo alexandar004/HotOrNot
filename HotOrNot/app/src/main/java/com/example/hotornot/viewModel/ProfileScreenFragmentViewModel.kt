@@ -50,7 +50,7 @@ class ProfileScreenFragmentViewModel(application: Application) : AndroidViewMode
             ProfileScreenFragmentDirections.actionProfileScreenFragmentToLocationScreen()
         _navigationLiveData.postValue(navDirection)
     }
- 
+
     @SuppressLint("MissingPermission")
     fun findCurrentLocation() {
         val context = getApplication<Application>() ?: return
@@ -65,6 +65,7 @@ class ProfileScreenFragmentViewModel(application: Application) : AndroidViewMode
         if (location != null) {
             _currentLocationLiveData.postValue(location!!)
         } else {
+            
             try {
                 locationManager.requestLocationUpdates(
                     LocationManager.NETWORK_PROVIDER,
