@@ -65,6 +65,7 @@
     <string name="settings">settings</string>
     <string name="permission_permanently_denied">Permission Permanently Denied!</string>
     <string name="test">%s\u0020%s </string>
+    <string name="current_location">Current location</string>
 
 
     <string-array name="interests">

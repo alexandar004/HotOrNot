@@ -94,9 +94,9 @@ class ProfileScreenFragment : BaseFragment() {
             geoCoder.getFromLocation(latitude, longitude, MAX_RESULTS_OF_ADDRESSES)
         val address = addresses[0].getAddressLine(0)
         if (address.isNullOrEmpty()) {
-//            progressIndLocation.visibility = View.VISIBLE
+            binding.progressIndLocation.visibility = View.VISIBLE
         } else {
-//            progressIndLocation.visibility = View.GONE
+            binding.progressIndLocation.visibility = View.GONE
             binding.txtCurrentLocation.text = address.toString()
         }
     }
