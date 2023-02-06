@@ -65,7 +65,6 @@ class ProfileScreenFragmentViewModel(application: Application) : AndroidViewMode
         if (location != null) {
             _currentLocationLiveData.postValue(location!!)
         } else {
-            
             try {
                 locationManager.requestLocationUpdates(
                     LocationManager.NETWORK_PROVIDER,
