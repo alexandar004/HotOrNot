@@ -21,11 +21,10 @@ import com.example.hotornot.ui.fragment.ProfileScreenFragmentDirections
 private const val MIN_TIME_MS = 0L
 private const val MIN_DISTANCE_M = 0f
 
-
 class ProfileScreenFragmentViewModel(application: Application) : AndroidViewModel(application) {
 
     private lateinit var userRepository: UserRepository
-    private lateinit var locationManager: LocationManager
+    private  var locationManager: LocationManager
     private lateinit var locationListener: LocationListener
     private val _navigationLiveData = MutableLiveData<NavDirections>()
     val navigationLiveData: LiveData<NavDirections> = _navigationLiveData

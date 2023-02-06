@@ -7,10 +7,8 @@
     <dimen name="xll_margin">68dp</dimen>
     <dimen name="large_margin">84dp</dimen>
 
-
     <dimen name="margin_medium">16dp</dimen>
     <dimen name="max_margin">200dp</dimen>
-
 
     <dimen name="no_dimen">0dp</dimen>
     <dimen name="stroke_width_size">1dp</dimen>
@@ -28,7 +26,6 @@
     <dimen name="logo_height">80dp</dimen>
     <dimen name="dog_image_size">400dp</dimen>
     <dimen name="elevation_large">10dp</dimen>
-
     <dimen name="padding_medium">10dp</dimen>
 
     //fonts
