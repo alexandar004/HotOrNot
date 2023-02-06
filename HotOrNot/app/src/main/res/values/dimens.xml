@@ -7,6 +7,27 @@
     <dimen name="xll_margin">68dp</dimen>
     <dimen name="large_margin">84dp</dimen>
 
+    <dimen name="margin_medium">16dp</dimen>
+    <dimen name="max_margin">200dp</dimen>
+
+    <dimen name="no_dimen">0dp</dimen>
+    <dimen name="stroke_width_size">1dp</dimen>
+    <dimen name="auto_complete_stroke_size">2dp</dimen>
+    <dimen name="padding_hint">2dp</dimen>
+    <dimen name="margin_extra_small">4dp</dimen>
+    <dimen name="margin_input_layout_top">6dp</dimen>
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="negative_margin_small">-8dp</dimen>
+    <dimen name="padding_reset_icon">12dp</dimen>
+    <dimen name="margin_medium_input_layout_top">14dp</dimen>
+    <dimen name="margin_medium_large">22dp</dimen>
+    <dimen name="margin_large">32dp</dimen>
+    <dimen name="margin_logo">40dp</dimen>
+    <dimen name="logo_height">80dp</dimen>
+    <dimen name="dog_image_size">400dp</dimen>
+    <dimen name="elevation_large">10dp</dimen>
+    <dimen name="padding_medium">10dp</dimen>
+
     //fonts
     <dimen name="medium_text_size">18sp</dimen>
     <dimen name="large_text_size">24sp</dimen>
@@ -19,4 +40,7 @@
     //percentage
     <item name="guidelineStart" format="float" type="integer">0.33</item>
     <item name="guidelineEnd" format="float" type="integer">0.66</item>
+
+    <item name="large_percentage" format="float" type="integer">0.8</item>
+
 </resources>
