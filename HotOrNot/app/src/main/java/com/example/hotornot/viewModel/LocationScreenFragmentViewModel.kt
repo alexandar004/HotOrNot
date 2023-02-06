@@ -13,7 +13,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavDirections
 import com.example.hotornot.data.repository.FriendRepository
-import com.example.hotornot.ui.fragment.LocationScreenDirections
 
 
 private const val MIN_TIME_MS = 0L
@@ -97,16 +96,9 @@ class LocationScreenFragmentViewModel(application: Application) : AndroidViewMod
     }
 
 
-    fun openSettings() {
-        val navDirections =
-            LocationScreenDirections.actionLocationScreenToProfileScreenFragment()
-        _navigateLiveData.value = navDirections
-    }
-
-
     private fun initializedData() {
         friendRepository = FriendRepository.getInstance(getApplication())
     }
 
-    fun clearRatedFriends() = friendRepository.getAllSavedFriends()
+    private fun clearRatedFriends() = friendRepository.getAllSavedFriends()
 }

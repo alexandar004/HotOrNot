@@ -8,11 +8,14 @@ import android.content.pm.PackageManager
 import android.graphics.Color
 import android.location.Geocoder
 import android.location.LocationManager
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
 import android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,6 +31,7 @@ import com.example.hotornot.viewModel.LocationScreenFragmentViewModel
 
 private const val START_PAINTED_INDEX = 6
 private const val END_PAINTED_INDEX = 8
+private const val PACKAGE = "package:"
 
 class LocationScreen : BaseFragment() {
 
@@ -75,6 +79,8 @@ class LocationScreen : BaseFragment() {
                 findCountry(it.latitude, it.longitude)
         }
 
+
+
     private fun findCountry(latitude: Double, longitude: Double) {
         val geoCoder = Geocoder(context)
         geoCoder.getFromLocation(latitude, longitude, 5)
@@ -92,13 +98,14 @@ class LocationScreen : BaseFragment() {
     }
 
     private fun registerForActivityResult() {
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            if (viewModel.hasLocationEnabled()) {
-                observeData()
-                getLocation()
-            } else
-                showSadFace()
-        }
+        registerForActivityResult =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                if (viewModel.hasLocationEnabled()) {
+                    observeData()
+                    getLocation()
+                } else
+                    showSadFace()
+            }
     }
 
     private fun spanText() {
@@ -197,11 +204,17 @@ class LocationScreen : BaseFragment() {
     private fun showHappyFace() {
         val numberOfSuggestion = viewModel.getNumberOfSuggestions()
         binding.sadFaceGroup.visibility = View.VISIBLE
-        binding.imgMoodOnFace.setImageResource(R.drawable.ic_happy_face)
+        binding.imgMoodOnFace.setImageResource(R.drawable.ic_smile_icon)
         binding.btnSettings.text = getString(R.string.done)
+        binding.description.visibility = View.GONE
         binding.txtPermission.text =
             getString(R.string.location_successfully_changed) + " " + numberOfSuggestion
         clickBtnDoneConfirmation()
+    }
+
+
+    private fun hideHappyFaceGroup() {
+        binding.motivationGroup.visibility = View.GONE
     }
 
     private fun clickBtnDoneConfirmation() =
@@ -210,11 +223,17 @@ class LocationScreen : BaseFragment() {
         }
 
     private fun showSadFace() {
-        binding.imgMoodOnFace.setImageResource(R.drawable.ic_sad_face)
+        binding.imgMoodOnFace.setImageResource(R.drawable.ic_sad_face_5144)
         binding.sadFaceGroup.visibility = View.VISIBLE
+        hideHappyFaceGroup()
         onBtnSettingsClicked()
     }
 
-    private fun onBtnSettingsClicked() =
-        binding.btnSettings.setOnClickListener { viewModel.openSettings() }
+    private fun onBtnSettingsClicked() {
+        binding.btnSettings.setOnClickListener {
+            val intent = Intent(ACTION_APPLICATION_DETAILS_SETTINGS)
+            intent.data = Uri.parse(com.example.hotornot.ui.fragment.PACKAGE + context?.packageName)
+            registerForActivityResult.launch(intent)
+        }
+    }
 }

@@ -5,6 +5,7 @@ import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.Geocoder
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +18,7 @@ import com.example.hotornot.databinding.FragmentProfileScreenBinding
 import com.example.hotornot.viewModel.ProfileScreenFragmentViewModel
 
 private const val INTENT_TYPE = "image/*"
+private const val MAX_RESULTS_OF_ADDRESSES = 5
 
 class ProfileScreenFragment : BaseFragment() {
 
@@ -41,6 +43,11 @@ class ProfileScreenFragment : BaseFragment() {
         registerForActivityResult()
         registerForPermissionsResult()
         binding.imgProfile.setOnClickListener { checkPermissionForImage(requireContext()) }
+        viewModel.currentLocationLiveData.observe(viewLifecycleOwner,
+            { findUserCountry(it.latitude, it.longitude) }
+        )
+        registerForActivityResult()
+        viewModel.findCurrentLocation()
     }
 
     private fun registerForPermissionsResult() {
@@ -79,6 +86,19 @@ class ProfileScreenFragment : BaseFragment() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = INTENT_TYPE
         return intent
+    }
+
+    private fun findUserCountry(latitude: Double, longitude: Double) {
+        val geoCoder = Geocoder(context)
+        val addresses =
+            geoCoder.getFromLocation(latitude, longitude, MAX_RESULTS_OF_ADDRESSES)
+        val address = addresses[0].getAddressLine(0)
+        if (address.isNullOrEmpty()) {
+//            progressIndLocation.visibility = View.VISIBLE
+        } else {
+//            progressIndLocation.visibility = View.GONE
+            binding.txtCurrentLocation.text = address.toString()
+        }
     }
 
     private fun observeData() {

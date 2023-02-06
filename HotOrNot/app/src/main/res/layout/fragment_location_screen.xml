@@ -13,7 +13,6 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/second_background"
         tools:context=".ui.fragment.LocationScreen">
 
         <TextView
@@ -22,7 +21,6 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/change_location"
-            android:textColor="@color/white"
             android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,11 +30,12 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/medium_margin"
             android:layout_marginTop="@dimen/large_margin"
+            android:gravity="center"
             android:text="@string/fresh_suggestions"
-            android:textColor="@color/white"
-            android:textSize="@dimen/medium_text_size"
-            android:textStyle="italic"
-            app:layout_constraintTop_toBottomOf="@+id/changeLocationTitle" />
+            android:textSize="@dimen/large_text_size"
+            app:layout_constraintBottom_toTopOf="@+id/btnChange"
+            app:layout_constraintTop_toBottomOf="@+id/imgMoodOnFace"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/txtMotivation"
@@ -53,16 +52,23 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnChange"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/medium_margin"
-            android:text="@string/change"
+            android:layout_marginTop="@dimen/margin_medium_large"
+            android:layout_marginBottom="@dimen/small_margin"
+            android:backgroundTint="@color/orange"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/register"
+            android:textAlignment="center"
+            android:textAllCaps="true"
             android:textColor="@color/white"
-            android:textStyle="italic"
-            app:cornerRadius="@dimen/small_margin"
+            app:cornerRadius="@dimen/margin_medium"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="@integer/large_percentage"
+            app:layout_goneMarginBottom="@dimen/margin_medium" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/navigationLottie"
@@ -79,7 +85,6 @@
             android:id="@+id/sadFaceGroup"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/yellow"
             android:visibility="gone"
             app:constraint_referenced_ids="btnSettings, imgMoodOnFace, txtPermission"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -100,14 +105,23 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSettings"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/medium_margin"
-            android:gravity="center"
-            android:text="@string/settings"
-            android:textColor="@color/black"
-            app:cornerRadius="@dimen/min_radius"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            android:layout_marginTop="@dimen/margin_medium_large"
+            android:layout_marginBottom="@dimen/small_margin"
+            android:backgroundTint="@color/orange"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/change"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            app:cornerRadius="@dimen/margin_medium"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="@integer/large_percentage"
+            app:layout_goneMarginBottom="@dimen/margin_medium" />
 
         <ImageView
             android:id="@+id/imgMoodOnFace"
@@ -122,12 +136,13 @@
             android:id="@+id/txtPermission"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/medium_margin"
             android:gravity="center"
             android:text="@string/permission_permanently_denied"
             android:textColor="@color/black"
             android:textSize="@dimen/large_text_size"
             android:textStyle="italic"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/imgMoodOnFace" />
 
         <TextView
             android:id="@+id/txtHappyFace"
