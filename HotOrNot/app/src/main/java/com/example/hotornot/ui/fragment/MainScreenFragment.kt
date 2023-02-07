@@ -38,7 +38,7 @@ class MainScreenFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setEditButton()
+        setNavigationMenu()
         sendEmailConfirmClick()
 //        onOptionsItemsSelected()
         observeData()
@@ -71,7 +71,7 @@ class MainScreenFragment : BaseFragment() {
             setFriendCharacteristics(friend.characteristics)
     }
 
-    private fun setEditButton() {
+    private fun setNavigationMenu() {
         val toolbar = (activity as MainActivity?)?.toolbar
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(object : MenuProvider {
