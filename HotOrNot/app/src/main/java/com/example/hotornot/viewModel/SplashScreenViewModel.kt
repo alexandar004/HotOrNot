@@ -38,6 +38,13 @@ class SplashScreenViewModel(application: Application) : AndroidViewModel(applica
         }
     }
 
+    private fun navigateToNetworkErrorScreen() {
+        val navDirections =
+            SplashScreenDirections.actionSplashScreenFragmentToNoNetworkConnectionScreen()
+//        val navArguments = NavigationArguments(navDirections)
+        _navigationLiveData.postValue(navDirections)
+    }
+
     private fun onLoadFriends() = friendRepository.generateFriends()
 
     fun onLoadData() {

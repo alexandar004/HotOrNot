@@ -13,6 +13,7 @@ import com.example.hotornot.R
 import com.example.hotornot.databinding.ActivityMainBinding
 import com.example.hotornot.ui.fragment.BaseFragment
 import com.google.android.material.appbar.MaterialToolbar
+import kotlin.system.exitProcess
 
 private const val ALLOWABLE_TIME_BEFORE_GO_TO_MOTIVATION_SCREEN = 100000L
 
@@ -65,12 +66,41 @@ class MainActivity : AppCompatActivity(), BaseFragment.ActivityListener {
             navController.navigate(R.id.motivationScreen)
     }
 
-    override fun setToolbar() =
+    override fun setToolbar() {
+        setToolbarArrowBackVisibility()
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if (destination.id != R.id.mainScreenFragment) {
                 toolbar.visibility = View.GONE
+                toolbar.menu.clear()
             } else {
                 toolbar.visibility = View.VISIBLE
             }
         }
+    }
+
+    private fun setToolbarArrowBackVisibility() {
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.registrationFormFragment,
+                R.id.mainScreenFragment,
+                R.id.profileScreenFragment,
+                -> {
+                    binding.toolbar.navigationIcon = null
+                }
+            }
+        }
+    }
+
+    override fun onBackPressed() {
+        if (Navigation.findNavController(
+                this,
+                R.id.navHostFragment
+            ).currentDestination?.id == R.id.noNetworkConnectionScreen
+        ) {
+            finish()
+            exitProcess(0)
+        } else {
+            super.onBackPressed()
+        }
+    }
 }

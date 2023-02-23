@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_splashScreenFragment_to_mainScreenFragment"
             app:destination="@id/mainScreenFragment" />
+        <action
+            android:id="@+id/action_splashScreenFragment_to_noNetworkConnectionScreen"
+            app:destination="@id/noNetworkConnectionScreen" />
     </fragment>
     <fragment
         android:id="@+id/mainScreenFragment"
@@ -54,6 +57,9 @@
         <action
             android:id="@+id/action_motivationScreen_to_mainScreenFragment"
             app:destination="@id/mainScreenFragment" />
+        <action
+            android:id="@+id/action_motivationScreen_to_noNetworkConnectionScreen"
+            app:destination="@id/noNetworkConnectionScreen" />
     </fragment>
     <fragment
         android:id="@+id/locationScreen"
@@ -63,4 +69,22 @@
             android:id="@+id/action_locationScreen_to_profileScreenFragment"
             app:destination="@id/profileScreenFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/noNetworkConnectionScreen"
+        android:name="com.example.hotornot.ui.fragment.NoNetworkConnectionFragment"
+        tools:layout="@layout/fragment_no_network_connection">
+
+        <action
+            android:id="@+id/action_noNetworkConnectionScreen_to_mainScreenFragment"
+            app:destination="@id/mainScreenFragment" />
+        <action
+            android:id="@+id/action_noNetworkConnectionScreen_to_registrationFormFragment"
+            app:destination="@id/registrationFormFragment" />
+        <argument
+            android:name="noNetworkListener"
+            android:defaultValue="@null"
+            app:argType="com.example.hotornot.data.listener.NoNetworkConnectionListener"
+            app:nullable="true" />
+    </fragment>
+
 </navigation>
