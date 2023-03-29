@@ -46,17 +46,6 @@
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
-                    android:id="@+id/txtFriendEmail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/small_margin"
-                    android:gravity="center"
-                    android:text="@{viewmodel.fetchUiModel.friend.email}"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/medium_text_size"
-                    app:layout_constraintBottom_toTopOf="@+id/icSendEmail" />
-
-                <TextView
                     android:id="@+id/txtFriendName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -66,7 +55,7 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/xl_text_size"
                     android:textStyle="italic"
-                    app:layout_constraintBottom_toTopOf="@+id/txtFriendEmail" />
+                    app:layout_constraintBottom_toTopOf="@+id/icSendEmail" />
 
                 <ImageView
                     android:id="@+id/imgFriend"

@@ -14,15 +14,16 @@ import com.example.hotornot.viewModel.FavoriteFriendsViewModel
 
 class ViewFavouriteUsersFragment : Fragment() {
 
-    private val viewModel: FavoriteFriendsViewModel by viewModels()
     lateinit var binding: FragmentViewFavouriteUsersBinding
     private var adapter = FavoriteFriendsAdapter()
+    private lateinit var friendRepository: FriendRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentViewFavouriteUsersBinding.inflate(layoutInflater, container, false)
+        friendRepository = FriendRepository.getInstance(requireContext())
         binding.recycleViewFavoriteUsers.layoutManager = LinearLayoutManager(context)
         binding.recycleViewFavoriteUsers.adapter = adapter
         binding.lifecycleOwner = this
@@ -31,6 +32,6 @@ class ViewFavouriteUsersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        adapter.setFriendItem(friendRepository.likedFriends)
     }
 }

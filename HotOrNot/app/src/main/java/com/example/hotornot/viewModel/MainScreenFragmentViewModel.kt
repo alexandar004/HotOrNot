@@ -1,7 +1,6 @@
 package com.example.hotornot.viewModel
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -47,11 +46,8 @@ class MainScreenFragmentViewModel(application: Application) : AndroidViewModel(a
         friendRepository.updateFriend(isHot, friendId)
 
         if (isHot) {
-            friendRepository.likedFriends.add(randomFriend)
+            randomFriend?.let { friendRepository.likedFriends.add(it) }
         }
-
-        Log.d("AAA", "${friendRepository.likedFriends}")
-
         onViewResumed()
     }
 
@@ -77,8 +73,8 @@ class MainScreenFragmentViewModel(application: Application) : AndroidViewModel(a
         friendArgsValue?.isRatedFriend = (randomFriend != null)
 
         if (randomFriend == null) {
-            friendArgsValue?.isButtonHotVisible = false
-            friendArgsValue?.isButtonNotVisible = false
+//            friendArgsValue?.isButtonHotVisible = false
+//            friendArgsValue?.isButtonNotVisible = false
         }
     }
 }

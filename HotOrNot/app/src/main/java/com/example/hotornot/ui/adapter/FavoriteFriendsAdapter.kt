@@ -26,6 +26,12 @@ class FavoriteFriendsAdapter : RecyclerView.Adapter<FavoriteFriendsViewHolder>()
         }
     }
 
+    fun setFriendItem(favoriteFriend: List<Friend>) {
+        items.clear()
+        items.addAll(favoriteFriend)
+        notifyDataSetChanged()
+    }
+
     override fun getItemCount() = items.size
 
 }

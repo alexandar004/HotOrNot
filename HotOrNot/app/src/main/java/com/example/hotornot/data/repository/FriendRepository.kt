@@ -12,7 +12,7 @@ class FriendRepository(val context: Context) {
 
     private val preferencesUtil: PreferencesUtil = PreferencesUtil.getInstance(context)
 
-    var likedFriends: MutableList<Friend?> = mutableListOf()
+    var likedFriends: MutableList<Friend> = mutableListOf()
 
     fun generateFriends() {
         val listOfFriends = listOf(
@@ -27,17 +27,17 @@ class FriendRepository(val context: Context) {
                 image = R.drawable.stan,
                 characteristics = getRandomCharacteristics(),
                 email = context.getString(R.string.stan_email),
-            ),Friend(
+            ), Friend(
                 name = "test3",
                 image = R.drawable.stan,
                 characteristics = getRandomCharacteristics(),
                 email = context.getString(R.string.stan_email),
-            ),Friend(
+            ), Friend(
                 name = "test2",
                 image = R.drawable.stan,
                 characteristics = getRandomCharacteristics(),
                 email = context.getString(R.string.stan_email),
-            ),Friend(
+            ), Friend(
                 name = "test1",
                 image = R.drawable.stan,
                 characteristics = getRandomCharacteristics(),
@@ -66,6 +66,10 @@ class FriendRepository(val context: Context) {
     }
 
     fun getAllSavedFriends(): List<Friend> = preferencesUtil.getFriends()
+
+    fun like() {
+        preferencesUtil.saveFavoriteFriends(likedFriends)
+    }
 
     private fun saveFriends(friends: List<Friend>) = preferencesUtil.saveFriends(friends)
 
