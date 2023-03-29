@@ -1,12 +1,8 @@
 package com.example.hotornot.ui.fragment
 
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkInfo
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,32 +28,22 @@ class SplashScreen : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.onLoadData()
-        observeData()
-
-        Log.d("AAA", "${isNetworkAvailable(requireContext())}")
-
-
+        navigateToNextScreen()
     }
 
-    fun isNetworkAvailable(context: Context): Boolean {
-        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        var activeNetworkInfo: NetworkInfo? = null
-        activeNetworkInfo = cm.activeNetworkInfo
-        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting
-    }
-
-
-    private fun observeData() {
-
+    private fun navigateToNextScreen() {
         if (isNetworkAvailable(requireContext())) {
-            Handler(Looper.getMainLooper()).postDelayed({
-                viewModel.navigationLiveData.observe(viewLifecycleOwner) {
-                    openScreen(it)
-                }
-            }, DELAY_TIME_IN_MILLIS)
+            observeData()
         } else {
             openScreen(SplashScreenDirections.actionSplashScreenFragmentToNoNetworkConnectionScreen())
         }
-
     }
+
+    private fun observeData() =
+        Handler(Looper.getMainLooper()).postDelayed({
+            viewModel.navigationLiveData.observe(viewLifecycleOwner) {
+                openScreen(it)
+            }
+        }, DELAY_TIME_IN_MILLIS)
+
 }

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/pageMain"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="@string/main" />
+    <item
+        android:id="@+id/pageFavoriteUsers"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_favorite_24"
+        android:title="@string/favourite" />
+    <item
+        android:id="@+id/pageProfile"
+        android:enabled="true"
+        android:icon="@drawable/profile_icon"
+        android:title="@string/profile" />
+</menu>

@@ -55,6 +55,7 @@
                 android:gravity="center"
                 android:text="@string/no_internet_connection_check_your_connection_or_try_again"
                 android:textSize="@dimen/medium_text_size"
+                app:layout_constraintBottom_toTopOf="@+id/txtSwipeToRefresh"
                 app:layout_constraintTop_toBottomOf="@id/txtOhNo" />
 
             <com.google.android.material.textview.MaterialTextView

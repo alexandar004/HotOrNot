@@ -20,18 +20,6 @@
         android:background="@drawable/second_background"
         tools:context=".MainScreenFragment">
 
-        <!--        <androidx.appcompat.widget.Toolbar-->
-        <!--            android:id="@+id/toolbar"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="?attr/actionBarSize"-->
-        <!--            android:background="@color/purple_700"-->
-        <!--            android:fitsSystemWindows="true"-->
-        <!--            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"-->
-        <!--            app:layout_constraintTop_toTopOf="parent"-->
-        <!--            app:menu="@menu/toolbar_menu"-->
-        <!--            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"-->
-        <!--            app:title="@string/hor_or_not" />-->
-
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
             setVisibility="@{uiModel.ratedFriend}"
@@ -160,7 +148,7 @@
             android:backgroundTint="@color/orange"
             android:clickable="true"
             android:focusable="true"
-            android:onClick="@{() -> viewmodel.ratedFriend(false)}"
+            android:onClick="@{() -> viewmodel.ratedFriend(true)}"
             android:text="@string/hot"
             android:textAlignment="center"
             android:textAllCaps="true"

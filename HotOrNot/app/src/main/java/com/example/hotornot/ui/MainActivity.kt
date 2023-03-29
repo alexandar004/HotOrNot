@@ -1,6 +1,7 @@
 package com.example.hotornot.ui
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -34,6 +35,9 @@ class MainActivity : AppCompatActivity(), BaseFragment.ActivityListener {
         navController = navHostFragment.navController
         toolbar = binding.toolbar
         setupApplicationToolbar()
+        binding.bottomNavigation.setOnNavigationItemSelectedListener {
+            onBottomCategoryItemSelected(it)
+        }
     }
 
     private fun setupApplicationToolbar() {
@@ -78,6 +82,21 @@ class MainActivity : AppCompatActivity(), BaseFragment.ActivityListener {
         }
     }
 
+    override fun setBottomNavigation() {
+        val navController = Navigation.findNavController(this, R.id.navHostFragment)
+        when (navController.currentDestination?.id) {
+            R.id.mainScreenFragment,
+            R.id.favoriteUsers,
+            R.id.profileScreenFragment,
+            -> {
+                binding.bottomNavigation.visibility = View.VISIBLE
+            }
+            else -> {
+                binding.bottomNavigation.visibility = View.GONE
+            }
+        }
+    }
+
     private fun setToolbarArrowBackVisibility() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
@@ -88,6 +107,25 @@ class MainActivity : AppCompatActivity(), BaseFragment.ActivityListener {
                     binding.toolbar.navigationIcon = null
                 }
             }
+        }
+    }
+
+    private fun onBottomCategoryItemSelected(itemBottom: MenuItem): Boolean {
+        val navController = Navigation.findNavController(this, R.id.navHostFragment)
+        return when (itemBottom.itemId) {
+            R.id.pageMain -> {
+                navController.navigate(R.id.mainScreenFragment)
+                true
+            }
+            R.id.pageFavoriteUsers -> {
+                navController.navigate(R.id.favoriteUsers)
+                true
+            }
+            R.id.pageProfile -> {
+                navController.navigate(R.id.profileScreenFragment)
+                true
+            }
+            else -> false
         }
     }
 

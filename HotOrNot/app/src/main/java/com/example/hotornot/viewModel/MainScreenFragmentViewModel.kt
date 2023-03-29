@@ -1,6 +1,7 @@
 package com.example.hotornot.viewModel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -44,6 +45,13 @@ class MainScreenFragmentViewModel(application: Application) : AndroidViewModel(a
     fun ratedFriend(isHot: Boolean) {
         val friendId = fetchUiModel.value?.friend?.friendId ?: return
         friendRepository.updateFriend(isHot, friendId)
+
+        if (isHot) {
+            friendRepository.likedFriends.add(randomFriend)
+        }
+
+        Log.d("AAA", "${friendRepository.likedFriends}")
+
         onViewResumed()
     }
 

@@ -3,6 +3,7 @@ package com.example.hotornot.ui.fragment
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -12,6 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import com.example.hotornot.R
 import com.example.hotornot.data.model.Friend
+import com.example.hotornot.data.repository.FriendRepository
 import com.example.hotornot.databinding.FragmentMainScreenBinding
 import com.example.hotornot.ui.MainActivity
 import com.example.hotornot.viewModel.MainScreenFragmentViewModel
@@ -25,6 +27,7 @@ class MainScreenFragment : BaseFragment() {
 
     private val viewModel: MainScreenFragmentViewModel by viewModels()
     private lateinit var binding: FragmentMainScreenBinding
+    private lateinit var friendRepository: FriendRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,8 +43,8 @@ class MainScreenFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setNavigationMenu()
         sendEmailConfirmClick()
-//        onOptionsItemsSelected()
         observeData()
+        navigateToNextScreen()
     }
 
     override fun onResume() {
@@ -82,8 +85,6 @@ class MainScreenFragment : BaseFragment() {
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-//                viewModel.onEditButtonClicked()
-//                menuItem.isVisible = false
                 onSortedOptionsItemSelected(menuItem)
                 return true
             }
@@ -95,7 +96,6 @@ class MainScreenFragment : BaseFragment() {
             R.id.profileScreen -> {
                 viewModel.navigateToProfileScreen()
                 true
-
             }
             R.id.logOut -> {
                 viewModel.clearPref()
@@ -130,6 +130,12 @@ class MainScreenFragment : BaseFragment() {
             val chip = Chip(view?.context)
             chip.text = characteristic
             binding.chipGroup.addView(chip)
+        }
+    }
+
+    private fun navigateToNextScreen() {
+        if (!isNetworkAvailable(requireContext())) {
+            openScreen(MainScreenFragmentDirections.actionMainScreenFragmentToNoNetworkConnectionScreen())
         }
     }
 }
