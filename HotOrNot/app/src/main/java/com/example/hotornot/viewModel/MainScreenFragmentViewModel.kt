@@ -37,8 +37,6 @@ class MainScreenFragmentViewModel(application: Application) : AndroidViewModel(a
         friendRepository = FriendRepository.getInstance(getApplication())
     }
 
-    fun getUser(): User? = userRepository.getUser()
-
     fun clearPref() = userRepository.clearPreferenceUser()
 
     fun ratedFriend(isHot: Boolean) {
@@ -73,8 +71,8 @@ class MainScreenFragmentViewModel(application: Application) : AndroidViewModel(a
         friendArgsValue?.isRatedFriend = (randomFriend != null)
 
         if (randomFriend == null) {
-//            friendArgsValue?.isButtonHotVisible = false
-//            friendArgsValue?.isButtonNotVisible = false
+            friendArgsValue?.isButtonHotVisible = false
+            friendArgsValue?.isButtonNotVisible = false
         }
     }
 }

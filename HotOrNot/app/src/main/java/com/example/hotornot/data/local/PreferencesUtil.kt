@@ -40,10 +40,10 @@ class PreferencesUtil(context: Context) {
         sharedPref.edit().putString(SERIALIZABLE_FRIEND, json).apply()
     }
 
-    fun saveFavoriteFriends(friends: List<Friend>) {
-        val json = Json.encodeToString(friends)
-        sharedPref.edit().putString(SERIALIZABLE_FRIEND, json).apply()
-    }
+//    fun saveFavoriteFriends(friends: List<Friend>) {
+//        val json = Json.encodeToString(friends)
+//        sharedPref.edit().putString(SERIALIZABLE_FRIEND, json).apply()
+//    }
 
     companion object {
         private lateinit var sharedPref: SharedPreferences

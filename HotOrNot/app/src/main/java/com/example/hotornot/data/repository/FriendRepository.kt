@@ -67,9 +67,9 @@ class FriendRepository(val context: Context) {
 
     fun getAllSavedFriends(): List<Friend> = preferencesUtil.getFriends()
 
-    fun like() {
-        preferencesUtil.saveFavoriteFriends(likedFriends)
-    }
+//    fun like() {
+//        preferencesUtil.saveFavoriteFriends(likedFriends)
+//    }
 
     private fun saveFriends(friends: List<Friend>) = preferencesUtil.saveFriends(friends)
 
