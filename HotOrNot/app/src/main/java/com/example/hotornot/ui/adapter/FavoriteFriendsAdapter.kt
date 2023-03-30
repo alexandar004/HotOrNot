@@ -7,7 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.hotornot.data.model.Friend
 import com.example.hotornot.databinding.FavoriteUsersItemBinding
 
-class FavoriteFriendsAdapter : RecyclerView.Adapter<FavoriteFriendsViewHolder>() {
+class FavoriteFriendsAdapter(private val itemListener: ItemListener) :
+    RecyclerView.Adapter<FavoriteFriendsViewHolder>() {
 
     val items: MutableList<Friend?> = mutableListOf()
     lateinit var binding: FavoriteUsersItemBinding
@@ -16,7 +17,7 @@ class FavoriteFriendsAdapter : RecyclerView.Adapter<FavoriteFriendsViewHolder>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteFriendsViewHolder {
         binding =
             FavoriteUsersItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return FavoriteFriendsViewHolder(binding.root, binding)
+        return FavoriteFriendsViewHolder(binding.root, binding, itemListener)
     }
 
     override fun onBindViewHolder(holder: FavoriteFriendsViewHolder, position: Int) {
@@ -36,12 +37,20 @@ class FavoriteFriendsAdapter : RecyclerView.Adapter<FavoriteFriendsViewHolder>()
 
 }
 
-class FavoriteFriendsViewHolder(itemViewHolder: View, val binding: FavoriteUsersItemBinding) :
+class FavoriteFriendsViewHolder(
+    itemViewHolder: View, val binding: FavoriteUsersItemBinding,
+    private val itemListener: ItemListener,
+) :
     RecyclerView.ViewHolder(itemViewHolder) {
 
     fun bind(friend: Friend) {
         binding.imgFavUser.setImageResource(friend.image)
         binding.txtFavFriendEmail.text = friend.email
         binding.txtFavoriteUserName.text = friend.name
+        binding.icSendEmail.setOnClickListener { itemListener.onItemClickLister() }
     }
+}
+
+interface ItemListener {
+    fun onItemClickLister()
 }
