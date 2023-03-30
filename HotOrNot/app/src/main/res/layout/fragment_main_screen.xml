@@ -35,16 +35,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <!--                <ImageView-->
-                <!--                    android:id="@+id/icSendEmail"-->
-                <!--                    android:layout_width="wrap_content"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_margin="@dimen/small_margin"-->
-                <!--                    android:src="@drawable/ic_mail_1008"-->
-                <!--                    app:layout_constraintBottom_toTopOf="@+id/scrollView"-->
-                <!--                    app:layout_constraintEnd_toEndOf="parent"-->
-                <!--                    app:layout_constraintStart_toStartOf="parent" />-->
-
                 <TextView
                     android:id="@+id/txtFriendName"
                     android:layout_width="match_parent"
@@ -106,6 +96,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnNot"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            setVisibility="@{uiModel.ratedFriend}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/small_margin"
@@ -129,6 +120,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnHot"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            setVisibility="@{uiModel.ratedFriend}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/small_margin"

@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavDirections
 import com.example.hotornot.data.model.Friend
 import com.example.hotornot.data.model.UiModel
-import com.example.hotornot.data.model.User
 import com.example.hotornot.data.repository.FriendRepository
 import com.example.hotornot.data.repository.UserRepository
 import com.example.hotornot.ui.fragment.MainScreenFragmentDirections
@@ -43,10 +42,12 @@ class MainScreenFragmentViewModel(application: Application) : AndroidViewModel(a
         val friendId = fetchUiModel.value?.friend?.friendId ?: return
         friendRepository.updateFriend(isHot, friendId)
 
-        if (isHot) {
-            randomFriend?.let { friendRepository.likedFriends.add(it) }
-        }
+        addItemsInFavoriteFriendsList(isHot)
         onViewResumed()
+    }
+
+    private fun addItemsInFavoriteFriendsList(isHot: Boolean) {
+        if (isHot) randomFriend?.let { friendRepository.likedFriends.add(it) }
     }
 
     fun navigateToProfileScreen() {
@@ -64,10 +65,10 @@ class MainScreenFragmentViewModel(application: Application) : AndroidViewModel(a
     }
 
     private fun loadRandomFriends() {
-        randomFriend?.let {
-            friendArgsValue?.isButtonNotVisible = !it.isGeorgi()
-            friendArgsValue?.isButtonHotVisible = !it.isStan()
-        }
+//        randomFriend?.let {
+//            friendArgsValue?.isButtonNotVisible = !it.isGeorgi()
+//            friendArgsValue?.isButtonHotVisible = !it.isStan()
+//        }
         friendArgsValue?.isRatedFriend = (randomFriend != null)
 
         if (randomFriend == null) {
