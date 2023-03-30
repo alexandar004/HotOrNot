@@ -64,8 +64,14 @@
     <string name="change">change</string>
     <string name="settings">settings</string>
     <string name="permission_permanently_denied">Permission Permanently Denied!</string>
-    <string name="test">%s\u0020%s </string>
     <string name="current_location">Current location</string>
+    <string name="no_internet_connection_check_your_connection_or_try_again">No Internet Connection! Check your connection or try again.</string>
+    <string name="oh_no">Oh No</string>
+    <string name="swipe_to_refresh">Swipe to refresh</string>
+    <string name="no_network">No network!</string>
+    <string name="favourite">Favorite</string>
+    <string name="main">Main</string>
+    <string name="my_favorite_users">Favorite users</string>
 
 
     <string-array name="interests">

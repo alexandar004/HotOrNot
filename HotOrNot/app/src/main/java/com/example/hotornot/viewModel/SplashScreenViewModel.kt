@@ -28,14 +28,22 @@ class SplashScreenViewModel(application: Application) : AndroidViewModel(applica
     private fun onLoadUser() {
         val user = userRepository.getUser()
         if (user != null) {
-            val navDirection =
-                SplashScreenDirections.actionSplashScreenFragmentToMainScreenFragment()
-            _navigationLiveData.postValue(navDirection)
+            navigateToMainScreen()
         } else {
-            val navDirection =
-                SplashScreenDirections.actionSplashScreenFragmentToRegistrationFormFragment()
-            _navigationLiveData.postValue(navDirection)
+            navigateToNetworkErrorScreen()
         }
+    }
+
+    private fun navigateToMainScreen() {
+        val navDirection =
+            SplashScreenDirections.actionSplashScreenFragmentToMainScreenFragment()
+        _navigationLiveData.postValue(navDirection)
+    }
+
+    private fun navigateToNetworkErrorScreen() {
+        val navDirections =
+            SplashScreenDirections.actionSplashScreenFragmentToNoNetworkConnectionScreen()
+        _navigationLiveData.postValue(navDirections)
     }
 
     private fun onLoadFriends() = friendRepository.generateFriends()

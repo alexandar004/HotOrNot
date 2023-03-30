@@ -7,8 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.example.hotornot.viewModel.SplashScreenViewModel
 import com.example.hotornot.databinding.FragmentSplashScreenBinding
+import com.example.hotornot.viewModel.SplashScreenViewModel
 
 private const val DELAY_TIME_IN_MILLIS = 4000L
 
@@ -28,7 +28,15 @@ class SplashScreen : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.onLoadData()
-        observeData()
+        navigateToNextScreen()
+    }
+
+    private fun navigateToNextScreen() {
+        if (isNetworkAvailable(requireContext())) {
+            observeData()
+        } else {
+            openScreen(SplashScreenDirections.actionSplashScreenFragmentToNoNetworkConnectionScreen())
+        }
     }
 
     private fun observeData() =
@@ -37,4 +45,5 @@ class SplashScreen : BaseFragment() {
                 openScreen(it)
             }
         }, DELAY_TIME_IN_MILLIS)
+
 }

@@ -20,18 +20,6 @@
         android:background="@drawable/second_background"
         tools:context=".MainScreenFragment">
 
-        <!--        <androidx.appcompat.widget.Toolbar-->
-        <!--            android:id="@+id/toolbar"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="?attr/actionBarSize"-->
-        <!--            android:background="@color/purple_700"-->
-        <!--            android:fitsSystemWindows="true"-->
-        <!--            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"-->
-        <!--            app:layout_constraintTop_toTopOf="parent"-->
-        <!--            app:menu="@menu/toolbar_menu"-->
-        <!--            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"-->
-        <!--            app:title="@string/hor_or_not" />-->
-
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
             setVisibility="@{uiModel.ratedFriend}"
@@ -47,26 +35,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/icSendEmail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/small_margin"
-                    android:src="@drawable/ic_mail_1008"
-                    app:layout_constraintBottom_toTopOf="@+id/scrollView"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <TextView
-                    android:id="@+id/txtFriendEmail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/small_margin"
-                    android:gravity="center"
-                    android:text="@{viewmodel.fetchUiModel.friend.email}"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/medium_text_size"
-                    app:layout_constraintBottom_toTopOf="@+id/icSendEmail" />
+                <!--                <ImageView-->
+                <!--                    android:id="@+id/icSendEmail"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_margin="@dimen/small_margin"-->
+                <!--                    android:src="@drawable/ic_mail_1008"-->
+                <!--                    app:layout_constraintBottom_toTopOf="@+id/scrollView"-->
+                <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+                <!--                    app:layout_constraintStart_toStartOf="parent" />-->
 
                 <TextView
                     android:id="@+id/txtFriendName"
@@ -78,7 +55,7 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/xl_text_size"
                     android:textStyle="italic"
-                    app:layout_constraintBottom_toTopOf="@+id/txtFriendEmail" />
+                    app:layout_constraintBottom_toTopOf="@+id/scrollView" />
 
                 <ImageView
                     android:id="@+id/imgFriend"
@@ -126,35 +103,51 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="@integer/guidelineEnd" />
 
-        <Button
-            android:id="@+id/btnHot"
-            setVisibility="@{viewmodel.fetchUiModel.buttonHotVisible}"
-            android:layout_width="@dimen/no_dimens"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/small_margin"
-            android:layout_marginBottom="@dimen/no_dimens"
-            android:background="@drawable/radius"
-            android:onClick="@{() -> viewmodel.ratedFriend(false)}"
-            android:text="@string/hot"
-            android:textSize="@dimen/large_text_size"
-            app:icon="@drawable/ic_baseline_local_fire_department_24"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnNot"
-            setVisibility="@{viewmodel.fetchUiModel.buttonNotVisible}"
-            android:layout_width="@dimen/no_dimens"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/small_margin"
-            android:layout_marginBottom="@dimen/no_dimens"
-            android:background="@drawable/radius"
+            android:layout_marginTop="@dimen/margin_medium_large"
+            android:layout_marginBottom="@dimen/small_margin"
+            android:backgroundTint="@color/orange"
+            android:clickable="true"
+            android:focusable="true"
             android:onClick="@{() -> viewmodel.ratedFriend(false)}"
             android:text="@string/not"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
             android:textSize="@dimen/large_text_size"
-            app:icon="@drawable/ic_baseline_local_fire_department_24"
+            app:cornerRadius="@dimen/margin_medium"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintEnd_toStartOf="@id/guidelineStart"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_goneMarginBottom="@dimen/margin_medium" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnHot"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/small_margin"
+            android:layout_marginTop="@dimen/margin_medium_large"
+            android:layout_marginBottom="@dimen/small_margin"
+            android:backgroundTint="@color/orange"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="@{() -> viewmodel.ratedFriend(true)}"
+            android:text="@string/hot"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/large_text_size"
+            app:cornerRadius="@dimen/margin_medium"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/guidelineEnd"
+            app:layout_goneMarginBottom="@dimen/margin_medium" />
 
         <Button
             android:id="@+id/btnCenter"

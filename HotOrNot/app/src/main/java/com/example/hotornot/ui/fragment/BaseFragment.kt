@@ -1,6 +1,7 @@
 package com.example.hotornot.ui.fragment
 
 import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -13,10 +14,16 @@ abstract class BaseFragment : Fragment() {
 
     private var activityListener: ActivityListener? = null
 
+    protected fun isNetworkAvailable(context: Context): Boolean {
+        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetworkInfo = cm.activeNetworkInfo
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activityListener?.setToolbar()
+        activityListener?.setBottomNavigation()
     }
 
     protected fun openScreen(screenId: NavDirections) =
@@ -47,5 +54,6 @@ abstract class BaseFragment : Fragment() {
 
     interface ActivityListener {
         fun setToolbar()
+        fun setBottomNavigation()
     }
 }

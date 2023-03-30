@@ -37,13 +37,15 @@ class MainScreenFragmentViewModel(application: Application) : AndroidViewModel(a
         friendRepository = FriendRepository.getInstance(getApplication())
     }
 
-    fun getUser(): User? = userRepository.getUser()
-
     fun clearPref() = userRepository.clearPreferenceUser()
 
     fun ratedFriend(isHot: Boolean) {
         val friendId = fetchUiModel.value?.friend?.friendId ?: return
         friendRepository.updateFriend(isHot, friendId)
+
+        if (isHot) {
+            randomFriend?.let { friendRepository.likedFriends.add(it) }
+        }
         onViewResumed()
     }
 

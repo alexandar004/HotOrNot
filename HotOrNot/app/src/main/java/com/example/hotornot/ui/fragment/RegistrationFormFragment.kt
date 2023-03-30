@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import com.example.hotornot.R
 import com.example.hotornot.data.model.Gender
 import com.example.hotornot.data.model.User
@@ -98,12 +99,25 @@ class RegistrationFormFragment : BaseFragment() {
             showMessage(getString(R.string.field_is_required))
         } else {
             createUser()
+            navigateToNextScreen()
             openScreen(RegistrationFormFragmentDirections.actionRegistrationFormFragmentToMainScreenFragment())
         }
     }
 
+    private fun navigateToNextScreen() {
+        if (!isNetworkAvailable(requireContext())) {
+            openScreen(RegistrationFormFragmentDirections.actionRegistrationFormFragmentToNoNetworkConnectionScreen())
+        }
+    }
+
     private fun clickBtnRegisterConfirmation() =
-        binding.btnRegister.setOnClickListener { checkForEmptyFields() }
+        binding.btnRegister.setOnClickListener {
+            if (isNetworkAvailable(requireContext())) {
+                checkForEmptyFields()
+            } else {
+                Toast.makeText(requireContext(), getText(R.string.no_network), Toast.LENGTH_LONG).show()
+            }
+        }
 
     private fun setCountryFlag() {
         val currentLanguage = Locale.getDefault().displayLanguage

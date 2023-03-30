@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.example.hotornot.viewModel.NoNetworkConnectionViewModel" />
+    </data>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:onRefreshListener="@{() ->viewmodel.checkNetworkConnection()}"
+        app:refreshing="@{viewmodel.swipeTextVisibility}"
+        tools:context=".ui.fragment.NoNetworkConnectionFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imgNetworkConnection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/logo_height"
+                android:layout_marginTop="@dimen/logo_height"
+                android:layout_marginBottom="@dimen/large_margin"
+                android:adjustViewBounds="true"
+                android:foregroundGravity="center"
+                android:src="@drawable/ic_wifi_off"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/txtOhNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin"
+                android:layout_marginBottom="@dimen/small_margin"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="@string/oh_no"
+                android:textSize="@dimen/medium_text_size"
+                app:layout_constraintTop_toBottomOf="@id/imgNetworkConnection" />
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/txtHaveNoInternet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/medium_margin"
+                android:layout_marginTop="@dimen/small_margin"
+                android:gravity="center"
+                android:text="@string/no_internet_connection_check_your_connection_or_try_again"
+                android:textSize="@dimen/medium_text_size"
+                app:layout_constraintBottom_toTopOf="@+id/txtSwipeToRefresh"
+                app:layout_constraintTop_toBottomOf="@id/txtOhNo" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/txtSwipeToRefresh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="@string/swipe_to_refresh"
+                android:textSize="@dimen/large_text_size"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtHaveNoInternet" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</layout>
